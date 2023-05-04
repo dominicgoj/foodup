@@ -1,0 +1,69 @@
+[
+  {
+    "name": "Zur Goldenen Ente",
+    "image": "https://example.com/restaurant1.jpg",
+    "rating": 4.2,
+    "website": "https://example.com/restaurant1",
+    "instagram": "https://instagram.com/restaurant1",
+    "facebook": "https://facebook.com/restaurant1",
+    "phone": "123-456-7890",
+    "email": "restaurant1@example.com",
+    "street": "Alleestraße 3",
+    "zip": "8020",
+    "city": "Graz"
+    
+  },
+  {
+    "name": "La Piazza Ristorante",
+    "image": "https://example.com/restaurant2.jpg",
+    "rating": 3.1,
+    "website": "https://example.com/restaurant2",
+    "instagram": "https://instagram.com/restaurant2",
+    "facebook": "https://facebook.com/restaurant2",
+    "phone": "123-456-7890",
+    "email": "restaurant2@example.com",
+    "street": "Meistergasse 10",
+    "zip": "8010",
+    "city": "Graz"
+  },
+  {
+    "name": "The Green Leaf Cafe",
+    "image": "https://example.com/restaurant3.jpg",
+    "rating": 5.0,
+    "website": "https://example.com/restaurant3",
+    "instagram": "https://instagram.com/restaurant3",
+    "facebook": "https://facebook.com/restaurant3",
+    "phone": "123-456-7890",
+    "email": "restaurant3@example.com",
+    "street": "Weiberring 3",
+    "zip": "8045",
+    "city": "Graz"
+  },
+  {
+    "name": "Café Paris",
+    "image": "https://example.com/restaurant4.jpg",
+    "rating": 4.5,
+    "website": "https://example.com/restaurant4",
+    "instagram": "https://instagram.com/restaurant4",
+    "facebook": "https://facebook.com/restaurant4",
+    "phone": "123-456-7890",
+    "email": "restaurant4@example.com",
+    "street": "Schlossbergplatz 5",
+    "zip": "8010",
+    "city": "Graz"
+  },
+  {
+    "name": "Pizza Italia",
+    "image": "https://example.com/restaurant5.jpg",
+    "rating": 4.8,
+    "website": "https://example.com/restaurant5",
+    "instagram": "https://instagram.com/restaurant5",
+    "facebook": "https://facebook.com/restaurant5",
+    "phone": "123-456-7890",
+    "email": "restaurant5@example.com",
+    "street": "Hauptstraße 20",
+    "zip": "8020",
+    "city": "Graz"
+  },
+  
+]

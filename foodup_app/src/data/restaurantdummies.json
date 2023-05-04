@@ -1,0 +1,103 @@
+[
+    {
+      "id": 1,
+      "restaurant_name": "La Taqueria",
+      "street": "123 Main St",
+      "zip_code": "90210",
+      "state": "CA",
+      "website": "https://www.lataqueria.com",
+      "email": "info@lataqueria.com",
+      "description": "Authentic Mexican food made fresh daily."
+    },
+    {
+      "id": 2,
+      "restaurant_name": "Pizza Palace",
+      "street": "456 High St",
+      "zip_code": "60601",
+      "state": "IL",
+      "website": "https://www.pizzapalace.com",
+      "email": "info@pizzapalace.com",
+      "description": "Delicious pizza made with fresh ingredients."
+    },
+    {
+      "id": 3,
+      "restaurant_name": "Thai Spice",
+      "street": "789 Maple Ave",
+      "zip_code": "90024",
+      "state": "CA",
+      "website": "https://www.thaispice.com",
+      "email": "info@thaispice.com",
+      "description": "Authentic Thai cuisine in a cozy atmosphere."
+    },
+    {
+      "id": 4,
+      "restaurant_name": "Burger Joint",
+      "street": "555 Oak St",
+      "zip_code": "60602",
+      "state": "IL",
+      "website": "https://www.burgerjoint.com",
+      "email": "info@burgerjoint.com",
+      "description": "Juicy burgers made to order with your favorite toppings."
+    },
+    {
+      "id": 5,
+      "restaurant_name": "Sushi Spot",
+      "street": "111 Cherry St",
+      "zip_code": "90012",
+      "state": "CA",
+      "website": "https://www.sushispot.com",
+      "email": "info@sushispot.com",
+      "description": "Fresh sushi and sashimi made by experienced chefs."
+    },
+    {
+      "id": 6,
+      "restaurant_name": "Italian Eatery",
+      "street": "222 Maple St",
+      "zip_code": "60603",
+      "state": "IL",
+      "website": "https://www.italianeatery.com",
+      "email": "info@italianeatery.com",
+      "description": "Classic Italian dishes made with love and care."
+    },
+    {
+      "id": 7,
+      "restaurant_name": "BBQ Shack",
+      "street": "444 Oak St",
+      "zip_code": "90210",
+      "state": "CA",
+      "website": "https://www.bbqshack.com",
+      "email": "info@bbqshack.com",
+      "description": "Slow-smoked BBQ ribs and chicken with homemade sides."
+    },
+    {
+      "id": 8,
+      "restaurant_name": "Indian Spice",
+      "street": "333 Elm St",
+      "zip_code": "60604",
+      "state": "IL",
+      "website": "https://www.indianspice.com",
+      "email": "info@indianspice.com",
+      "description": "Flavorful Indian cuisine with a modern twist."
+    },
+    {
+        "id": 1,
+        "restaurant_name": "Mama Mia's Pizza",
+        "street": "123 Main St",
+        "zip_code": "12345",
+        "state": "NY",
+        "website": "https://www.mamamiaspizza.com",
+        "email": "info@mamamiaspizza.com",
+        "description": "Authentic New York-style pizza."
+      },
+      {
+        "id": 2,
+        "restaurant_name": "Sushi Palace",
+        "street": "456 Elm St",
+        "zip_code": "23456",
+        "state": "NJ",
+        "website": "https://www.sushipalace.com",
+        "email": "info@sushipalace.com",
+        "description": "Fresh sushi made daily."
+      }
+    ]
+  
