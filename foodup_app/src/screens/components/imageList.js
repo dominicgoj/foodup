@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, ImageBackground } from "react-native";
 import Icon from 'react-native-vector-icons/Entypo';
 import { commonStyles } from '../../styles/commonstyles';
@@ -8,13 +8,15 @@ import axios from "axios";
 import { BACKEND_URL } from "../../../config";
 import ModalView from './modalView';
 import moment from "moment";
-import loggedUserID from '../../data/loggeduser.json';
+import AuthContext from '../../utilities/authcontext';
+
 
 const ImageList = ({ restaurant, searchby }) => {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState();
-  const userData = loggedUserID[0];
-  
+  const authContext = useContext(AuthContext);
+  const userData = authContext.loggedInUserData;
+
 
   useEffect(() => {
     getPosts();
