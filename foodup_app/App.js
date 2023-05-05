@@ -1,22 +1,53 @@
-import React, {useEffect, useState} from "react";
-import { View } from "react-native";
-import axios from 'axios';
-import { BACKEND_URL } from "./config";
-export default function App() {
-  const [test, setTest] = useState('')
-  const testFunc = async () => {
-    try{
-      request = await axios.get(BACKEND_URL+"/restaurant/")
-      console.log("request ist: ", request.data)
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import AppContainer from './src/screens/components/appcontainer';
+import LoginForm from './src/screens/components/login.js';
+import getUserLoginInfo from './src/utilities/retrieveloggedin.js';
+import { deleteUserLoginInfo } from './src/utilities/deleteloggedin';
+import AuthContext from './src/utilities/authcontext';
 
-    }catch(error){
-      console.log(error)
+
+export default function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginChecked, setLoginChecked] = useState(false);
+  const [loggedInUserData, setLoggedInUserData] = useState(null)
+
+  // Rest of your app code
+
+  useEffect(() => {
+    checkUserLoginStatus();
+  }, [loggedIn]); // Include loggedIn in the dependency array
+  useEffect(()=>{
+    console.log("change in authcontext")
+  },[AuthContext.loggedInUserData])
+
+  const checkUserLoginStatus = async () => {
+    const userInfo = await getUserLoginInfo(handleLoginSuccess);
+    if (userInfo) {
+      setLoggedIn(true);
+      setLoggedInUserData(userInfo)
+    } else {
+      setLoggedIn(false);
     }
+    setLoginChecked(true);
+  };
+  const handleLogout = async () =>{
+    await deleteUserLoginInfo()
+    setLoggedIn(false)
+    setLoggedInUserData(null)
 
   }
-  testFunc()
 
+  const handleLoginSuccess = () => {
+    setLoggedIn(true);
+  };
+
+ 
   return (
-    <View></View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <AuthContext.Provider value={{ loggedInUserData: loggedInUserData, onLogout: handleLogout }}>
+      {loginChecked ? (loggedIn ? <AppContainer /> : <LoginForm onLoginSuccess={handleLoginSuccess} />) : null}
+      </AuthContext.Provider>
+    </SafeAreaView>
   );
 }
