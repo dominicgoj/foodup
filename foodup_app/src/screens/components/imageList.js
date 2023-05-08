@@ -9,7 +9,7 @@ import { BACKEND_URL } from "../../../config";
 import ModalView from './modalView';
 import moment from "moment";
 import AuthContext from '../../utilities/authcontext';
-
+import FetchRestaurants from "../../api/fetchRestaurants";
 
 const ImageList = ({ restaurant, searchby }) => {
   const [posts, setPosts] = useState([]);
@@ -123,31 +123,32 @@ const ImageList = ({ restaurant, searchby }) => {
       const [likedData, setLikedData] = useState({
         
         userid: userData.id,
-        restaurantid: restaurant.id,
+        restaurantid: '',
         commentid: '',
         created_at: ''
       });
 
       useEffect(() => {
+        
         // Update the created_at value whenever selectedPost changes
         if (selectedPost) {
           
           const currentDateTime = new Date().toISOString();
           setLikedData((prevLikedData) => ({
             ...prevLikedData,
-            commentid: selectedPost.id
+            commentid: selectedPost.id,
+            restaurantid: selectedPost.restaurant_id
           }));
         }
       }, [selectedPost]);
 
 
     const CommentContent = (post) =>{
-        
         return(
             <ScrollView>
-            <Text style={commentStyles.commentUserTitleHeader}><GetUsernameOfComment userID={post.post.userid_posted} /> @ {restaurant.restaurant_name}</Text>
+            <Text style={commentStyles.commentUserTitleHeader}><GetUsernameOfComment userID={post.post.userid_posted} /> @ {post.post.restaurant_name}</Text>
             <Image source={{ uri: post.post.image }} style={commentStyles.commentImg} />
-            <Text></Text>
+            
             <View style={commonStyles.bottomImageContainer} >
             <View style={commentStyles.topBox}>
               <Text style={commentStyles.commentUserTitle}><GetUsernameOfComment userID={post.post.userid_posted} /></Text>
@@ -168,8 +169,13 @@ const ImageList = ({ restaurant, searchby }) => {
         )
       }
 
-    const openComment = (post) => {
-        setSelectedPost(post);
+      //here we need to get the restaurant name first because usertab doesnt pass any specific restaurant from the restaurant
+      //card. 
+    const openComment = async (post) => {
+      setSelectedPost({
+        ...post,
+        restaurant_name: (await FetchRestaurants(post.restaurant_id, 'id'))[0].restaurant_name
+      });
         setCommentModalVisible(true);
       };
 

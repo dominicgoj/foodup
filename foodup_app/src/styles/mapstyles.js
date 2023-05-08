@@ -8,6 +8,11 @@ export const MapStyles = StyleSheet.create({
     restaurantNameText: {
         fontSize: 12,
         fontWeight: 'bold',
+    },
+    distance: {
+        fontSize: 10,
+        paddingLeft: 5,
+        color: '#303030',
     }
 
 })

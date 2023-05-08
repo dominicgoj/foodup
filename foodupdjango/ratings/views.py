@@ -7,6 +7,9 @@ from rest_framework.views import APIView
 from rest_framework import status
 from django.utils.decorators import method_decorator
 from django.db.models import F
+from math import radians, sin, cos, sqrt, atan2
+
+
 
 class PostList(generics.ListCreateAPIView):
     serializer_class = PostSerializer
@@ -55,6 +58,7 @@ class RestaurantList(generics.ListCreateAPIView):
 
     def get(self, request):
         qr_id = self.request.GET.get('qr_id')
+        
         if qr_id:
             try:
                 restaurant = self.get_queryset().get(qr_id=qr_id)
@@ -62,10 +66,66 @@ class RestaurantList(generics.ListCreateAPIView):
                 return Response(serializer.data)
             except Restaurant.DoesNotExist:
                 return Response("Restaurant not found", status=status.HTTP_404_NOT_FOUND)
+        
         else:
             restaurants = self.get_queryset()
             serializer = self.get_serializer(restaurants, many=True)
             return Response(serializer.data)
+class RestaurantSearch(generics.ListCreateAPIView):
+    serializer_class = RestaurantSerializer
+    queryset = Restaurant.objects.all()
+    
+    def get(self, request):
+        restaurant_name = self.request.GET.get('restaurant_name')
+        restaurant_id = self.request.GET.get('id')
+        if restaurant_name:
+                restaurants = self.get_queryset().filter(restaurant_name__icontains=restaurant_name)
+                serializer = self.get_serializer(restaurants, many=True)
+                return Response(serializer.data)
+        if restaurant_id:
+            restaurants = self.get_queryset().filter(id=restaurant_id)
+            serializer = self.get_serializer(restaurants, many=True)
+            return Response(serializer.data)
+
+class RestaurantDistance(APIView):
+    serializer_class = RestaurantSerializer
+
+    def calculate_distance(self, lat1, lon1, lat2, lon2):
+        # Convert coordinates from degrees to radians
+        lat1_rad = radians(lat1)
+        lon1_rad = radians(lon1)
+        lat2_rad = radians(lat2)
+        lon2_rad = radians(lon2)
+
+        # Haversine formula
+        dlon = lon2_rad - lon1_rad
+        dlat = lat2_rad - lat1_rad
+        a = sin(dlat / 2)**2 + cos(lat1_rad) * cos(lat2_rad) * sin(dlon / 2)**2
+        c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        distance = 6371 * c  # Radius of the Earth in kilometers
+
+        return distance
+    
+    def get(self, request):
+        user_latitude = float(request.GET.get('user_latitude'))
+        user_longitude = float(request.GET.get('user_longitude'))
+        
+        restaurants = Restaurant.objects.all()
+        serialized_restaurants = self.serializer_class(restaurants, many=True).data
+
+        for restaurant in serialized_restaurants:
+            restaurant_latitude = restaurant['latitude_gps']
+            restaurant_longitude = restaurant['longitude_gps']
+
+            distance = self.calculate_distance(
+                user_latitude, user_longitude, float(restaurant_latitude), float(restaurant_longitude)
+            )
+            restaurant['distance'] = distance
+
+        return Response(serialized_restaurants)
+
+        
+
 
 class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Restaurant.objects.all()

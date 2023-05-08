@@ -5,28 +5,22 @@ import Icon from 'react-native-vector-icons/Entypo';
 import axios from 'axios';
 import { BACKEND_URL } from '../../../config';
 import ImageList from './imageList.js'
-
+import RenderStars from './renderstars';
 const RestaurantDetail = ({route}) =>{
     const { restaurant } = route.params;
-   
     return (
         
         <ScrollView >
             <View style={styles.detailheader}>
             <Image style={styles.headerimage} source={require('../../../assets/img/food.jpg')} />
             </View>
-
-            <View style={styles.container}>
-                
+            <View style={styles.container}>   
             <Text style={commonStyles.restaurantTitleDetailView}>{restaurant.restaurant_name}</Text>
             <View style={styles.ratingBox}>
-            <Icon name="star" style={commonStyles.star}/>
-            <Text style={styles.ratingText}>{restaurant.average_rating}</Text>
-            
+            <RenderStars rating={restaurant.average_rating}/>
             </View>
             <View style={{marginTop: 20}}>
-                <ImageList restaurant={restaurant} searchby='restaurant_id' />
-            
+            <ImageList restaurant={restaurant} searchby='restaurant_id' />
             </View>
             <View style={styles.rowWebIcons}>
             <TouchableOpacity onPress={()=>{Linking.openURL(restaurant.website)}}><Text style={styles.webIcon}>.com</Text></TouchableOpacity>
@@ -62,6 +56,9 @@ const styles = StyleSheet.create({
         height: "100%",
         marginTop: 22,
       },
+      ratingText:{
+        fontSize: 16,
+      },
       modalView: {
         margin: 20,
         backgroundColor: 'white',
@@ -78,7 +75,6 @@ const styles = StyleSheet.create({
       },
     container:{
         flex:1,
-          
     },
     webIcon:{
         fontSize: 20,

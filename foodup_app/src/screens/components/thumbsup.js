@@ -54,8 +54,6 @@ const ThumbsUp = ({ likedData }) => {
         created_at: currentDateTime,
         // Add other data fields if needed
       };
-      console.log(requestData)
-
       await axios.post(`${BACKEND_URL}/like/create/`, requestData);
       // Handle success (e.g., update state, show notification)
     } catch (error) {
@@ -67,10 +65,8 @@ const ThumbsUp = ({ likedData }) => {
   const onThumbPress = () => {
     if (isLiked) {
       deleteLikeAPI();
-      console.log("delete like")
     } else {
       createLikeAPI();
-      console.log("create like")
     }
     setIsLiked(!isLiked);
   };

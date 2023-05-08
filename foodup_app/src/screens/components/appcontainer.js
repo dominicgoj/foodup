@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../tabs/hometab.js';
-import SearchScreen from '../tabs/searchtab.js';
+import SearchTab from '../tabs/searchtab.js';
 import AddContentScreen from '../tabs/addtab.js';
-import MapScreen from '../tabs/maptab.js';
 import UserScreen from '../tabs/usertab.js';
 import Icon from 'react-native-vector-icons/Entypo';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CostumHeader from './costumheader.js';
+import MapScreen from '../tabs/maptab.js';
 const Tab = createBottomTabNavigator();
 
 export default function AppContainer() {
@@ -40,9 +40,9 @@ export default function AppContainer() {
             tabBarIcon: ({ color, size }) => (
               <Icon name="voicemail" size={size} color={color} />
             ),
-            header: () => <CostumHeader arrowShown={false} logoShown={false} headerText={tabTitles.search}/>
+            headerShown: false
           }}
-          component={SearchScreen}
+          component={SearchTab}
         />
         <Tab.Screen
           name={tabTitles.post}
@@ -61,7 +61,7 @@ export default function AppContainer() {
             tabBarIcon: ({ color, size }) => (
               <Icon name="location" size={size} color={color} />
             ),
-            header: () => <CostumHeader arrowShown={false} logoShown={false} headerText={tabTitles.map} />,
+            headerShown: false
           }}
           component={MapScreen}
         />

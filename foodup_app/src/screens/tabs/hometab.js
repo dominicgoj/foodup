@@ -9,45 +9,47 @@ import { BACKEND_URL } from '../../../config';
 import axios from 'axios';
 import CostumHeader from '../components/costumheader.js'
 import {useFocusEffect} from '@react-navigation/native'
+import {getUserLocation, getDistance} from '../../utilities/locationUtils';
+import infomsg from '../../data/infomsg.json'
 
 const HomeScreen = () => {
   const Stack = createStackNavigator();
   const [restaurantData, setRestaurantData] = useState([])
+  
     useFocusEffect(
       React.useCallback(() => {
         fetchRestaurantData();
+
         return;
       }, [])
     );
 
-    const fetchRestaurantData = async () =>{
-      try {
-        const response = await axios.get(BACKEND_URL+'/restaurant/');
-        setRestaurantData(response.data);
-        
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
+  const fetchRestaurantData = async () => {
+    const userLocation = await getUserLocation();
+    const restaurants = await getDistance(userLocation.longitude, userLocation.latitude);
+    const filteredRestaurants = restaurants.filter((restaurant) => restaurant.distance <= 10);
+    setRestaurantData(filteredRestaurants)
+};
+    
     const RestaurantListScreen = ({ navigation }) => {
-
-
-
       return (
         <ScrollView>
-          
-          {restaurantData.map((restaurant, index) => {
-            
-            return (
-              <RestaurantCard
-              key={index}
-              restaurant={restaurant}
-              navigation={navigation}
-              style={{height: 200}}
-            />
-          )})}
-        </ScrollView>
+      {restaurantData.length > 0 ? (
+        restaurantData.map((restaurant, index) => (
+          <RestaurantCard
+            key={index}
+            restaurant={restaurant}
+            navigation={navigation}
+            style={{ height: 200 }}
+          />
+        ))
+      ) : (
+        <View style={styles.noRestaurantsContainer}>
+          <Text style={styles.noRestaurantsText}>{infomsg.find((msg) => msg.name === 'no-restaurants-at-your-place')?.title || ''}</Text>
+        </View>
+        
+      )}
+    </ScrollView>
       );
     };
   return (
@@ -58,8 +60,6 @@ const HomeScreen = () => {
           name="Home"
           component={RestaurantListScreen}
           options={{ header: () => <CostumHeader arrowShown={false} logoShown={true} />, }}
-          
-          
         />
         <Stack.Screen
           name="Detail"
@@ -79,7 +79,19 @@ const HomeScreen = () => {
 
 
 const styles = StyleSheet.create({
-  
+  noRestaurantsContainer:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 50,
+    paddingLeft: 50,
+    paddingRight: 50,
+  },
+  noRestaurantsText:{
+    fontSize: 24,
+    textAlign: 'center',
+    color: '#424242'
+  }
 });
 
 export default HomeScreen;

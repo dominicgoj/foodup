@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
 
-export default async function FetchRestaurants(input, searchVariable) {
+export default async function SearchRestaurants(input, searchVariable) {
   
     if (input&&searchVariable) {
       try {
@@ -11,12 +11,7 @@ export default async function FetchRestaurants(input, searchVariable) {
         console.log(error);
       }
     } else {
-      try {
-        const requestAllRestaurants = await axios.get(BACKEND_URL + "/restaurant/");
-        return requestAllRestaurants.data;
-      } catch (error) {
-        console.log(error);
-      }
+        return
     }
   }
   

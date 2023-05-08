@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { commonStyles } from '../../styles/commonstyles';
-
+import DistanceLocation from './distanceLocation';
 
 class RestaurantCard extends Component {
-    
     render(){
+    
     return(
         //hier muss dann API abgerufen werden, map und erzeugen
         <TouchableOpacity style={styles.container} onPress={() => this.props.navigation.navigate("Detail", {restaurant : this.props.restaurant})}>
@@ -24,7 +24,7 @@ class RestaurantCard extends Component {
             <View style={styles.secondrow}>
             <View style={styles.locationContainer}>
             <Icon name='direction' style={styles.direction} />
-            <Text style={styles.distance}>230 m</Text>
+            <DistanceLocation restaurant={this.props.restaurant} />
             </View>
             <View style={styles.locationContainer}>
             <Icon name='location-pin' style={styles.direction} />
