@@ -56,7 +56,9 @@ export default function TakePhoto({onPhotoTaken, onRestaurantIdentified }) {
       try {
         const data = await cameraRef.current.takePictureAsync();
         const compressedImage = await compressImage(data.uri)
+        const compressedPreviewImage = await compressPreviewImage(data.uri)
         onPhotoTaken(["photo", compressedImage]);
+        onPhotoTaken(["photo_preview", compressedPreviewImage]);
         setImage(compressedImage.uri);
       } catch (e) {
         console.log(e);
@@ -72,6 +74,16 @@ export default function TakePhoto({onPhotoTaken, onRestaurantIdentified }) {
 
     return  { name: `${Date.now()}.${format}`, type: `image/${format}`, ...result };
     // return: { name, type, width, height, uri }
+};
+const compressPreviewImage = async (uri, format = SaveFormat.JPEG) => { // SaveFormat.PNG
+  const result = await manipulateAsync(
+      uri,
+      [{ resize: { width: 300 } }],
+      { compress: 0.7, format }
+  );
+
+  return  { name: `${Date.now()}.${format}`, type: `image/${format}`, ...result };
+  // return: { name, type, width, height, uri }
 };
   
   const resetPicture = () => {

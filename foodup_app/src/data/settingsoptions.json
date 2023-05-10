@@ -5,6 +5,7 @@
             "change_username": ["Benutzernamen ändern", "edit"],
             "change_email": ["Email Adresse ändern", "mail"],
             "change_phone": ["Telefonnummer ändern", "phone"],
+            "faq": ["FAQ", "help"],
             "delete_account": ["Account löschen", "remove-user"],
             "logout": ["Logout", "log-out"]
         

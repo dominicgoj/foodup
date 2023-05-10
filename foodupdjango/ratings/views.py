@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import Post, Restaurant, User, Like
-from .serializers import PostSerializer, RestaurantSerializer, UserSerializer, LikeSerializer
+from .models import Post, Restaurant, User, Like, ActivationCode
+from .serializers import PostSerializer, RestaurantSerializer, UserSerializer, LikeSerializer, ActivationCodeSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from django.utils.decorators import method_decorator
 from django.db.models import F
 from math import radians, sin, cos, sqrt, atan2
-
+from django.shortcuts import render, HttpResponse
+from django.core.mail import send_mail
+import random
 
 
 class PostList(generics.ListCreateAPIView):
@@ -86,7 +88,22 @@ class RestaurantSearch(generics.ListCreateAPIView):
             restaurants = self.get_queryset().filter(id=restaurant_id)
             serializer = self.get_serializer(restaurants, many=True)
             return Response(serializer.data)
-
+class RestaurantCreate(APIView):
+    def post(self, request):
+        user_serializer = UserSerializer(data=request.data)
+        restaurant_serializer = RestaurantSerializer(data=request.data)
+        
+        if user_serializer.is_valid() and restaurant_serializer.is_valid():
+            user = user_serializer.save()
+            restaurant = restaurant_serializer.save(userid=user)
+            return Response(restaurant_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            errors = {
+                'user_errors': user_serializer.errors,
+                'restaurant_errors': restaurant_serializer.errors
+            }
+            return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+        
 class RestaurantDistance(APIView):
     serializer_class = RestaurantSerializer
 
@@ -124,9 +141,6 @@ class RestaurantDistance(APIView):
 
         return Response(serialized_restaurants)
 
-        
-
-
 class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
@@ -156,10 +170,8 @@ class SearchUser(generics.ListAPIView):
 class CreateUser(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
-        
         if serializer.is_valid():
             serializer.save()
-            print(serializer)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -247,5 +259,57 @@ class LikeCreateView(APIView):
 class LikeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer
+class ActivationCodeList(generics.ListAPIView):
+    queryset = ActivationCode.objects.all()
+    serializer_class = ActivationCodeSerializer
+
+def generate_activation_code():
+    return str(random.randint(10000, 99999))
+class SendActivationEmailView(APIView):
+    def post(self, request):
+        email = request.data.get('email')
+        phone = request.data.get('phone')
+        activation_code = generate_activation_code()
+        if email:
+            serializer = ActivationCodeSerializer(data={'email': email, 'code': activation_code})
+            if serializer.is_valid():
+                serializer.save()
+                
+                message = f"Your activation code is: {activation_code}"
+                #send_mail('Activation Code', message, 'dominicgoj@gmail.com', [email])
+                
+                return Response({"message": "Email sent"}, status=status.HTTP_200_OK)
+        if phone:
+            serializer = ActivationCodeSerializer(data={'phone': phone, 'code': activation_code})
+            if serializer.is_valid():
+                serializer.save()
+                
+                message = f"Your activation code is: {activation_code}"
+                ###send phone
+                
+                return Response({"message": "Phone sent"}, status=status.HTTP_200_OK)
+        
+        return Response({"message": "Bad Request"}, status=status.HTTP_400_BAD_REQUEST)
+
+class VerifyActivationCodeView(APIView):
+    def post(self, request):
+        email = request.data.get('email')
+        phone = request.data.get('phone')
+        code = request.data.get('code')
+
+        if email and code:
+            try:
+                activation_code = ActivationCode.objects.get(email=email, code=code)
+                return Response({"message": "Activation code is valid"}, status=status.HTTP_200_OK)
+            except ActivationCode.DoesNotExist:
+                return Response({"message": "Invalid activation code"}, status=status.HTTP_400_BAD_REQUEST)
+        elif phone and code:
+            try:
+                activation_code = ActivationCode.objects.get(phone=phone, code=code)
+                return Response({"message": "Activation code is valid"}, status=status.HTTP_200_OK)
+            except ActivationCode.DoesNotExist:
+                return Response({"message": "Invalid activation code"}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"message": "Invalid request"}, status=status.HTTP_400_BAD_REQUEST)
     
 # Create your views here.

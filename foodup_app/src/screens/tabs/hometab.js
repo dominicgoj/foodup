@@ -11,24 +11,25 @@ import CostumHeader from '../components/costumheader.js'
 import {useFocusEffect} from '@react-navigation/native'
 import {getUserLocation, getDistance} from '../../utilities/locationUtils';
 import infomsg from '../../data/infomsg.json'
-
+import Loading from '../components/loading';
 const HomeScreen = () => {
   const Stack = createStackNavigator();
   const [restaurantData, setRestaurantData] = useState([])
-  
-    useFocusEffect(
-      React.useCallback(() => {
-        fetchRestaurantData();
-
-        return;
-      }, [])
-    );
-
+  const [loading, setLoading] = useState(true);
+    useEffect(()=>{
+      fetchRestaurantData();
+    },[])
   const fetchRestaurantData = async () => {
     const userLocation = await getUserLocation();
     const restaurants = await getDistance(userLocation.longitude, userLocation.latitude);
     const filteredRestaurants = restaurants.filter((restaurant) => restaurant.distance <= 10);
     setRestaurantData(filteredRestaurants)
+    setTimeout(async ()=> {
+      
+      setLoading(false)
+      
+    }, 2000)
+    
 };
     
     const RestaurantListScreen = ({ navigation }) => {
@@ -53,7 +54,7 @@ const HomeScreen = () => {
       );
     };
   return (
-    
+    loading ? <Loading loading={loading}/> :
     <NavigationContainer independent={true}>
       <Stack.Navigator>
         <Stack.Screen

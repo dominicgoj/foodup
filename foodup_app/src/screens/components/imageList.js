@@ -10,6 +10,7 @@ import ModalView from './modalView';
 import moment from "moment";
 import AuthContext from '../../utilities/authcontext';
 import FetchRestaurants from "../../api/fetchRestaurants";
+import {useFocusEffect} from '@react-navigation/native'
 
 const ImageList = ({ restaurant, searchby }) => {
   const [posts, setPosts] = useState([]);
@@ -18,9 +19,13 @@ const ImageList = ({ restaurant, searchby }) => {
   const userData = authContext.loggedInUserData;
 
 
-  useEffect(() => {
-    getPosts();
-  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getPosts();
+      return;
+    }, [])
+  );
 
   const getPosts = async () => {
     try {
@@ -53,17 +58,24 @@ const ImageList = ({ restaurant, searchby }) => {
     const rows = [];
     for (let i = 0; i < posts.length; i += 3) {
       const rowOfPosts = posts.slice(i, i + 3);
+      
       const row = (
-        <View key={i} style={styles.row}>
-          {rowOfPosts.map((post, index) => (
+        <View key={i} style={[styles.row]}>
+          {rowOfPosts.map((post, index) => {
+            
+            return(
+            
             <TouchableOpacity key={post.id} style={styles.imageContainer} onPress={() => openComment(post)}>
-              <ImageBackground style={styles.image} source={{uri: post.image}}>
-              <View key={post.id} style={styles.starsRow}>
-                {renderStars(post.rating)}
-              </View>
-              </ImageBackground>
+                  <ImageBackground style={styles.image} source={{uri: post.image_preview}} >
+                  <View key={post.id} style={styles.starsRow}>
+                    {renderStars(post.rating)}
+                  </View>
+                  </ImageBackground>
+                
+              
             </TouchableOpacity>
-          ))}
+          )
+    })}
         </View>
       );
       rows.push(row);
@@ -201,16 +213,17 @@ const styles = StyleSheet.create({
         height: 150,
         width: "32%",
         margin: 2,
-        borderColor:'white',
+        borderColor:'black',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+  
     },
     image:{
       height: '100%',
       width: '100%',
       borderRadius: 15,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
     },  
     starsRow:{
         flexDirection: 'row'

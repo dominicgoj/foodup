@@ -5,6 +5,8 @@ import LoginForm from './src/screens/components/login.js';
 import getUserLoginInfo from './src/utilities/retrieveloggedin.js';
 import { deleteUserLoginInfo } from './src/utilities/deleteloggedin';
 import AuthContext from './src/utilities/authcontext';
+import { NavigationContainer } from '@react-navigation/native';
+import { View } from 'react-native-animatable';
 
 
 export default function App() {
@@ -46,7 +48,7 @@ export default function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <AuthContext.Provider value={{ loggedInUserData: loggedInUserData, onLogout: handleLogout }}>
-      {loginChecked ? (loggedIn ? <AppContainer /> : <LoginForm onLoginSuccess={handleLoginSuccess} />) : null}
+      {loginChecked ? (loggedIn ? <AppContainer /> : <View style={{flex:1, }}><NavigationContainer><LoginForm onLoginSuccess={handleLoginSuccess} /></NavigationContainer></View>) : null}
       </AuthContext.Provider>
     </SafeAreaView>
   );

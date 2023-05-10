@@ -3,9 +3,7 @@ import { Text, View, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { commonStyles } from '../../styles/commonstyles';
 import Icon from 'react-native-vector-icons/Entypo';
 import ImageList from '../components/imageList';
-import { SettingsStyle } from '../../styles/settingsstyle';
 import ModalView from '../components/modalView';
-import data from '../../data/dummydata.json';
 import axios from 'axios';
 import { BACKEND_URL } from '../../../config';
 import UserSettings from '../components/usersettings';
@@ -19,6 +17,7 @@ function UserScreen() {
   const [userLoggedIn, setUserLoggedIn] = useState("")
   const [userLikes, setUserLikes] = useState("")
   const [userPosts, setUserPosts] = useState("")
+
   useEffect(() => {   
     getLoggedInUser();
   }, []);
@@ -63,9 +62,7 @@ const getUserPosts = async () =>{
   console.error(error);
   }
 };  
-  
-  
-  
+
   
   return (
       <ScrollView>
@@ -97,9 +94,14 @@ const getUserPosts = async () =>{
       
       </View>
       <ImageList restaurant={authContext.loggedInUserData} searchby='userid_posted'/>
-      
-      {modalVisible ?
-        <ModalView onClose={()=>(setModalVisible(false))} visible={modalVisible} modalContent={<UserSettings />}/>:null}
+      {modalVisible ? (
+          <ModalView
+            onClose={() => setModalVisible(false)}
+            visible={modalVisible}
+            modalContent={<UserSettings/>}
+          />
+        ) : null}
+    
       </ScrollView>
      
     

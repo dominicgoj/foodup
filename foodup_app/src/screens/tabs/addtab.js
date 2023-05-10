@@ -20,6 +20,7 @@ const AddContentScreen = () => {
   
   const [formState, setFormState] = useState({
     photo: null,
+    photo_preview : null,
     rating: 0,
     comment: '',
     success: null,
@@ -55,6 +56,11 @@ const AddContentScreen = () => {
         type: 'image/jpeg', // Set the correct MIME type for the image file
         name: 'photo.jpg', // Set a desired filename for the image
       }); // Append the image file to the form data
+      formData.append('image_preview', {
+        uri: formState.photo_preview.uri,
+        type: 'image/jpeg', // Set the correct MIME type for the image file
+        name: 'photo.jpg', // Set a desired filename for the image
+      }); 
   
       
       try {
@@ -75,7 +81,11 @@ const AddContentScreen = () => {
     if (key === "photo") {
       // If the key is "photo", update the formState with the photo file data
       setFormState((prevState) => ({ ...prevState, photo: value }));
-    } else {
+    } 
+    else if (key==="photo_preview"){
+      setFormState((prevState) => ({ ...prevState, photo_preview: value }));
+    }
+    else {
       // Otherwise, update the formState with other data
       setFormState((prevState) => ({ ...prevState, [key]: value }));
     }

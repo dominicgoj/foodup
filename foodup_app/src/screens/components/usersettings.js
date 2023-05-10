@@ -11,6 +11,8 @@ import UpdateUser from "../../api/updateuser";
 import Regex from "./regex";
 import UpdateUserToInactive from "../../api/deleteuser";
 import { deleteUserLoginInfo } from "../../utilities/deleteloggedin";
+import FAQPage from "./faqpage";
+
 const UserSettings = () => {
   const settingsoptions_german = SettingsOption.German;
   const authContext = useContext(AuthContext);
@@ -20,10 +22,9 @@ const UserSettings = () => {
   const [phone, setPhone] = useState('')
   const [phoneNumberNotValid, setPhoneNumberNotValid] = useState(false)
   const [emailNotValid, setEmailNotValid] = useState(false)
-  
+  const [showFAQ, setShowFAQ] = useState(false)
   const [text, setText] = useState({});
   const [showInput, setShowInput] = useState({});
-
   const setUserData = async () => {
     const userdata = await FetchUserData(authContext.loggedInUserData);
     setUsername(userdata.username);
@@ -59,6 +60,10 @@ const UserSettings = () => {
       setShowInput({})
       authContext.onLogout();
     }
+    else if (key === 'faq') {
+      setShowFAQ(!showFAQ)
+    }
+    
     else{
       setShowInput(prevState => {
         const updatedState = { ...prevState };
@@ -109,6 +114,7 @@ const UserSettings = () => {
 
 
 
+
   const renderFields = () => {
     return Object.entries(settingsoptions_german).map(([key, value]) => {
       const inputValue = text[key] || '';
@@ -147,6 +153,7 @@ const UserSettings = () => {
           </View>
           </View>
         )}
+        
       </View>
     )});
   };
@@ -156,15 +163,17 @@ const UserSettings = () => {
       {authContext => (
         <View style={SettingsStyle.container}>
           {renderFields()}
+          
           {showConfirmation ? (<Dialog.Container visible={showConfirmation}>
+          
         <Dialog.Title>Bestätigen</Dialog.Title>
         <Dialog.Description>
          Bist du dir sicher dass du deinen Account löschen möchtest?
         </Dialog.Description>
         <Dialog.Button label="Abbrechen" onPress={handleCancel} />
         <Dialog.Button label="Bestätigen" onPress={handleDeleteAccount} />
-      </Dialog.Container>):(null)}
-          
+      </Dialog.Container>):(null)}  
+       
         </View>
       )}
     </AuthContext.Consumer>
