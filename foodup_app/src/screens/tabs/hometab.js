@@ -20,25 +20,41 @@ const HomeScreen = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       fetchRestaurantData();
-      console.log("fetched restaurant data")
-    }, 10000); // 60000 milliseconds = 1 minute
+    }, 60000); // 60000 milliseconds = 60 seconds
 
     return () => {
       clearInterval(interval);
     };
   }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    setRestaurantData([]);
+    fetchRestaurantData();
+  }, []);
+
   const fetchRestaurantData = async () => {
     const userLocation = await getUserLocation();
     const restaurants = await getDistance(userLocation.longitude, userLocation.latitude);
     const filteredRestaurants = restaurants.filter((restaurant) => restaurant.distance <= MAX_RESTAURANT_DISTANCE);
-    setRestaurantData(filteredRestaurants)
-    setTimeout(async ()=> {
-      
-      setLoading(false)
-      
-    }, 2000)
-    
-};
+  
+    // Check if any field has changed for any restaurant
+    const hasChanges = restaurantData.length !== filteredRestaurants.length || !restaurantData.every((oldRestaurant) => {
+      const newRestaurant = filteredRestaurants.find((newRestaurant) => newRestaurant.id === oldRestaurant.id);
+      if (!newRestaurant) {
+        return false;
+      }
+      return Object.keys(oldRestaurant).every((field) => oldRestaurant[field] === newRestaurant[field]);
+    });
+  
+    if (hasChanges) {
+      setRestaurantData(filteredRestaurants);
+    }
+  
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  };
     
     const RestaurantListScreen = ({ navigation }) => {
       return (
