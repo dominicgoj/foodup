@@ -15,7 +15,7 @@ import AuthContext from '../../utilities/authcontext';
 import {useFocusEffect} from '@react-navigation/native'
 import { parse } from 'query-string/base.js';
 
-export default function TakePhoto({onPhotoTaken, onRestaurantIdentified }) {
+export default function TakePhoto({onPhotoTaken, onRestaurantIdentified, onPressLinkToRestaurant }) {
   const authContext = useContext(AuthContext);
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -37,6 +37,7 @@ export default function TakePhoto({onPhotoTaken, onRestaurantIdentified }) {
       setQrURL(null)
       setScanned(false)
       setuserAllowedToPost(false)
+      setIdentifiedRestaurant(null)
       return;
     }, [])
   );
@@ -144,10 +145,11 @@ const compressPreviewImage = async (uri, format = SaveFormat.JPEG) => { // SaveF
         }
         else{
           setuserAllowedToPost(true)
-          setIdentifiedRestaurant(restaurantScanned)
-          onRestaurantIdentified(restaurantScanned)
+          
           
         }
+        setIdentifiedRestaurant(restaurantScanned)
+        onRestaurantIdentified(restaurantScanned)
         }else{
           showAlert(alertMessages.restaurantnotfound)
         }
@@ -159,7 +161,6 @@ const compressPreviewImage = async (uri, format = SaveFormat.JPEG) => { // SaveF
     fetchRestaurantData();
   }, [scanned]); //if the url qr code is scanned and set true
   const getOverlayStyles = () => {
-    console.log(barcodePoints)
     if(barcodePoints.origin) {
       
       const { origin, size } = barcodePoints;
@@ -233,11 +234,13 @@ const compressPreviewImage = async (uri, format = SaveFormat.JPEG) => { // SaveF
       { cancelable: false }
     );
   };
-  useEffect(()=>{
-    console.log(userAllowedToPost)
-  }, [userAllowedToPost])
+
   ////////////////////
   ////////////////////
+  const handleLinkToRestaurant = () =>{
+    onPressLinkToRestaurant(identifiedRestaurant)
+  }
+
   return (
     <View style={styles.container}>
       {!image && !scanned? (
@@ -252,6 +255,7 @@ const compressPreviewImage = async (uri, format = SaveFormat.JPEG) => { // SaveF
   </View>
   </View>) : 
     !image ? (
+      
       <Camera
       style={styles.camera}
       type={type}
@@ -263,7 +267,15 @@ const compressPreviewImage = async (uri, format = SaveFormat.JPEG) => { // SaveF
     : (
     <Image source={{ uri: image }} style={styles.camera} />)}
       <View style={styles.iconOverlay}>
-        
+      {!image && scanned?(
+          <View style={{flex:1, width: '100%', alignItems: 'center'}}>
+            
+            {identifiedRestaurant?(<TouchableOpacity onPress={handleLinkToRestaurant}>
+            <View style={{width: '30%', borderWidth: 2, alignItems: 'center', marginTop: 20, borderColor: 'orange', padding: 20,}}><Text style={{color: 'orange', fontSize: 16, fontWeight: 'bold'}}>{identifiedRestaurant.restaurant_name}</Text></View>
+            </TouchableOpacity>):null}
+            
+            </View>
+        ):null}
       {userAllowedToPost ? (
       image ? (
         <View>
@@ -340,6 +352,13 @@ const compressPreviewImage = async (uri, format = SaveFormat.JPEG) => { // SaveF
       marginLeft: 30,
       marginRight: 30,
       
-    }
+    },
+    identifiedRestaurantLinkContainer: {
+      borderWidth: 2,
+      borderColor: 'yellow',
+      width: 200,
+      height: 100,
+    },
+    
   });
   

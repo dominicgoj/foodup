@@ -38,9 +38,11 @@ DEBUG = True
 AWS_ACCESS_KEY_ID = 'AKIA34HPQHKM7C3GQBPC'
 AWS_SECRET_ACCESS_KEY = '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'
 EMAIL_BACKEND = 'django_ses.SESBackend'
+SMS_BACKEND = 'sms.backends.sns.SnsBackend'
+AWS_SNS_DEFAULT_SMS_TYPE = 'Promotional'
 AWS_SES_REGION_NAME = 'eu-north-1'
 AWS_SES_REGION_ENDPOINT = 'email.eu-north-1.amazonaws.com'
-ALLOWED_HOSTS = ['192.168.1.108']
+ALLOWED_HOSTS = ['localhost', '192.168.0.116']
 
 
 # Application definition
@@ -56,6 +58,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'stores',
     'ratings',
+    'sms',
     
 ]
 

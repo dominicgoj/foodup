@@ -10,7 +10,7 @@ class PostSerializer(serializers.ModelSerializer):
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
-        fields = ['id', 'restaurant_name', 'image_url', 'latitude_gps', 'longitude_gps', 'timestamp_gps', 'telephone', 'email', 'website', 'instagram', 'facebook', 'street', 'zip', 'city', 'average_rating', 'qr_id', 'tags', 'userid']
+        fields = ['id', 'restaurant_name', 'image_url', 'latitude_gps', 'longitude_gps', 'timestamp_gps', 'telephone', 'email', 'website', 'instagram', 'facebook', 'street', 'zip', 'city', 'average_rating', 'qr_id', 'tags', 'userid', 'active']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

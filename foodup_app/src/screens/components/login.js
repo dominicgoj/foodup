@@ -226,7 +226,6 @@ const LoginForm = (props) => {
       const [verificationCode, setVerificationCode] = useState('')
       const handleActivation = async () => {
         try {
-          console.log(activationDevice, verificationCode)
           const response = await checkActivation(activationDevice.type, activationDevice.input, verificationCode);
           const message = response.message;
           
@@ -253,14 +252,12 @@ const LoginForm = (props) => {
           <Text style={styles.title}>Aktivierungscode eingeben</Text>
           
           <TextInput
-            style={styles.input}
+            style={[styles.input, {textAlign: 'center'}]}
             placeholder="XXXXX"
             value={verificationCode}
             onChangeText={setVerificationCode}
             keyboardType='numeric'
             maxLength={5}
-            
-            
           />
           {activationValidationMessage ? (
                 <Text style={styles.warning}>{activationValidationMessage}</Text>

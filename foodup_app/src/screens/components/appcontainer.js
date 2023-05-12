@@ -6,20 +6,23 @@ import SearchTab from '../tabs/searchtab.js';
 import AddContentScreen from '../tabs/addtab.js';
 import UserScreen from '../tabs/usertab.js';
 import Icon from 'react-native-vector-icons/Entypo';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import CostumHeader from './costumheader.js';
 import MapScreen from '../tabs/maptab.js';
+import RestaurantDetail from './restaurantdetail.js';
+import { createStackNavigator } from '@react-navigation/stack';
+import CustomHeader from './costumheader.js';
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+const tabTitles = {
+  'foryou': 'For You',
+  'search': 'Suche',
+  'post': 'Beitrag posten',
+  'map': 'Karte',
+  'profile': 'Profil'
 
+}
 export default function AppContainer() {
-  const tabTitles = {
-    'foryou': 'For You',
-    'search': 'Suche',
-    'post': 'Beitrag posten',
-    'map': 'Karte',
-    'profile': 'Profil'
-
-  }
+  
 
   return (
     <NavigationContainer>
@@ -46,15 +49,13 @@ export default function AppContainer() {
         />
         <Tab.Screen
           name={tabTitles.post}
+          component={AddTabStack}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Icon name="camera" size={size} color={color} />
             ),
-            header: () => <CostumHeader arrowShown={false} logoShown={false} headerText={tabTitles.post}/>,
-          }}
-        >
-          {() => <AddContentScreen />}
-        </Tab.Screen>
+            headerShown: false          }}
+        />
         <Tab.Screen
           name={tabTitles.map}
           options={{
@@ -79,4 +80,14 @@ export default function AppContainer() {
       </Tab.Navigator>
     </NavigationContainer>
   );
+}
+
+const AddTabStack = () =>{
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="AddTab" component={AddContentScreen} options={{ header: () => <CostumHeader arrowShown={false} logoShown={false} headerText={tabTitles.post} />}} />
+      <Stack.Screen name="RestaurantDetail" component={RestaurantDetail} options={{ header: () => <CustomHeader arrowShown={true} logoShown={false}/> }}  />
+    </Stack.Navigator>
+  );
+
 }

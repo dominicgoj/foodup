@@ -49,6 +49,7 @@ class Restaurant(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE, default=43)
     qr_id = models.CharField(max_length=32, default=generate_qr_id)
     tags = models.JSONField(default=dict)
+    active = models.BooleanField(default=False)
 
 class Like(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)

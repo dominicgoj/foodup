@@ -10,16 +10,14 @@ import axios from 'axios';
 import { BACKEND_URL } from '../../../config.js';
 import AuthContext from '../../utilities/authcontext';
 
-const AddContentScreen = () => {
+const AddContentScreen = ({onPressLinkToRestaurant}) => {
   
   const navigation = useNavigation();
   const authContext = useContext(AuthContext);
   const [sendDataRequest, setSendDataRequest] = useState(false)
   const [resetData, setResetData] = useState(false)
   const [restaurant, setRestaurant] = useState(null)
-  const onPressLinkToRestaurant = (restaurant) =>{
-    navigation.navigate('RestaurantDetail', {restaurant})
-  }
+  
   const [formState, setFormState] = useState({
     photo: null,
     photo_preview : null,

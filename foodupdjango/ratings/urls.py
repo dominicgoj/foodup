@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PostList, PostDetail, PostDelete, RestaurantList, RestaurantCreate, RestaurantDistance, RestaurantSearch, RestaurantDetail, UserList, UserDetail, LikeList, LikeDetail, LikeDeleteView, LikeCreateView, SearchUser, CreateUser, UserDelete, CreatePost, SendActivationEmailView, VerifyActivationCodeView, ActivationCodeList
+from .views import PostList, PostDetail, PostDelete, RestaurantList, RestaurantCreate, RestaurantDistance, RestaurantSearch, RestaurantDetail, UserList, UserDetail, LikeList, LikeDetail, LikeDeleteView, LikeCreateView, SearchUser, CreateUser, UserDelete, CreatePost, SendActivationView, VerifyActivationCodeView, ActivationCodeList
 
 urlpatterns = [ path('post/', PostList.as_view(), name="post_list"),
                path('post/<int:pk>', PostDetail.as_view(), name="post_detail"),
@@ -19,9 +19,10 @@ urlpatterns = [ path('post/', PostList.as_view(), name="post_list"),
                path('like/create/', LikeCreateView.as_view(), name='like-create'),
                path('user/search/', SearchUser.as_view(), name='search-user'),
                path('user/create/', CreateUser.as_view(), name='create-user'),
-               path('activation/send/', SendActivationEmailView.as_view(), name='activation-send'),
+               path('activation/send/', SendActivationView.as_view(), name='activation-send'),
                path('activation/check/', VerifyActivationCodeView.as_view(), name='activation-check'),
                path('activation/', ActivationCodeList.as_view(), name='activation-code'),
+
 
 
               ]

@@ -13,6 +13,7 @@ import {getUserLocation, getDistance} from '../../utilities/locationUtils';
 import infomsg from '../../data/infomsg.json'
 import Loading from '../components/loading';
 const HomeScreen = () => {
+  const MAX_RESTAURANT_DISTANCE = 50 //in km
   const Stack = createStackNavigator();
   const [restaurantData, setRestaurantData] = useState([])
   const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ const HomeScreen = () => {
   const fetchRestaurantData = async () => {
     const userLocation = await getUserLocation();
     const restaurants = await getDistance(userLocation.longitude, userLocation.latitude);
-    const filteredRestaurants = restaurants.filter((restaurant) => restaurant.distance <= 10);
+    const filteredRestaurants = restaurants.filter((restaurant) => restaurant.distance <= MAX_RESTAURANT_DISTANCE);
     setRestaurantData(filteredRestaurants)
     setTimeout(async ()=> {
       
@@ -47,6 +48,8 @@ const HomeScreen = () => {
       ) : (
         <View style={styles.noRestaurantsContainer}>
           <Text style={styles.noRestaurantsText}>{infomsg.find((msg) => msg.name === 'no-restaurants-at-your-place')?.title || ''}</Text>
+          <Text style={styles.noRestaurantsSubtitleText}>{infomsg.find((msg) => msg.name === 'no-restaurants-at-your-place')?.subtitle || ''}</Text>
+
         </View>
         
       )}
@@ -87,9 +90,16 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingLeft: 50,
     paddingRight: 50,
+    
   },
   noRestaurantsText:{
     fontSize: 24,
+    textAlign: 'center',
+    color: '#424242',
+    paddingBottom: 20,
+  },
+  noRestaurantsSubtitleText:{
+    ontSize: 16,
     textAlign: 'center',
     color: '#424242'
   }

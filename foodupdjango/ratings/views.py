@@ -11,7 +11,27 @@ from math import radians, sin, cos, sqrt, atan2
 from django.shortcuts import render, HttpResponse
 from django.core.mail import send_mail
 import random
+import json
+import os
+import boto3
 
+os.environ['AWS_ACCESS_KEY_ID'] = 'AKIA34HPQHKM7C3GQBPC'
+os.environ['AWS_SECRET_ACCESS_KEY'] = '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'
+region_name = "eu-north-1"
+validPhoneNo = "+4367762781271"
+
+def getAWSCreds():
+    file_path = os.path.join(os.path.dirname(__file__), 'aws_specifics.json')
+    print(file_path)
+    with open(file_path, 'r') as config_file:
+        config = json.load(config_file)
+
+    # Extract the AWS access credentials and region
+    access_key_id = config['aws_access_key_id']
+    secret_access_key = config['aws_secret_access_key']
+    region = config['aws_region']
+
+    return access_key_id, secret_access_key, region
 
 class PostList(generics.ListCreateAPIView):
     serializer_class = PostSerializer
@@ -90,19 +110,13 @@ class RestaurantSearch(generics.ListCreateAPIView):
             return Response(serializer.data)
 class RestaurantCreate(APIView):
     def post(self, request):
-        user_serializer = UserSerializer(data=request.data)
         restaurant_serializer = RestaurantSerializer(data=request.data)
-        
-        if user_serializer.is_valid() and restaurant_serializer.is_valid():
-            user = user_serializer.save()
-            restaurant = restaurant_serializer.save(userid=user)
+
+        if restaurant_serializer.is_valid():
+            restaurant = restaurant_serializer.save()
             return Response(restaurant_serializer.data, status=status.HTTP_201_CREATED)
         else:
-            errors = {
-                'user_errors': user_serializer.errors,
-                'restaurant_errors': restaurant_serializer.errors
-            }
-            return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(restaurant_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 class RestaurantDistance(APIView):
     serializer_class = RestaurantSerializer
@@ -170,11 +184,27 @@ class SearchUser(generics.ListAPIView):
 class CreateUser(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
+        
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            telephone = serializer.validated_data.get('telephone')
+            email = serializer.validated_data.get('email')
+            
+            # Check if telephone or email already exists in the database
+            existing_user = User.objects.filter(telephone=telephone).first() or User.objects.filter(email=email).first()
+            
+            if existing_user:
+                
+                # Return the existing user data instead of creating a new one
+                existing_user_data = UserSerializer(existing_user).data
+                return Response(existing_user_data, status=status.HTTP_200_OK)
+
+            else:
+                print("else")
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
 class CreatePost(APIView):
     def post(self, request):
@@ -265,7 +295,9 @@ class ActivationCodeList(generics.ListAPIView):
 
 def generate_activation_code():
     return str(random.randint(10000, 99999))
-class SendActivationEmailView(APIView):
+class SendActivationView(APIView):
+    
+
     def post(self, request):
         email = request.data.get('email')
         phone = request.data.get('phone')
@@ -283,14 +315,25 @@ class SendActivationEmailView(APIView):
             serializer = ActivationCodeSerializer(data={'phone': phone, 'code': activation_code})
             if serializer.is_valid():
                 serializer.save()
-                
+                # Create an SNS client
+                sns = boto3.client('sns', region_name=region_name)
                 message = f"Your activation code is: {activation_code}"
-                ###send phone
+                # Send an SMS
+                response = sns.publish(
+                    #later, need to change to phone!
+                    PhoneNumber=validPhoneNo,
+                    Message=message
+                )
+
+                # Check the response
+                if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+                    return Response({"message": "SMS sent"}, status=status.HTTP_200_OK)
+                else:
+                    print('Failed to send SMS.')
                 
-                return Response({"message": "Phone sent"}, status=status.HTTP_200_OK)
-        
         return Response({"message": "Bad Request"}, status=status.HTTP_400_BAD_REQUEST)
 
+    
 class VerifyActivationCodeView(APIView):
     def post(self, request):
         email = request.data.get('email')
