@@ -356,7 +356,7 @@ const compressPreviewImage = async (uri, format = SaveFormat.JPEG) => { // SaveF
     identifiedRestaurantLinkContainer: {
       borderWidth: 2,
       borderColor: 'yellow',
-      width: 200,
+      width: 350,
       height: 100,
     },
     
