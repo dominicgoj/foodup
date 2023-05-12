@@ -20,7 +20,7 @@ const HomeScreen = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       fetchRestaurantData();
-    }, 60000); // 60000 milliseconds = 60 seconds
+    }, 10000); // 60000 milliseconds = 60 seconds
 
     return () => {
       clearInterval(interval);
