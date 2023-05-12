@@ -17,9 +17,15 @@ const HomeScreen = () => {
   const Stack = createStackNavigator();
   const [restaurantData, setRestaurantData] = useState([])
   const [loading, setLoading] = useState(true);
-    useEffect(()=>{
+  useEffect(() => {
+    const interval = setInterval(() => {
       fetchRestaurantData();
-    },[])
+    }, 60000); // 60000 milliseconds = 1 minute
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
   const fetchRestaurantData = async () => {
     const userLocation = await getUserLocation();
     const restaurants = await getDistance(userLocation.longitude, userLocation.latitude);
