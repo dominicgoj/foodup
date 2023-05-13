@@ -1,1 +1,1 @@
-export const BACKEND_URL = "http://192.168.0.116:8000"
+export const BACKEND_URL = "http://[object Promise]:8000"
