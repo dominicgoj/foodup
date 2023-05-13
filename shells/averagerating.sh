@@ -1,17 +1,17 @@
 #!/bin/bash
 
 # Define the log file path
-LOG_FILE="/home/ec2-user/foodup/shells/logs/averagerating.log"
+LOG_FILE="/home/pi/coding/foodup/shells/logs/averagerating.log"
 
 # Get the current date and time
 CURRENT_DATE=$(date +"%Y-%m-%d")
 CURRENT_TIME=$(date +"%H:%M:%S")
 
 # Activate the virtual environment
-source /home/ec2-user/virtualenv/bin/activate
+source /home/pi/coding/venv/bin/activate
 
 # Change directory to the Django project
-cd /home/ec2-user/test/foodup/foodupdjango
+cd /home/pi/coding/foodup/foodupdjango
 
 # Execute the Django management command and redirect the output to the log file
 python manage.py averagerating >> "$LOG_FILE" 2>&1
