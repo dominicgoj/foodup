@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os 
+import requests
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,7 +43,15 @@ SMS_BACKEND = 'sms.backends.sns.SnsBackend'
 AWS_SNS_DEFAULT_SMS_TYPE = 'Promotional'
 AWS_SES_REGION_NAME = 'eu-north-1'
 AWS_SES_REGION_ENDPOINT = 'email.eu-north-1.amazonaws.com'
-ALLOWED_HOSTS = ['localhost', '192.168.0.116']
+try:
+    # Fetch the public IP address using an external service
+    response = requests.get('https://api.ipify.org/?format=json')
+    public_ip = response.json()['ip']
+except (requests.RequestException, KeyError):
+    # If fetching the IP address fails, fallback to a default value
+    public_ip = '192.168.0.1'
+ALLOWED_HOSTS = [public_ip, 'localhost']
+print(ALLOWED_HOSTS)
 
 
 # Application definition
