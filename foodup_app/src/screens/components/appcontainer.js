@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../tabs/hometab.js';
@@ -11,6 +11,11 @@ import MapScreen from '../tabs/maptab.js';
 import RestaurantDetail from './restaurantdetail.js';
 import { createStackNavigator } from '@react-navigation/stack';
 import CustomHeader from './costumheader.js';
+import getUserLoginInfo from '../../utilities/retrieveloggedin.js';
+import getUserPosts from '../../utilities/getUserPosts.js';
+import getUserLikes from '../../utilities/getUserLikes.js';
+import fetchRestaurantData from '../../api/fetchRestaurantData.js';
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const tabTitles = {
@@ -22,8 +27,43 @@ const tabTitles = {
 
 }
 export default function AppContainer() {
-  
+  const [userLoggedIn, setUserLoggedIn] = useState(null)
+  const [userLikes, setUserLikes] = useState(null)
+  const [userPosts, setUserPosts] = useState(null)
+  const [refreshing, setRefreshing] = useState(false);
+  const [restaurantData, setRestaurantData] = useState(null)
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    // Perform the necessary actions to refresh the screen or fetch new data
+    gatherAllDataFromUser()
+      .then(() => {
+        setRefreshing(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setRefreshing(false);
+      });
+  };
+
+  const gatherAllDataFromUser = async () => {
+    const userinfo = await getUserLoginInfo()
+    const userposts = await getUserPosts(userinfo.id)
+    const userlikes = await getUserLikes(userinfo.id)
+    const restaurants = await fetchRestaurantData()
+    
+    setUserLoggedIn(userinfo)
+    setUserPosts(userposts)
+    setUserLikes(userlikes)
+    setRestaurantData(restaurants)
+    
+    
+  }
+  useEffect(()=>{
+    onRefresh()
+  },[])
+
+  
   return (
     <NavigationContainer>
       <Tab.Navigator>
@@ -35,8 +75,8 @@ export default function AppContainer() {
             ),
             headerShown: false
           }}
-          component={HomeScreen}
-        />
+          
+        >{()=><HomeScreen restaurantData={restaurantData} onRefresh={onRefresh}/>}</Tab.Screen>
         <Tab.Screen
           name={tabTitles.search}
           options={{
@@ -75,7 +115,7 @@ export default function AppContainer() {
             header: () => <CostumHeader arrowShown={false} logoShown={false} headerText={tabTitles.profile}/>,
           }}
         >
-          {() => <UserScreen />}
+          {() => <UserScreen posts={userPosts} likes={userLikes} userinfo={userLoggedIn} onRefresh={onRefresh}/>}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>

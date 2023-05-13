@@ -319,7 +319,7 @@ class SendActivationView(APIView):
                 sns = boto3.client('sns', region_name=region_name)
                 message = f"Your activation code is: {activation_code}"
                 # Send an SMS
-                response = sns.publish(
+                """response = sns.publish(
                     #later, need to change to phone!
                     PhoneNumber=validPhoneNo,
                     Message=message
@@ -329,7 +329,7 @@ class SendActivationView(APIView):
                 if response['ResponseMetadata']['HTTPStatusCode'] == 200:
                     return Response({"message": "SMS sent"}, status=status.HTTP_200_OK)
                 else:
-                    print('Failed to send SMS.')
+                    print('Failed to send SMS.')"""
                 
         return Response({"message": "Bad Request"}, status=status.HTTP_400_BAD_REQUEST)
 

@@ -2,12 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { View, Modal, ScrollView, Text, Image, StyleSheet, TouchableOpacity, Pressable, Linking } from 'react-native';
 import { commonStyles } from '../../styles/commonstyles';
 import Icon from 'react-native-vector-icons/Entypo';
-import axios from 'axios';
-import { BACKEND_URL } from '../../../config';
 import ImageList from './imageList.js'
 import RenderStars from './renderstars';
+import getRestaurantPosts from "../../api/getRestaurantPosts";
+
 const RestaurantDetail = ({route}) =>{
-    const { restaurant } = route.params;
+    const {restaurant} = route.params
+    const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const fetchedPosts = await getRestaurantPosts(restaurant.id);
+      console.log(fetchedPosts)
+      setPosts(fetchedPosts);
+    };
+
+    fetchPosts();
+  }, []);
+
     return (
         
         <ScrollView >
@@ -20,7 +32,7 @@ const RestaurantDetail = ({route}) =>{
             <RenderStars rating={restaurant.average_rating}/>
             </View>
             <View style={{marginTop: 20}}>
-            <ImageList restaurant={restaurant} searchby='restaurant_id' />
+                <ImageList posts={posts}/>
             </View>
             <View style={styles.rowWebIcons}>
             <TouchableOpacity onPress={()=>{Linking.openURL(restaurant.website)}}><Text style={styles.webIcon}>.com</Text></TouchableOpacity>

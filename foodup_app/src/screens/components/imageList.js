@@ -10,36 +10,13 @@ import ModalView from './modalView';
 import moment from "moment";
 import AuthContext from '../../utilities/authcontext';
 import FetchRestaurants from "../../api/fetchRestaurants";
-import {useFocusEffect} from '@react-navigation/native'
 
-const ImageList = ({ restaurant, searchby }) => {
-  const [posts, setPosts] = useState([]);
+
+const ImageList = ({ posts }) => {
   const [selectedPost, setSelectedPost] = useState();
   const authContext = useContext(AuthContext);
   const userData = authContext.loggedInUserData;
-
-
-
-  useFocusEffect(
-    React.useCallback(() => {
-      getPosts();
-      return;
-    }, [])
-  );
-
-  const getPosts = async () => {
-    try {
-      const response = await axios.get(BACKEND_URL + '/post/', {
-        params: {
-          [searchby]: restaurant.id,
-          sort_by: 'created_at', // Add the sorting parameter here, e.g., 'createdAt' for sorting by the createdAt field
-        },
-      });
-      setPosts(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
 
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);

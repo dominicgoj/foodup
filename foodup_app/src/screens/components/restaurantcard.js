@@ -3,39 +3,41 @@ import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity } from 'rea
 import Icon from 'react-native-vector-icons/Entypo';
 import { commonStyles } from '../../styles/commonstyles';
 import DistanceLocation from './distanceLocation';
+import FetchRestaurants from '../../api/fetchRestaurants';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
-class RestaurantCard extends Component {
-    render(){
-    
+const RestaurantCard = ({restaurant}) => {
+    const navigation = useNavigation();
+ 
     return(
         //hier muss dann API abgerufen werden, map und erzeugen
-        <TouchableOpacity style={styles.container} onPress={() => this.props.navigation.navigate("Detail", {restaurant : this.props.restaurant})}>
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Detail", {restaurant : restaurant})}>
             <View style={styles.imageContainer} >
             <Image source={require('../../../assets/img/food.jpg')}
             style={styles.image}/>
             </View>
             <View style={styles.row}>
-            <Text style={commonStyles.restaurantTitle}>{this.props.restaurant.restaurant_name}</Text>
+            <Text style={commonStyles.restaurantTitle}>{restaurant.restaurant_name}</Text>
             <View style={styles.ratingBox}>
             <Icon name="star" style={styles.star}/>
-            <Text style={styles.ratingText}>{this.props.restaurant.average_rating}</Text>
+            <Text style={styles.ratingText}>{restaurant.average_rating}</Text>
             </View>
             </View>
             <View style={styles.secondrow}>
             <View style={styles.locationContainer}>
             <Icon name='direction' style={styles.direction} />
-            <DistanceLocation restaurant={this.props.restaurant} />
+            <DistanceLocation restaurant={restaurant} />
             </View>
             <View style={styles.locationContainer}>
             <Icon name='location-pin' style={styles.direction} />
-            <Text style={styles.distance}>{this.props.restaurant.street}, {this.props.restaurant.city}</Text>
+            <Text style={styles.distance}>{restaurant.street}, {restaurant.city}</Text>
             </View>
             </View>
             
         </TouchableOpacity>
     );
 }
-}
+
 
 const styles = StyleSheet.create({
     row: {

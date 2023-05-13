@@ -1,84 +1,32 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, Pressable, RefreshControl } from 'react-native';
 import { commonStyles } from '../../styles/commonstyles';
 import Icon from 'react-native-vector-icons/Entypo';
 import ImageList from '../components/imageList';
 import ModalView from '../components/modalView';
-import axios from 'axios';
-import { BACKEND_URL } from '../../../config';
 import UserSettings from '../components/usersettings';
-import AuthContext from '../../utilities/authcontext';
-import {useFocusEffect} from '@react-navigation/native'
 
-function UserScreen() {
-  
-  const authContext = useContext(AuthContext); // Retrieve the AuthContext
+function UserScreen({posts, likes, userinfo, onRefresh}) {
   const [modalVisible, setModalVisible] = useState(false)
-  const [userLoggedIn, setUserLoggedIn] = useState("")
-  const [userLikes, setUserLikes] = useState("")
-  const [userPosts, setUserPosts] = useState("")
-
-  useEffect(() => {   
-    getLoggedInUser();
-  }, []);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      getUserLikes();
-      getUserPosts();
-      return;
-    }, [])
-  );
-
-const getLoggedInUser = async () =>{
-    try {
-      
-    const response = await axios.get(BACKEND_URL+'/user/'+authContext.loggedInUserData.id);
-    setUserLoggedIn(response.data);    
-    } catch (error) {
-      
-    console.error(error);
-    }
-};  
-const getUserLikes = async () =>{
-  try {
-    
-  const response = await axios.get(BACKEND_URL+'/like/?userid='+authContext.loggedInUserData.id);
-  setUserLikes(response.data);    
-  
-  } catch (error) {
-    
-  console.error(error);
-  }
-};  
-const getUserPosts = async () =>{
-  try {
-    
-  const response = await axios.get(BACKEND_URL+'/post/?userid_posted='+authContext.loggedInUserData.id);
-  setUserPosts(response.data);    
-  
-  } catch (error) {
-    
-  console.error(error);
-  }
-};  
-
   
   return (
-      <ScrollView>
+      <ScrollView refreshControl={
+        <RefreshControl onRefresh={onRefresh} />
+      }>
       <View style={styles.menuRow}>
         <View style={styles.userNameBox}>
-        <Text style={styles.usernameHeader}>{userLoggedIn.username}</Text>
+        <Text style={styles.usernameHeader}>{userinfo.username}</Text>
         
         </View>
         <View style={styles.thumbsCameraBox}>
           <View>
         <Icon name='heart' style={styles.thumbsCameraIcon}/>
-        <Text style={styles.counterText}>{userLikes.length}</Text>
+        
+        <Text style={styles.counterText}>{likes.length}</Text>
         </View>
         <View>
         <Icon name='camera' style={styles.thumbsCameraIcon}/>
-        <Text style={styles.counterText}>{userPosts.length}</Text>
+        <Text style={styles.counterText}>{posts.length}</Text>
         </View>
         </View>
         <View style={styles.menuIconBox}>
@@ -93,7 +41,7 @@ const getUserPosts = async () =>{
       <View style={commonStyles.row}>
       
       </View>
-      <ImageList restaurant={authContext.loggedInUserData} searchby='userid_posted'/>
+      <ImageList restaurant={userinfo} searchby='userid_posted' posts={posts}/>
       {modalVisible ? (
           <ModalView
             onClose={() => setModalVisible(false)}
