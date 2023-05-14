@@ -40,6 +40,9 @@ export const Searchbar = StyleSheet.create({
       magniGlass:{
         fontSize:16,
         marginLeft: 10,
+      },
+      tagText:{
+        fontSize: 12,
       }
 
 });

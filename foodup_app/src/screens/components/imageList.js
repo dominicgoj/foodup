@@ -10,47 +10,36 @@ import ModalView from './modalView';
 import moment from "moment";
 import AuthContext from '../../utilities/authcontext';
 import FetchRestaurants from "../../api/fetchRestaurants";
-
-
+import ThreeDots from "./threedots";
+import DeleteContent from "./deleteContent";
+import ImageLoader from "./imageLoader";
+import PreviewImage from "./previewImage";
 const ImageList = ({ posts }) => {
   const [selectedPost, setSelectedPost] = useState();
   const authContext = useContext(AuthContext);
   const userData = authContext.loggedInUserData;
-  
-
-  const renderStars = (rating) => {
-    const fullStars = Math.floor(rating);
-    const stars = [];
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(<Icon key={i} name='star-outlined' style={styles.star} />);
-    }
-
-    return stars;
-  };
 
   const [commentModalVisible, setCommentModalVisible] = useState(false);
 
+  const handleDeleteSuccessfulAndSetModalToFalse = () =>{
+    setCommentModalVisible(false)
+  }
+
   const renderCommentRows = () => {
     const rows = [];
+
     for (let i = 0; i < posts.length; i += 3) {
       const rowOfPosts = posts.slice(i, i + 3);
       
       const row = (
         <View key={i} style={[styles.row]}>
           {rowOfPosts.map((post, index) => {
+           
             
+          
             return(
             
-            <TouchableOpacity key={post.id} style={styles.imageContainer} onPress={() => openComment(post)}>
-                  <ImageBackground style={styles.image} source={{uri: post.image_preview}} >
-                  <View key={post.id} style={styles.starsRow}>
-                    {renderStars(post.rating)}
-                  </View>
-                  </ImageBackground>
-                
-              
-            </TouchableOpacity>
+           <PreviewImage key={index} post={post} openComment={openComment}/>
           )
     })}
         </View>
@@ -130,31 +119,58 @@ const ImageList = ({ posts }) => {
           }));
         }
       }, [selectedPost]);
-
+    
+      
 
     const CommentContent = (post) =>{
+      const [deletePostBoxVisible, setDeletePostBoxVisible] = useState(false)
+      const handleSetDeletePostVisible = () =>{
+        setDeletePostBoxVisible(!deletePostBoxVisible)
+      }
+      const [isLoading, setIsLoading] = useState(true)
+      const handleImageLoaded = () =>{
+        setIsLoading(false)
+      }
+
         return(
-            <ScrollView>
-            <Text style={commentStyles.commentUserTitleHeader}><GetUsernameOfComment userID={post.post.userid_posted} /> @ {post.post.restaurant_name}</Text>
-            <Image source={{ uri: post.post.image }} style={commentStyles.commentImg} />
-            
-            <View style={commonStyles.bottomImageContainer} >
-            <View style={commentStyles.topBox}>
-              <Text style={commentStyles.commentUserTitle}><GetUsernameOfComment userID={post.post.userid_posted} /></Text>
-              <Icon name="star" style={commentStyles.star} />
-              <Text style={commentStyles.ratingText}>{post.post.rating}</Text>
-              <Text style={commentStyles.date}>vor <TimeAgo timestamp={post.post.created_at} /></Text>
-              
-            </View>
-              <ThumbsUp likedData={likedData}/>
+          <View style={{ height: '94%' }}>
+          <View style={{ flexGrow: 1 }}>
+            <View style={{ flexDirection: 'row'}}>
+              <View style={{ flex: 1 }}>
+                <Text style={commentStyles.commentUserTitleHeader}>
+                  <GetUsernameOfComment userID={post.post.userid_posted} /> @ {post.post.restaurant_name}
+                </Text>
               </View>
+              <ThreeDots handleSetDeletePostVisible={handleSetDeletePostVisible} />
+            </View>
+            <View style={[commentStyles.commentImgContainer]}>
+            <ImageLoader loading={isLoading} />
+            <Image source={{ uri: post.post.image }} style={commentStyles.commentImg} onLoad={handleImageLoaded}/>
+            </View>
+            <View style={commonStyles.bottomImageContainer}>
+              <View style={commentStyles.topBox}>
+                <Text style={commentStyles.commentUserTitle}>
+                  <GetUsernameOfComment userID={post.post.userid_posted} />
+                </Text>
+                <Icon name="star" style={commentStyles.star} />
+                <Text style={commentStyles.ratingText}>{post.post.rating}</Text>
+                <Text style={commentStyles.date}>vor <TimeAgo timestamp={post.post.created_at} /></Text>
+              </View>
+              <ThumbsUp likedData={likedData} />
+            </View>
             <View>
               <Text style={commentStyles.commentText}>
-              {post.post.comment}
-              
+                {post.post.comment}
               </Text>
             </View>
-            </ScrollView>
+          </View>
+          {deletePostBoxVisible ? (
+            <View style={{ alignItems: 'center' }}>
+              <DeleteContent id={post.post.id} deleteSuccessful={handleDeleteSuccessfulAndSetModalToFalse}/>
+            </View>
+          ) : null}
+        </View>
+           
         )
       }
 

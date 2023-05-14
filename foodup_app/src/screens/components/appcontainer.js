@@ -15,6 +15,7 @@ import getUserLoginInfo from '../../utilities/retrieveloggedin.js';
 import getUserPosts from '../../utilities/getUserPosts.js';
 import getUserLikes from '../../utilities/getUserLikes.js';
 import fetchRestaurantData from '../../api/fetchRestaurantData.js';
+import { ScrollView, RefreshControl } from 'react-native-gesture-handler';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -46,6 +47,8 @@ export default function AppContainer() {
       });
   };
 
+
+
   const gatherAllDataFromUser = async () => {
     const userinfo = await getUserLoginInfo()
     const userposts = await getUserPosts(userinfo.id)
@@ -65,6 +68,7 @@ export default function AppContainer() {
 
   
   return (
+    
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen
@@ -119,6 +123,7 @@ export default function AppContainer() {
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
+    
   );
 }
 

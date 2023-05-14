@@ -10,6 +10,7 @@ from django.db.models import F
 from math import radians, sin, cos, sqrt, atan2
 from django.shortcuts import render, HttpResponse
 from django.core.mail import send_mail
+from django.db.models import Q
 import random
 import json
 import os
@@ -41,7 +42,7 @@ class PostList(generics.ListCreateAPIView):
         user_id = self.request.GET.get('userid_posted')
         sort_by = self.request.GET.get('sort')  # Get the sort parameter
 
-        queryset = Post.objects.all()
+        queryset = Post.objects.filter(active=True)
         if restaurant_id and user_id:
             queryset = queryset.filter(restaurant_id=restaurant_id, userid_posted=user_id)
             
@@ -69,6 +70,21 @@ class PostDelete(generics.DestroyAPIView):
             return obj
         
         return None
+
+class PostSetInactive(APIView):
+    def post(self, request):
+        post_id = request.data.get('id')  # Retrieve the 'id' from request.data
+        if post_id:
+            try:
+                post = Post.objects.get(id=post_id)
+                post.active = False
+                post.save()
+                return Response({'message': 'Post set inactive successfully.'})
+            except Post.DoesNotExist:
+                return Response({'message': 'Post not found.'}, status=404)
+        else:
+            return Response({'message': 'Invalid request.'}, status=400)
+
         
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
@@ -101,7 +117,7 @@ class RestaurantSearch(generics.ListCreateAPIView):
         restaurant_name = self.request.GET.get('restaurant_name')
         restaurant_id = self.request.GET.get('id')
         if restaurant_name:
-                restaurants = self.get_queryset().filter(restaurant_name__icontains=restaurant_name)
+                restaurants = self.get_queryset().filter(Q(restaurant_name__icontains=restaurant_name) | Q(tags__icontains=restaurant_name))
                 serializer = self.get_serializer(restaurants, many=True)
                 return Response(serializer.data)
         if restaurant_id:
@@ -140,19 +156,19 @@ class RestaurantDistance(APIView):
     def get(self, request):
         user_latitude = float(request.GET.get('user_latitude'))
         user_longitude = float(request.GET.get('user_longitude'))
-        
-        restaurants = Restaurant.objects.all()
+        restaurants = Restaurant.objects.filter(active=True)
         serialized_restaurants = self.serializer_class(restaurants, many=True).data
-
+        
         for restaurant in serialized_restaurants:
             restaurant_latitude = restaurant['latitude_gps']
             restaurant_longitude = restaurant['longitude_gps']
-
-            distance = self.calculate_distance(
-                user_latitude, user_longitude, float(restaurant_latitude), float(restaurant_longitude)
-            )
-            restaurant['distance'] = distance
-
+            if(restaurant_latitude != "" and restaurant_longitude != ""):
+                
+                distance = self.calculate_distance(
+                    user_latitude, user_longitude, float(restaurant_latitude), float(restaurant_longitude)
+                )
+                restaurant['distance'] = distance
+                
         return Response(serialized_restaurants)
 
 class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):

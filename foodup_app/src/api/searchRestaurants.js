@@ -3,7 +3,7 @@ import { BACKEND_URL } from "../../config";
 
 export default async function SearchRestaurants(input, searchVariable) {
   
-    if (input&&searchVariable) {
+    if (input&&input.length >= 3&&searchVariable) {
       try {
         const requestAllRestaurants = await axios.get(BACKEND_URL + "/restaurant/search?"+searchVariable+"="+input);
         return requestAllRestaurants.data;

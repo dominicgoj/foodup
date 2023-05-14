@@ -33,10 +33,25 @@ commentImg:{
     height: 400,
     borderRadius: 15,
 },
-centeredView: {
-    
-    
-  },
+commentImgContainer:{
+  
+    alignItems: 'center',
+    maxHeight: 400
+
+},
+animatedStyleContainer:{
+  height: '100%', 
+  width: '100%', 
+  backgroundColor: '#E6E6E6', 
+  justifyContent: 'center', 
+  alignItems: 'center', 
+  borderRadius: 15, 
+},
+animatedStyleText: { 
+  fontSize: 96, 
+  textAlign: 'center',
+  color: '#516B6B' },
+  
   modalView: {
     marginLeft: 20,
     marginRight: 20,

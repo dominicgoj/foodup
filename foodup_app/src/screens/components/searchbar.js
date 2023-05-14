@@ -42,22 +42,35 @@ const SearchBar = () => {
         value={searchInput}
         onChangeText={(text) => setSearchInput(text)}
       /><View style={Searchbar.resultsContainer}>
-      {/* Display search results */}
       {searchResults ? (
-        searchResults.map((result) => (
-          <TouchableOpacity key={result.id} onPress={()=>handleRestaurantSelect(result)}>
-          <View key={result.id} style={[Searchbar.resultContainer]}>
-            <View key={result.id} style={[Searchbar.resultRow]}>
-            <Icon name='magnifying-glass' style={Searchbar.magniGlass}/>
-          <Text key={result.id} style={Searchbar.resultFont}>{result.restaurant_name}</Text>
-          <View style={{marginLeft: 10,}}><RenderStars rating={result.average_rating}/></View>
-          <View style={{flex:1, justifyContent: 'center'}}><DistanceLocation restaurant={result}/></View>
+  searchResults.map((result, index) => (
+    <TouchableOpacity key={`${result.id}-${index}`} onPress={() => handleRestaurantSelect(result)}>
+      <View style={[Searchbar.resultContainer]}>
+        <View style={[Searchbar.resultRow]}>
+          <Icon name='magnifying-glass' style={Searchbar.magniGlass} />
+          <View>
+            <Text style={Searchbar.resultFont}>{result.restaurant_name}</Text>
+            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+              {result.tags.map((tag, index) => {
+                return (
+                  <Text key={`${result.id}-tag-${index}`} style={[Searchbar.tagText, Colors.quartaryText]}>
+                    {tag},
+                  </Text>
+                );
+              })}
+            </View>
           </View>
-          </View>
-          </TouchableOpacity>
-          
-        ))
-      ) : null}
+          <View style={{ marginLeft: 10 }}><RenderStars rating={result.average_rating} /></View>
+          <View style={{ flex: 1, marginTop: 2 }}><DistanceLocation restaurant={result} /></View>
+        </View>
+        <View style={Searchbar.resultRow}>
+          {/* Additional content */}
+        </View>
+      </View>
+    </TouchableOpacity>
+  ))
+) : null}
+
     </View></View>
     </TouchableWithoutFeedback>
   );

@@ -21,6 +21,7 @@ class Post(models.Model):
     comment = models.TextField(max_length=500, blank = True)
     restaurant_id = models.IntegerField(blank = True)
     created_at = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
 class User(models.Model):
     username = models.TextField(blank = True)
     telephone = PhoneNumberField(blank=True)

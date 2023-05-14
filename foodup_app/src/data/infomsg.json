@@ -1,9 +1,13 @@
-[
-    {
-        "name" : "no-restaurants-at-your-place",
-        "title" : "Leider gibts es in Deiner Nähe keine teilnehmenden Restaurants.",
+{
+    "no-restaurants-at-your-place": {
+        "name": "no-restaurants-at-your-place",
+        "title": "Leider gibt es in Deiner Nähe keine teilnehmenden Restaurants.",
         "language": "DE",
-        "subtitle": "Gehe zum Tab Suche oder Karte um Restaurants zu finden."
+        "subtitle": "Gehe zum Tab Suche oder Karte, um Restaurants zu finden."
+    },
+    "delete-post": {
+        "name": "delete-post",
+        "title": "Beitrag entfernen?",
+        "language": "DE"
     }
-   
-]
+}

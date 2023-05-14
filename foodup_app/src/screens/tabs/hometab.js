@@ -34,10 +34,10 @@ const HomeScreen = ({ restaurantData, onRefresh }) => {
           ) : (
             <View style={styles.noRestaurantsContainer}>
               <Text style={styles.noRestaurantsText}>
-                {infomsg.find((msg) => msg.name === 'no-restaurants-at-your-place')?.title || ''}
+                {infomsg['no-restaurants-at-your-place']?.title || ''}
               </Text>
               <Text style={styles.noRestaurantsSubtitleText}>
-                {infomsg.find((msg) => msg.name === 'no-restaurants-at-your-place')?.subtitle || ''}
+                {infomsg['no-restaurants-at-your-place']?.subtitle || ''}
               </Text>
             </View>
           )

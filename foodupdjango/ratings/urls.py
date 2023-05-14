@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import PostList, PostDetail, PostDelete, RestaurantList, RestaurantCreate, RestaurantDistance, RestaurantSearch, RestaurantDetail, UserList, UserDetail, LikeList, LikeDetail, LikeDeleteView, LikeCreateView, SearchUser, CreateUser, UserDelete, CreatePost, SendActivationView, VerifyActivationCodeView, ActivationCodeList
+from .views import PostList, PostDetail, PostDelete, PostSetInactive, RestaurantList, RestaurantCreate, RestaurantDistance, RestaurantSearch, RestaurantDetail, UserList, UserDetail, LikeList, LikeDetail, LikeDeleteView, LikeCreateView, SearchUser, CreateUser, UserDelete, CreatePost, SendActivationView, VerifyActivationCodeView, ActivationCodeList
 
 urlpatterns = [ path('post/', PostList.as_view(), name="post_list"),
                path('post/<int:pk>', PostDetail.as_view(), name="post_detail"),
                path('post/create/', CreatePost.as_view(), name="post_create"),
                path('post/delete/', PostDelete.as_view(), name="post_delete"),
+               path('post/setinactive', PostSetInactive.as_view(), name="post-set-inactive"),
                path('user/', UserList.as_view(), name="user_list"),
                path('user/<int:pk>', UserDetail.as_view(), name="user_detail"),
                path('user/delete/<int:pk>', UserDelete.as_view(), name="user_delete"),

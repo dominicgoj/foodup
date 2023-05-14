@@ -53,6 +53,7 @@ export default function TakePhoto({onPhotoTaken, onRestaurantIdentified, onPress
 
 
   const takePicture = async () => {
+    if(userAllowedToPost){
     if (cameraRef) {
       try {
         const data = await cameraRef.current.takePictureAsync();
@@ -64,6 +65,9 @@ export default function TakePhoto({onPhotoTaken, onRestaurantIdentified, onPress
       } catch (e) {
         console.log(e);
       }
+    }}
+    else{
+      showAlert(alertMessages.alreadyposted)
     }
   };
   const compressImage = async (uri, format = SaveFormat.JPEG) => { // SaveFormat.PNG
@@ -276,19 +280,19 @@ const compressPreviewImage = async (uri, format = SaveFormat.JPEG) => { // SaveF
             
             </View>
         ):null}
-      {userAllowedToPost ? (
-      image ? (
+      
+      {image ? (
         <View>
           <TouchableOpacity onPress={resetPicture}>
             <Icon name='circle-with-cross' style={styles.iconButton} />
           </TouchableOpacity>
         </View>
-      ) : (
+      ) : null}
+      {!image && scanned?(
         <TouchableOpacity onPress={takePicture}>
           <Icon name='circle' style={styles.iconButton} />
         </TouchableOpacity>
-      )
-    ) : null}
+      ):null}
        
       </View>
     </View>

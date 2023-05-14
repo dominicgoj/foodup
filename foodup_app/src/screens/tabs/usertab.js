@@ -49,7 +49,7 @@ function UserScreen({posts, likes, userinfo, onRefresh}) {
             modalContent={<UserSettings/>}
           />
         ) : null}
-    
+      
       </ScrollView>
      
     

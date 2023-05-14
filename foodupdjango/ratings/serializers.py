@@ -5,7 +5,7 @@ from .models import Post, Restaurant, User, Like, ActivationCode
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['id', 'userid_posted', 'image', 'image_preview', 'rating', 'comment', 'restaurant_id', 'created_at']
+        fields = ['id', 'userid_posted', 'image', 'image_preview', 'rating', 'comment', 'restaurant_id', 'created_at', 'active']
         
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:

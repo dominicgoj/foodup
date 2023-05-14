@@ -1,21 +1,31 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { commonStyles } from '../../styles/commonstyles';
 import DistanceLocation from './distanceLocation';
-import FetchRestaurants from '../../api/fetchRestaurants';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import ContentLoader from 'react-native-easy-content-loader';
 
 const RestaurantCard = ({restaurant}) => {
     const navigation = useNavigation();
- 
+    const [isLoaded, setIsLoaded] = useState(true)
+  
+    const imageSource = require('../../../assets/img/food.jpg');
+
+    const handleImageLoad = () => {
+        setIsLoaded(false);
+      };
+
     return(
         //hier muss dann API abgerufen werden, map und erzeugen
         <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Detail", {restaurant : restaurant})}>
             <View style={styles.imageContainer} >
-            <Image source={require('../../../assets/img/food.jpg')}
-            style={styles.image}/>
+            <ContentLoader active loading={isLoaded} />
+            <Image style={styles.image} onLoad={handleImageLoad} source={imageSource}/>
             </View>
+            
+            
+            
             <View style={styles.row}>
             <Text style={commonStyles.restaurantTitle}>{restaurant.restaurant_name}</Text>
             <View style={styles.ratingBox}>
@@ -33,7 +43,6 @@ const RestaurantCard = ({restaurant}) => {
             <Text style={styles.distance}>{restaurant.street}, {restaurant.city}</Text>
             </View>
             </View>
-            
         </TouchableOpacity>
     );
 }
@@ -90,6 +99,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderRadius: 5,
         paddingBottom: 10,
+        marginBottom: 10,
         
     },
     image: {
