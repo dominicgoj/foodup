@@ -640,6 +640,8 @@ const styles = StyleSheet.create({
     marginRight: 5,
     marginBottom: 15,
     borderColor: '#332E33',
+
+   
   },
   tagFont: {
     fontSize: 16,
@@ -648,7 +650,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginBottom: 10,
-    alignItems: 'center',
+    marginLeft: 20,
+    marginRight: 20,
   },
 });
 

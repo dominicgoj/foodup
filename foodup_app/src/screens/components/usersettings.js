@@ -11,9 +11,10 @@ import UpdateUser from "../../api/updateuser";
 import Regex from "./regex";
 import UpdateUserToInactive from "../../api/deleteuser";
 import { deleteUserLoginInfo } from "../../utilities/deleteloggedin";
-import FAQPage from "./faqpage";
+import { useNavigation } from "@react-navigation/native";
 
-const UserSettings = () => {
+const UserSettings = ({closeModal}) => {
+  const navigation = useNavigation();
   const settingsoptions_german = SettingsOption.German;
   const authContext = useContext(AuthContext);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -59,6 +60,11 @@ const UserSettings = () => {
     } else if (key === 'logout') {
       setShowInput({})
       authContext.onLogout();
+    }
+     else if (key === 'my_restaurants') {
+      navigation.navigate("UserRestaurants")
+      closeModal()
+      
     }
     else if (key === 'faq') {
       setShowFAQ(!showFAQ)

@@ -1,100 +1,71 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, StyleSheet, ScrollView, Pressable, RefreshControl } from 'react-native';
-import { commonStyles } from '../../styles/commonstyles';
-import Icon from 'react-native-vector-icons/Entypo';
-import ImageList from '../components/imageList';
-import ModalView from '../components/modalView';
-import UserSettings from '../components/usersettings';
+import axios from 'axios';
+import { BACKEND_URL } from '../../../config';
+import { createStackNavigator } from '@react-navigation/stack';
+import UserContent from '../components/userContent';
+import UserRestaurantDetail from '../components/userRestaurantDetail';
+import UserRestaurantListScreen from '../components/userRestaurantListScreen';
+import CustomHeader from '../components/costumheader';
 
-function UserScreen({posts, likes, userinfo, onRefresh}) {
-  const [modalVisible, setModalVisible] = useState(false)
-  
+
+function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
+  const Stack = createStackNavigator();
+  const [userRestaurants, setUserRestaurants] = useState([])
+  const [refreshBool, setRefreshBool] = useState(false)
+  useEffect(() => {
+    const fetchUserRestaurants = async () => {
+      try {
+        const requestAllRestaurants = await axios.get(
+          BACKEND_URL + "/restaurant/search?userid=" + userinfo.id
+        );
+        const userRestaurantsData = requestAllRestaurants.data;
+        setUserRestaurants(userRestaurantsData);
+        console.log("ausgeführt")
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    
+    fetchUserRestaurants();
+  },[refreshBool]);
+
+  useEffect(()=>{
+    console.log("userRestaurants changed")
+  }, [userRestaurants])
+
+  const triggerRefresh = (updatedRestaurantData) =>{
+    setRefreshBool(!refreshBool)
+   
+    
+ 
+  }
   return (
-      <ScrollView refreshControl={
-        <RefreshControl onRefresh={onRefresh} />
-      }>
-      <View style={styles.menuRow}>
-        <View style={styles.userNameBox}>
-        <Text style={styles.usernameHeader}>{userinfo.username}</Text>
+      <Stack.Navigator>
+        <Stack.Screen name="UserContent" options={{
+          header: () => <CustomHeader arrowShown={false} logoShown={false} headerText={tabTitles.profile}/>,
+        }}>{()=><UserContent posts={posts} likes={likes} userinfo={userinfo} onRefresh={onRefresh} />}</Stack.Screen>
         
-        </View>
-        <View style={styles.thumbsCameraBox}>
-          <View>
-        <Icon name='heart' style={styles.thumbsCameraIcon}/>
-        
-        <Text style={styles.counterText}>{likes.length}</Text>
-        </View>
-        <View>
-        <Icon name='camera' style={styles.thumbsCameraIcon}/>
-        <Text style={styles.counterText}>{posts.length}</Text>
-        </View>
-        </View>
-        <View style={styles.menuIconBox}>
-        <Pressable onPress={() => setModalVisible(true)}>
-        <Icon name='menu' style={styles.menuIcon} />
-        </Pressable>
-        </View>
-      </View>
-      <View style={{alignItems:'center', marginBottom: 10}}>
-      <Text style={commonStyles.restaurantTitleDetailView}>Deine Bewertungen</Text>
-      </View>
-      <View style={commonStyles.row}>
-      
-      </View>
-      <ImageList restaurant={userinfo} searchby='userid_posted' posts={posts}/>
-      {modalVisible ? (
-          <ModalView
-            onClose={() => setModalVisible(false)}
-            visible={modalVisible}
-            modalContent={<UserSettings/>}
+        <Stack.Screen name="UserRestaurants" options={{
+          header: () => <CustomHeader arrowShown={true} logoShown={false} />,
+        }}>
+          {()=><UserRestaurantListScreen restaurantData={userRestaurants}/>}
+        </Stack.Screen>
+
+        <Stack.Screen name="UserRestaurantDetail" options={{
+          header: () => <CustomHeader arrowShown={true} logoShown={false} />,
+        }}>
+          {(props) => (
+          <UserRestaurantDetail
+            {...props}
+            restaurant={props.route.params.restaurant}
+            triggerRefresh={triggerRefresh}
           />
-        ) : null}
-      
-      </ScrollView>
-     
+        )}
+
+        </Stack.Screen>
+      </Stack.Navigator>
     
   );
 }
-
-const styles = StyleSheet.create({
-  menuIcon:{
-    fontSize: 34,
-    color: '#303030',
-    
-
-  },
-  counterText:{
-    textAlign: 'center',
-    fontSize: 14,
-    
-  },
-  menuIconBox:{
-    justifyContent: 'center',
-  },
-  usernameHeader:{
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  thumbsCameraIcon:{
-    padding: 20,
-    fontSize: 21,
-    
-  },
-  thumbsCameraBox:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    
-  },
-  userNameBox:{
-    justifyContent: 'center',
-    
-  },
-  menuRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 15,
-    
-  }
-})
 
 export default UserScreen;

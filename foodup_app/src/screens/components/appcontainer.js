@@ -15,7 +15,6 @@ import getUserLoginInfo from '../../utilities/retrieveloggedin.js';
 import getUserPosts from '../../utilities/getUserPosts.js';
 import getUserLikes from '../../utilities/getUserLikes.js';
 import fetchRestaurantData from '../../api/fetchRestaurantData.js';
-import { ScrollView, RefreshControl } from 'react-native-gesture-handler';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -24,7 +23,8 @@ const tabTitles = {
   'search': 'Suche',
   'post': 'Beitrag posten',
   'map': 'Karte',
-  'profile': 'Profil'
+  'profile': 'Profil',
+  'yourrestaurants': 'Dein Restaurant'
 
 }
 export default function AppContainer() {
@@ -111,17 +111,17 @@ export default function AppContainer() {
           component={MapScreen}
         />
         <Tab.Screen
-          name={tabTitles.profile}
+          name={tabTitles.profile}          
           options={{
             tabBarIcon: ({ color, size }) => (
               <Icon name="user" size={size} color={color} />
             ),
-            header: () => <CostumHeader arrowShown={false} logoShown={false} headerText={tabTitles.profile}/>,
+            headerShown: false
           }}
-        >
-          {() => <UserScreen posts={userPosts} likes={userLikes} userinfo={userLoggedIn} onRefresh={onRefresh}/>}
-        </Tab.Screen>
+        >{()=><UserScreen posts={userPosts} likes = {userLikes} onRefresh={onRefresh} userinfo={userLoggedIn} tabTitles={tabTitles}/>}</Tab.Screen>
+        
       </Tab.Navigator>
+      
     </NavigationContainer>
     
   );
@@ -136,3 +136,4 @@ const AddTabStack = () =>{
   );
 
 }
+

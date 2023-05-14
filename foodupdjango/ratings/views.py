@@ -116,6 +116,7 @@ class RestaurantSearch(generics.ListCreateAPIView):
     def get(self, request):
         restaurant_name = self.request.GET.get('restaurant_name')
         restaurant_id = self.request.GET.get('id')
+        userid = self.request.GET.get('userid')
         if restaurant_name:
                 restaurants = self.get_queryset().filter(Q(restaurant_name__icontains=restaurant_name) | Q(tags__icontains=restaurant_name))
                 serializer = self.get_serializer(restaurants, many=True)
@@ -124,6 +125,11 @@ class RestaurantSearch(generics.ListCreateAPIView):
             restaurants = self.get_queryset().filter(id=restaurant_id)
             serializer = self.get_serializer(restaurants, many=True)
             return Response(serializer.data)
+        if userid:
+            restaurants = self.get_queryset().filter(userid=userid)
+            serializer = self.get_serializer(restaurants, many = True)
+            return Response(serializer.data)
+            
 class RestaurantCreate(APIView):
     def post(self, request):
         restaurant_serializer = RestaurantSerializer(data=request.data)
@@ -174,6 +180,14 @@ class RestaurantDistance(APIView):
 class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
+    def post(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
     
 
 class UserList(generics.ListCreateAPIView):

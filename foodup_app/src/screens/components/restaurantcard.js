@@ -9,7 +9,6 @@ import ContentLoader from 'react-native-easy-content-loader';
 const RestaurantCard = ({restaurant}) => {
     const navigation = useNavigation();
     const [isLoaded, setIsLoaded] = useState(true)
-  
     const imageSource = require('../../../assets/img/food.jpg');
 
     const handleImageLoad = () => {
@@ -18,14 +17,11 @@ const RestaurantCard = ({restaurant}) => {
 
     return(
         //hier muss dann API abgerufen werden, map und erzeugen
-        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Detail", {restaurant : restaurant})}>
+        <View style={styles.container}>
             <View style={styles.imageContainer} >
             <ContentLoader active loading={isLoaded} />
             <Image style={styles.image} onLoad={handleImageLoad} source={imageSource}/>
             </View>
-            
-            
-            
             <View style={styles.row}>
             <Text style={commonStyles.restaurantTitle}>{restaurant.restaurant_name}</Text>
             <View style={styles.ratingBox}>
@@ -43,7 +39,7 @@ const RestaurantCard = ({restaurant}) => {
             <Text style={styles.distance}>{restaurant.street}, {restaurant.city}</Text>
             </View>
             </View>
-        </TouchableOpacity>
+        </View>
     );
 }
 
@@ -90,7 +86,6 @@ const styles = StyleSheet.create({
         
     },
     container:{
-        flex:1,
         justifyContent: 'center',
         alignSelf: 'center',
         maxHeight: 200,

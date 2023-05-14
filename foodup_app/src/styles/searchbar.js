@@ -43,6 +43,7 @@ export const Searchbar = StyleSheet.create({
       },
       tagText:{
         fontSize: 12,
+        
       }
 
 });

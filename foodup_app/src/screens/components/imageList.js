@@ -141,7 +141,7 @@ const ImageList = ({ posts }) => {
                   <GetUsernameOfComment userID={post.post.userid_posted} /> @ {post.post.restaurant_name}
                 </Text>
               </View>
-              <ThreeDots handleSetDeletePostVisible={handleSetDeletePostVisible} />
+              {userData.id==post.post.userid_posted?(<ThreeDots handleSetDeletePostVisible={handleSetDeletePostVisible} />):null}
             </View>
             <View style={[commentStyles.commentImgContainer]}>
             <ImageLoader loading={isLoading} />

@@ -6,54 +6,22 @@ import { createStackNavigator } from '@react-navigation/stack';
 import RestaurantCard from '../components/restaurantcard';
 import RestaurantDetail from '../components/restaurantdetail';
 import CostumHeader from '../components/costumheader.js';
-import infomsg from '../../data/infomsg.json';
+import RestaurantListScreen from '../components/restaurantListScreen';
 
 const HomeScreen = ({ restaurantData, onRefresh }) => {
   const Stack = createStackNavigator();
-
-  const RestaurantListScreen = () => {
-    const navigation = useNavigation();
-
-    return (
-      <ScrollView refreshControl={
-        <RefreshControl onRefresh={onRefresh} />
-      }>
-        {restaurantData ? (
-          restaurantData.length > 0 ? (
-            restaurantData.map((restaurant, index) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() => navigation.navigate('Detail', { restaurant })}
-              >
-                <RestaurantCard
-                  restaurant={restaurant}
-                  style={{ height: 200 }}
-                />
-              </TouchableOpacity>
-            ))
-          ) : (
-            <View style={styles.noRestaurantsContainer}>
-              <Text style={styles.noRestaurantsText}>
-                {infomsg['no-restaurants-at-your-place']?.title || ''}
-              </Text>
-              <Text style={styles.noRestaurantsSubtitleText}>
-                {infomsg['no-restaurants-at-your-place']?.subtitle || ''}
-              </Text>
-            </View>
-          )
-        ) : null}
-      </ScrollView>
-    );
-  };
-
-  return (
+   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={RestaurantListScreen}
           options={{ header: () => <CostumHeader arrowShown={false} logoShown={true} /> }}
-        />
+        >{()=><ScrollView refreshControl={
+          <RefreshControl onRefresh={onRefresh} />
+        }>
+          <RestaurantListScreen restaurantData={restaurantData}/>
+          
+          </ScrollView>}</Stack.Screen>
         <Stack.Screen
           name="Detail"
           component={RestaurantDetail}

@@ -38,7 +38,7 @@ const SearchBar = () => {
     <View style={styles.container}>
       <TextInput
         style={[Searchbar.input]}
-        placeholder="Search"
+        placeholder="Restaurant oder Stichwort..."
         value={searchInput}
         onChangeText={(text) => setSearchInput(text)}
       /><View style={Searchbar.resultsContainer}>
@@ -50,7 +50,7 @@ const SearchBar = () => {
           <Icon name='magnifying-glass' style={Searchbar.magniGlass} />
           <View>
             <Text style={Searchbar.resultFont}>{result.restaurant_name}</Text>
-            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+            <View style={{ flexDirection: 'row', marginLeft: 10, }}>
               {result.tags.map((tag, index) => {
                 return (
                   <Text key={`${result.id}-tag-${index}`} style={[Searchbar.tagText, Colors.quartaryText]}>
@@ -60,8 +60,10 @@ const SearchBar = () => {
               })}
             </View>
           </View>
-          <View style={{ marginLeft: 10 }}><RenderStars rating={result.average_rating} /></View>
-          <View style={{ flex: 1, marginTop: 2 }}><DistanceLocation restaurant={result} /></View>
+          <View style={{flexDirection: 'row', flex: 1, justifyContent:'flex-end', marginRight: 10}}>
+          <View style={{ marginLeft: 10,}}><RenderStars rating={result.average_rating} /></View>
+          <View style={{marginTop: 2 }}><DistanceLocation restaurant={result} /></View>
+          </View>
         </View>
         <View style={Searchbar.resultRow}>
           {/* Additional content */}
