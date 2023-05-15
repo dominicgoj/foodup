@@ -56,6 +56,10 @@ class PostList(generics.ListCreateAPIView):
         if sort_by:
             queryset = queryset.order_by('-created_at')
         return queryset
+class AllPostList(generics.ListCreateAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+
 class PostDelete(generics.DestroyAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
@@ -89,10 +93,13 @@ class PostSetInactive(APIView):
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+class RestaurantActiveAndInactive(generics.ListCreateAPIView):
+    serializer_class = RestaurantSerializer
+    queryset = Restaurant.objects.all()
     
 class RestaurantList(generics.ListCreateAPIView):
     serializer_class = RestaurantSerializer
-    queryset = Restaurant.objects.all()
+    queryset = Restaurant.objects.filter(active=True)
 
     def get(self, request):
         qr_id = self.request.GET.get('qr_id')
@@ -111,24 +118,33 @@ class RestaurantList(generics.ListCreateAPIView):
             return Response(serializer.data)
 class RestaurantSearch(generics.ListCreateAPIView):
     serializer_class = RestaurantSerializer
-    queryset = Restaurant.objects.all()
+    queryset = Restaurant.objects.all()  # Start with all restaurants
     
     def get(self, request):
         restaurant_name = self.request.GET.get('restaurant_name')
         restaurant_id = self.request.GET.get('id')
         userid = self.request.GET.get('userid')
-        if restaurant_name:
-                restaurants = self.get_queryset().filter(Q(restaurant_name__icontains=restaurant_name) | Q(tags__icontains=restaurant_name))
-                serializer = self.get_serializer(restaurants, many=True)
-                return Response(serializer.data)
-        if restaurant_id:
-            restaurants = self.get_queryset().filter(id=restaurant_id)
-            serializer = self.get_serializer(restaurants, many=True)
-            return Response(serializer.data)
+        
         if userid:
-            restaurants = self.get_queryset().filter(userid=userid)
-            serializer = self.get_serializer(restaurants, many = True)
-            return Response(serializer.data)
+            print("userid passed in RestaurantSearch views.py")
+            restaurants = self.queryset.filter(userid=userid)
+        else:
+            restaurants = self.queryset.filter(active=True)
+            
+            if restaurant_name:
+                restaurants = restaurants.filter(
+                    Q(restaurant_name__icontains=restaurant_name) | Q(tags__icontains=restaurant_name)
+                )
+                
+            if restaurant_id:
+                restaurants = restaurants.filter(id=restaurant_id)
+        
+        serializer = self.get_serializer(restaurants, many=True)
+        return Response(serializer.data)
+
+class RestaurantDelete(generics.DestroyAPIView):
+    def get(self, request):
+        restaurant_id = self.request.GET.get('id')
             
 class RestaurantCreate(APIView):
     def post(self, request):
@@ -188,6 +204,11 @@ class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
+
+
+class RestaurantDetailActiveAndInactive(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
     
 
 class UserList(generics.ListCreateAPIView):
@@ -229,7 +250,6 @@ class CreateUser(APIView):
                 return Response(existing_user_data, status=status.HTTP_200_OK)
 
             else:
-                print("else")
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
@@ -238,7 +258,6 @@ class CreateUser(APIView):
 
 class CreatePost(APIView):
     def post(self, request):
-        print("Requested data", request.data)
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

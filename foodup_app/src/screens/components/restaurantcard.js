@@ -5,12 +5,10 @@ import { commonStyles } from '../../styles/commonstyles';
 import DistanceLocation from './distanceLocation';
 import { useNavigation } from '@react-navigation/native';
 import ContentLoader from 'react-native-easy-content-loader';
-
-const RestaurantCard = ({restaurant}) => {
-    const navigation = useNavigation();
+import RestaurantInactiveRibbon from './restaurantInactive';
+const RestaurantCard = ({restaurant, showActivity}) => {
     const [isLoaded, setIsLoaded] = useState(true)
     const imageSource = require('../../../assets/img/food.jpg');
-
     const handleImageLoad = () => {
         setIsLoaded(false);
       };
@@ -38,7 +36,9 @@ const RestaurantCard = ({restaurant}) => {
             <Icon name='location-pin' style={styles.direction} />
             <Text style={styles.distance}>{restaurant.street}, {restaurant.city}</Text>
             </View>
+            
             </View>
+            {showActivity?<RestaurantInactiveRibbon restaurant={restaurant}/>:null}
         </View>
     );
 }

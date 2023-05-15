@@ -53,6 +53,7 @@ const AddContentScreen = () => {
       formData.append('rating', formState.rating);
       formData.append('comment', formState.comment);
       formData.append('timestamp', 2);
+      formData.append('active', true);
       formData.append('image', {
         uri: formState.photo.uri,
         type: 'image/jpeg', // Set the correct MIME type for the image file
@@ -66,7 +67,7 @@ const AddContentScreen = () => {
   
       
       try {
-        console.log(formData)
+        
         const response = await axios.post(BACKEND_URL + '/post/create/', formData);
       } catch (error) {
         console.error('Error sending post request:', error);

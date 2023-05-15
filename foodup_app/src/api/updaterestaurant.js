@@ -5,7 +5,7 @@ export default async function UpdateRestaurant(updates) {
   try {
     
     const response = await axios.patch(BACKEND_URL+'/restaurant/'+updates.id, updates);
-    
+    return response.data
   } catch (error) {
     console.error(error);
   }

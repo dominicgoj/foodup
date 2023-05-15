@@ -1,17 +1,27 @@
 import React, {useState} from "react";
 import { View, Text, StyleSheet, ScrollView, RefreshControl, Pressable } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/Entypo';
 import ModalView from "./modalView";
 import { commonStyles } from "../../styles/commonstyles";
 import ImageList from "./imageList";
 import UserSettings from "./usersettings";
-const UserContent = ({posts, likes, userinfo, onRefresh}) =>{
+import NoContentsAvailable from "./nocontentsavailable";
+const UserContent = ({posts, likes, userinfo, onRefresh, triggerRefresh}) =>{
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Add your focus effect logic here
+      console.log("UserContent refresh")
+      triggerRefresh();
+      return
+    }, [])
+  );
 
     const [modalVisible, setModalVisible] = useState(false)
-  
     return (
         <ScrollView refreshControl={
-          <RefreshControl onRefresh={onRefresh} />
+          <RefreshControl onRefresh={onRefresh} triggerRefresh={triggerRefresh} />
         }>
         <View style={styles.menuRow}>
           <View style={styles.userNameBox}>
@@ -41,7 +51,8 @@ const UserContent = ({posts, likes, userinfo, onRefresh}) =>{
         <View style={commonStyles.row}>
         
         </View>
-        <ImageList restaurant={userinfo} searchby='userid_posted' posts={posts}/>
+        {posts.length>0?(<ImageList restaurant={userinfo} searchby='userid_posted' posts={posts}/>):<NoContentsAvailable />}
+        
         {modalVisible ? (
             <ModalView
               onClose={() => setModalVisible(false)}

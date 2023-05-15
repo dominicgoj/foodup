@@ -6,7 +6,7 @@ import { Colors } from "../../styles/colors.js"
 import userRestaurantsInputField from '../../data/userRestaurantsInputField.json'
 import UpdateRestaurant from "../../api/updaterestaurant";
 
-const UserRestaurantDetail = ({ route, triggerRefresh }) => {
+const UserRestaurantEdit = ({ route, triggerRefresh }) => {
   const restaurant = route.params.restaurant;
   const navigation = useNavigation();
   const fieldsException = [
@@ -44,7 +44,7 @@ const UserRestaurantDetail = ({ route, triggerRefresh }) => {
   };
   const handleChanges = () => {
     UpdateRestaurant(updatedRestaurantData)
-    triggerRefresh(updatedRestaurantData)
+    triggerRefresh()
     navigation.navigate("UserRestaurants")
   }
   const RenderChangeButton = () =>{
@@ -84,6 +84,8 @@ const UserRestaurantDetail = ({ route, triggerRefresh }) => {
                 style={userRestaurantsStyles.inputField}
                 multiline={false}
                 value={value}
+                autoCorrect={false}
+                autoCapitalize="none"
                 onChangeText={(text) => handleChange(key, text)}
               />
               </View>
@@ -97,5 +99,5 @@ const UserRestaurantDetail = ({ route, triggerRefresh }) => {
   );
 };
 
-export default UserRestaurantDetail;
+export default UserRestaurantEdit;
 

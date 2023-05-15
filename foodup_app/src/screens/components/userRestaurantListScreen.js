@@ -1,29 +1,41 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity, ScrollView, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, ScrollView, Text, StyleSheet, RefreshControl } from "react-native";
 import RestaurantCard from "./restaurantcard";
 import infomsg from '../../data/infomsg.json';
+import NoContentsAvailable from "./nocontentsavailable";
+import AddRestaurantButton from "./addRestaurantButton";
+import { commonStyles } from "../../styles/commonstyles";
 
-const UserRestaurantListScreen = ({restaurantData}) => {
+const UserRestaurantListScreen = ({restaurantData, triggerRefresh}) => {
     const navigation = useNavigation();
+    
+    const RenderRestaurantList = () => {
+      return restaurantData.map((restaurant, index) => {
+        return (
+          <TouchableOpacity
+              key={index}
+              onPress={()=>navigation.navigate("UserRestaurantDetailView", {restaurant:restaurant})}
+            >
+              <RestaurantCard
+                restaurant={restaurant}
+                style={{ height: 200 }}
+                showActivity={true}
+              />
+            </TouchableOpacity>
+          )
+      });
+    };
+            
     return (
-        <ScrollView style={{marginTop:20}}>
-        {restaurantData ? (
-            restaurantData.map((restaurant, index) => {
-                
-                    return(
-              <TouchableOpacity
-                key={index}
-                onPress={()=>navigation.navigate("UserRestaurantDetail", {restaurant})}
-              >
-                <RestaurantCard
-                  restaurant={restaurant}
-                  style={{ height: 200 }}
-                />
-              </TouchableOpacity>
-            )})
-          ):(null)}
-          </ScrollView>
+        <ScrollView style={{flex: 1}} refreshControl={
+          <RefreshControl onRefresh={triggerRefresh} />
+        }>
+          <Text style={commonStyles.header}>Dein Restaurantbereich</Text>
+          {restaurantData.length>0?<RenderRestaurantList />:
+          (<NoContentsAvailable />)}
+          <AddRestaurantButton />
+        </ScrollView>
     );
   };
   const styles = StyleSheet.create({

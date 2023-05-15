@@ -9,5 +9,10 @@
         "name": "delete-post",
         "title": "Beitrag entfernen?",
         "language": "DE"
+    },
+    "nocontentsavailable": {
+        "name": "nocontentsavailable",
+        "title": "Es sieht noch ziemlich leer hier aus.",
+        "language": "DE"
     }
 }
