@@ -6,7 +6,7 @@ const RatingButtons = ({ onRatingPlaced, resetData }) => {
   
   const handleButtonPress = (buttonIndex) => {
     setSelected([...Array(buttonIndex + 1).keys()]);
-    onRatingPlaced(["rating", buttonIndex]);
+    onRatingPlaced(["rating", buttonIndex+1]);
   };
 
   useEffect(()=>{

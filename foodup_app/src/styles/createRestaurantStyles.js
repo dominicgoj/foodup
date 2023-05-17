@@ -83,4 +83,33 @@ export const CreateRestaurantStyles = StyleSheet.create({
       marginLeft: 20,
       marginRight: 20,
     },
+    headerContainer:{
+      paddingTop: 100,
+    },
+    imageContainer:{
+      flex: 1,
+      width: '100%',
+    },
+    addPhotoContainer: {
+      width: '100%',
+      height: 150,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    addPhotoIcon: {
+      fontSize: 100,
+      color: 'white',
+      opacity: 0.3
+    },
+    PreviewImageContainer: {
+      height: 200,
+      justifyContent: 'center',
+      marginTop: 20,
+      marginBottom: 20,
+      borderRadius: 10,
+    },
+    PreviewImage: {
+      height: 200,
+      borderRadius: 10,
+    }
   });

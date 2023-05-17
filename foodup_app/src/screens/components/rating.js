@@ -5,12 +5,6 @@ import { commonStyles } from '../../styles/commonstyles.js';
 import ratingstexts from '../../data/ratingtexts.json'
 
 export default function RateRestaurant({onRatingPlaced, resetData}){
-    const handleRating = () =>{
-        onRatingPlaced()
-    }
-
-    
-
     const randomIndex = Math.floor(Math.random() * ratingstexts.length);
     const selectedItem = ratingstexts[randomIndex].title;
    

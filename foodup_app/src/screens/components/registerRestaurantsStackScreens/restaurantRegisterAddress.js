@@ -20,7 +20,6 @@ import {
     const [zip, setZip] = useState(getRestaurantZip);
     const [city, setCity] = useState(getRestaurantCity);
     const navigation = useNavigation();
-
     const handleRegisterRestaurantAdress = () => {
       if (street && zip && city) {
         setRestaurantStreet(street);

@@ -18,6 +18,8 @@ function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
   const Stack = createStackNavigator();
   const [userRestaurants, setUserRestaurants] = useState([])
   const [refreshBool, setRefreshBool] = useState(false)
+  const [restaurantRegistered, setRestaurantRegistered] = useState(false);
+
   const {
     getRestaurantName,
     getRestaurantTelephone,
@@ -36,13 +38,20 @@ function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
     setRestaurantCity,
     setRestaurantTags,
     getRestaurantDataset,
-    setRestaurantDataset
+    resetRegisterRestaurant
 } = RestaurantRegisterHelpers()
 
   const triggerRefresh = () =>{
-    console.log("refresh triggered")
     setRefreshBool(!refreshBool)
   }
+  useEffect(()=>{
+    if(restaurantRegistered){
+      resetRegisterRestaurant()
+    }
+    return(
+      setRestaurantRegistered(false)
+    )
+  },[restaurantRegistered])
 
   useEffect(()=>{
     const fetchUserRestaurants = async () => {
@@ -65,10 +74,6 @@ function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
       // Add your focus effect logic here
       triggerRefresh();
       
-      return () => {
-        // Add your clean-up logic here
-        console.log('Screen unfocused');
-      };
     }, [])
   );
 
@@ -134,7 +139,11 @@ function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
         <Stack.Screen name="RenderRestaurantRegistered" options={{
           header: () => <CustomHeader arrowShown={true} logoShown={false} />,
         }}>
-          {()=><RenderRestaurantRegistered dataset={getRestaurantDataset} setDataset={setRestaurantDataset} userinfo={userinfo}/>}
+          {()=><RenderRestaurantRegistered 
+          dataset={getRestaurantDataset} 
+          setRestaurantRegistered={setRestaurantRegistered} 
+          userinfo={userinfo} 
+          navigateBackDestination={"UserContent"} />}
         </Stack.Screen>
         <Stack.Screen
         name="UserRestaurantDetailView"

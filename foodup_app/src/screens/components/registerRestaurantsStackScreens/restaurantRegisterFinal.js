@@ -14,11 +14,19 @@ import {
   import { CreateRestaurantStyles } from "../../../styles/createRestaurantStyles";
   import createRestaurant from "../../../api/createRestaurant";
 
-  export default RenderRestaurantRegistered = ({dataset, setDataset, userinfo}) => {
+  export default RenderRestaurantRegistered = ({dataset, userinfo, navigateBackDestination, setRestaurantRegistered}) => {
     const navigation = useNavigation()
     const handleRestaurantRegistered = async () => {
+      console.log("passed dataset is: ", dataset())
       const response = await createRestaurant(dataset, userinfo)
-      navigation.navigate("UserContent")
+      if(userinfo){
+        setRestaurantRegistered(true)
+        navigation.navigate(navigateBackDestination)
+      }else{
+        setRestaurantRegistered(true)
+        navigation.navigate(navigateBackDestination)
+      }
+      
     };
 
     return (

@@ -24,5 +24,11 @@ export const Colors = StyleSheet.create({
     },
     quartaryBackground: {
         backgroundColor: '#516B6B'
+    },
+    primaryOutline: {
+        borderColor: '#142A6B'
+    },
+    secondaryOutline: {
+        borderColor: '#4dad88'
     }
 })

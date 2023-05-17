@@ -11,7 +11,10 @@ export default function RestaurantRegisterHelpers() {
   const [registerRestaurantTags, setRegisterRestaurantTags] = useState([]);
   const [registerRestaurantFirstName, setRegisterRestaurantFirstName] = useState("");
   const [registerRestaurantLastName, setRegisterRestaurantLastName] = useState("");
+  const [registerRestaurantImage, setRegisterRestaurantImage] = useState(null);
+  const [registerRestaurantImages, setRegisterRestaurantImages] = useState(null);
 
+ 
   // Getter methods
   const getRestaurantName = () => registerRestaurantName;
   const getRestaurantTelephone = () => registerRestaurantTelephone;
@@ -23,6 +26,8 @@ export default function RestaurantRegisterHelpers() {
   const getRestaurantTags = () => registerRestaurantTags;
   const getRestaurantFirstName = () => registerRestaurantFirstName;
   const getRestaurantLastName = () => registerRestaurantLastName;
+  const getRestaurantImage = () => registerRestaurantImage;
+  const getRestaurantImages = () => registerRestaurantImages;
   const getRestaurantDataset = () => {
     return {
       registerRestaurantName,
@@ -35,6 +40,8 @@ export default function RestaurantRegisterHelpers() {
       registerRestaurantTags,
       registerRestaurantFirstName,
       registerRestaurantLastName,
+      registerRestaurantImage,
+      registerRestaurantImages
     };
   };
 
@@ -49,18 +56,21 @@ export default function RestaurantRegisterHelpers() {
   const setRestaurantTags = (newValue) => setRegisterRestaurantTags(newValue);
   const setRestaurantFirstName = (newValue) => setRegisterRestaurantFirstName(newValue);
   const setRestaurantLastName = (newValue) => setRegisterRestaurantLastName(newValue);
-  const setRestaurantDataset = () => {
-    setRegisterRestaurantName()
-    setRegisterRestaurantTelephone()
-    setRegisterRestaurantEmail()
-    setRegisterRestaurantWebsite()
-    setRegisterRestaurantStreet()
-    setRegisterRestaurantZip()
-    setRegisterRestaurantCity()
-    setRegisterRestaurantTags()
-    setRegisterRestaurantFirstName()
-    setRegisterRestaurantLastName()
-    
+  const setRestaurantImage = (newValue) => setRegisterRestaurantImage(newValue);
+  const setRestaurantImages = (newValue) => setRegisterRestaurantImages(newValue);
+  const resetRegisterRestaurant = () => {
+    setRegisterRestaurantName("");
+    setRegisterRestaurantTelephone("");
+    setRegisterRestaurantEmail("");
+    setRegisterRestaurantWebsite("");
+    setRegisterRestaurantStreet("");
+    setRegisterRestaurantZip("");
+    setRegisterRestaurantCity("");
+    setRegisterRestaurantTags([]);
+    setRegisterRestaurantFirstName("");
+    setRegisterRestaurantLastName("");
+    setRegisterRestaurantImage(null)
+    setRegisterRestaurantImages(null)
   };
   
   return {
@@ -85,6 +95,11 @@ export default function RestaurantRegisterHelpers() {
     setRestaurantFirstName,
     setRestaurantLastName,
     getRestaurantDataset,
-    setRestaurantDataset
+    getRestaurantImage,
+    setRestaurantImage,
+    getRestaurantImages,
+    setRestaurantImages,
+    resetRegisterRestaurant,
+    
   };
 }

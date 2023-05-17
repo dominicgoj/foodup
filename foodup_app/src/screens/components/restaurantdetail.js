@@ -13,7 +13,7 @@ const RestaurantDetail = ({route}) =>{
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const fetchedPosts = await getRestaurantPosts(restaurant.id);
+      const fetchedPosts = await getRestaurantPosts(restaurant.id, {"active":"true"});
       setPosts(fetchedPosts);
     };
 

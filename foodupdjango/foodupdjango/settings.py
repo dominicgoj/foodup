@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os 
 import requests
+import logging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,7 +51,7 @@ try:
 except (requests.RequestException, KeyError):
     # If fetching the IP address fails, fallback to a default value
     public_ip = '192.168.0.1'
-ALLOWED_HOSTS = [public_ip, 'localhost','127.0.0.1','192.168.1.13']
+ALLOWED_HOSTS = [public_ip, 'localhost','127.0.0.1','192.168.1.11']
 print(ALLOWED_HOSTS)
 
 
@@ -155,3 +156,17 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',  # Set the desired logging level
+    },
+}

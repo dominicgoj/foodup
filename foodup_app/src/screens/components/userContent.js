@@ -12,7 +12,6 @@ const UserContent = ({posts, likes, userinfo, onRefresh, triggerRefresh}) =>{
   useFocusEffect(
     React.useCallback(() => {
       // Add your focus effect logic here
-      console.log("UserContent refresh")
       triggerRefresh();
       return
     }, [])

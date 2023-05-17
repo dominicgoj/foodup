@@ -44,7 +44,8 @@ const AddContentScreen = () => {
         setFormState((prevState) => ({ ...prevState, comment: ' ' }));
       }
       if (!rating) {
-        setFormState((prevState) => ({ ...prevState, rating: 0 }));
+        console.log("no rating")
+        setFormState((prevState) => ({ ...prevState, rating: '0' }));
       }
 
       const formData = new FormData();
@@ -65,7 +66,6 @@ const AddContentScreen = () => {
         name: 'photo.jpg', // Set a desired filename for the image
       }); 
   
-      
       try {
         
         const response = await axios.post(BACKEND_URL + '/post/create/', formData);
@@ -106,9 +106,11 @@ const AddContentScreen = () => {
   const resetStates = () =>{
     setSendDataRequest(false)
     setFormState({
-      comment : '',
       photo: null,
-      rating: null
+      photo_preview : null,
+      rating: 0,
+      comment: '',
+      success: null,
     })
     setRestaurant(null)
   }

@@ -14,7 +14,7 @@ import {
   import { CreateRestaurantStyles } from "../../../styles/createRestaurantStyles";
 
   export default RenderRestaurantRegisterTags = ({getRestaurantTags, setRestaurantTags}) => {
-    navigation = useNavigation()
+    const navigation = useNavigation()
     const [errorMsg, setErrorMsg] = useState(null);
     const [tagsInfo, setTagsInfo] = useState(
       "Gib mindestens 2 Stichworte ein die zu Deinem Restaurant passen."
@@ -37,7 +37,6 @@ import {
 
     const handleRegisterRestaurantTags = () => {
       if (tags.length > 1) {
-        console.log(tags);
         setRestaurantTags(tags);
         navigation.navigate("UserRegisterRestaurantAddress");
       } else {

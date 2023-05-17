@@ -3,21 +3,50 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.utils import timezone
 import os
 import uuid
+import logging
 
-def get_unique_image_filename(instance, filename):
+logger = logging.getLogger(__name__)
+
+def get_post_image_upload_path(instance, filename):
+    # Get the user who posted the post
+    try:
+        user = User.objects.get(id=instance.userid_posted)
+    except User.DoesNotExist:
+        # Handle the case where the user does not exist
+        return ''
+    # Get the path to the user's post directory
+    user_post_path = "posts/posts_"+str(instance.userid_posted)
     # Generate a unique identifier for the filename
     unique_filename = uuid.uuid4().hex
     # Get the file extension from the original filename
     _, ext = os.path.splitext(filename)
     # Concatenate the unique filename and the file extension
     new_filename = f"{unique_filename}{ext}"
-    # Return the new filename
-    return new_filename
+    # Join the path to the user's post directory with the new filename
+
+    joined_path = os.path.join(user_post_path, new_filename)
+    return(joined_path)
+
+def get_restaurant_image_upload_path(instance, filename):
+    # Get the user who posted the post
+    restaurant_post_path = "posts/restaurant_"+str(instance.id)
+    # Generate a unique identifier for the filename
+    unique_filename = uuid.uuid4().hex
+    # Get the file extension from the original filename
+    _, ext = os.path.splitext(filename)
+    # Concatenate the unique filename and the file extension
+    new_filename = f"{unique_filename}{ext}"
+    # Join the path to the user's post directory with the new filename
+
+    joined_path = os.path.join(restaurant_post_path, new_filename)
+    return(joined_path)
+    
+
 class Post(models.Model):
     userid_posted = models.IntegerField(blank = True)
-    image = models.ImageField(upload_to=get_unique_image_filename, blank=True)
-    image_preview = models.ImageField(upload_to=get_unique_image_filename, blank=True)
-    rating = models.IntegerField(blank = True)
+    image = models.ImageField(upload_to=get_post_image_upload_path, blank=True)
+    image_preview = models.ImageField(upload_to=get_post_image_upload_path, blank=True)
+    rating = models.IntegerField(blank = True, default=0)
     comment = models.TextField(max_length=500, blank = True)
     restaurant_id = models.IntegerField(blank = True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -34,7 +63,8 @@ class Restaurant(models.Model):
     def generate_qr_id():
         return uuid.uuid4().hex
     restaurant_name = models.TextField(blank = True)
-    image_url = models.TextField(blank = True)
+    image_url = models.ImageField(upload_to=get_restaurant_image_upload_path, blank=True)
+    image_preview_url = models.ImageField(upload_to=get_restaurant_image_upload_path, blank=True)
     latitude_gps = models.TextField(blank = True)
     longitude_gps = models.TextField(blank = True)
     timestamp_gps = models.TextField(blank = True)
@@ -62,3 +92,4 @@ class ActivationCode(models.Model):
     email = models.EmailField(blank=True)
     code = models.CharField(max_length=5)
     phone = PhoneNumberField(blank=True)
+    active = models.BooleanField(default=True)

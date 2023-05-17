@@ -9,8 +9,6 @@ export const commonStyles = StyleSheet.create({
         paddingLeft: 25,
         paddingRight: 25,
         paddingBottom: 25,
-
-        
     },
   text: {
     fontSize: 20,

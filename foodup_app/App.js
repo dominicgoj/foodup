@@ -7,13 +7,12 @@ import { deleteUserLoginInfo } from './src/utilities/deleteloggedin';
 import AuthContext from './src/utilities/authcontext';
 import { NavigationContainer } from '@react-navigation/native';
 import { ScrollView, View } from 'react-native';
-
-
+import TestComponent from './src/screens/components/testcomponent';
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginChecked, setLoginChecked] = useState(false);
   const [loggedInUserData, setLoggedInUserData] = useState(null)
-
+  const [testMode, setTestmode] = useState(true)
   // Rest of your app code
 
   useEffect(() => {
@@ -44,12 +43,31 @@ export default function App() {
     setLoggedIn(true);
   };
 
- 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <AuthContext.Provider value={{ loggedInUserData: loggedInUserData, onLogout: handleLogout }}>
-      {loginChecked ? (loggedIn ? <AppContainer /> : <View style={{flex: 1}}><NavigationContainer><LoginForm onLoginSuccess={handleLoginSuccess} /></NavigationContainer></View>) : null}
-      </AuthContext.Provider>
+      {testMode ? (
+        <TestComponent />
+      ) : (
+        <AuthContext.Provider
+          value={{
+            loggedInUserData: loggedInUserData,
+            onLogout: handleLogout,
+          }}
+        >
+          {loginChecked ? (
+            loggedIn ? (
+              <AppContainer />
+            ) : (
+              <View style={{ flex: 1 }}>
+                <NavigationContainer>
+                  <LoginForm onLoginSuccess={handleLoginSuccess} />
+                </NavigationContainer>
+              </View>
+            )
+          ) : null}
+        </AuthContext.Provider>
+      )}
     </SafeAreaView>
   );
+  
 }

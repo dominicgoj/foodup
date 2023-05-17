@@ -16,7 +16,6 @@ import {
 
   export default RenderRestaurantRegisterName = ({getRestaurantName, setRestaurantName}) => {
 
-
     const navigation = useNavigation()
     const [errorMsg, setErrorMsg] = useState(null);
     const [localRestaurantName, setLocalRestaurantName] = useState(getRestaurantName);
@@ -29,9 +28,6 @@ import {
         setErrorMsg("Bitte gib den Namen Deines Restaurants an.");
       }
     };
-    const handleHowFoodupWorks = () => {
-      navigation.navigate("HowFoodupWorks");
-    };
     return (
       <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <View style={CreateRestaurantStyles.container}>
@@ -40,7 +36,7 @@ import {
           </Text>
           <TextInput
             style={CreateRestaurantStyles.input}
-            autoCapitalize="none"
+            
             placeholder="Restaurantname"
             value={localRestaurantName}
             onChangeText={setLocalRestaurantName}

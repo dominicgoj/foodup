@@ -25,4 +25,4 @@ class LikeSerializer(serializers.ModelSerializer):
 class ActivationCodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ActivationCode
-        fields = ['id', 'email', 'code', 'phone']
+        fields = ['id', 'email', 'code', 'phone', 'active']

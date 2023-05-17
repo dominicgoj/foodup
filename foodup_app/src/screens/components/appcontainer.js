@@ -15,6 +15,8 @@ import getUserLoginInfo from "../../utilities/retrieveloggedin.js";
 import getUserPosts from "../../utilities/getUserPosts.js";
 import getUserLikes from "../../utilities/getUserLikes.js";
 import fetchRestaurantData from "../../api/fetchRestaurantData.js";
+import { View } from "react-native";
+import SpinningWheel from "./spinningWheel.js";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -32,6 +34,7 @@ export default function AppContainer() {
   const [userPosts, setUserPosts] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const [restaurantData, setRestaurantData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true)
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -49,21 +52,25 @@ export default function AppContainer() {
   const gatherAllDataFromUser = async () => {
     const userinfo = await getUserLoginInfo();
     const restaurants = await fetchRestaurantData();
-    const userposts = await getUserPosts(userinfo.id);
+    const userposts = await getUserPosts(userinfo.id, {"active":"true"});
     const userlikes = await getUserLikes(userinfo.id);
 
     setUserLoggedIn(userinfo);
     setUserPosts(userposts);
     setUserLikes(userlikes);
     setRestaurantData(restaurants);
-    console.log("Appcontainer, refresher")
+    setIsLoading(false)
   };
   useEffect(() => {
     onRefresh();
   }, []);
 
   return (
-    <NavigationContainer>
+    <View style={{flex: 1}}>
+      {isLoading?(
+        <SpinningWheel />
+      ):(
+        <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen
           name={tabTitles.foryou}
@@ -129,6 +136,10 @@ export default function AppContainer() {
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
+      )}
+    
+    
+    </View>
   );
 }
 

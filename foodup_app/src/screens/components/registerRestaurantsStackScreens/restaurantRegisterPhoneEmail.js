@@ -15,11 +15,12 @@ import {
   import { CreateRestaurantStyles } from "../../../styles/createRestaurantStyles";
   import Regex from "../regex";
 
-  export default RenderRestaurantRegisterPhoneAndEmail = ({getRestaurantTelephone, setRestaurantTelephone, getRestaurantWebsite, setRestaurantWebsite, getRestaurantEmail, setRestaurantEmail}) => {
+  export default RenderRestaurantRegisterPhoneAndEmail = ({getRestaurantTelephone, setRestaurantTelephone, getRestaurantWebsite, setRestaurantWebsite, getRestaurantEmail, setRestaurantEmail, userLoggedOut}) => {
     const [errorMsg, setErrorMsg] = useState(null);
     const [phone, setPhone] = useState(getRestaurantTelephone);
     const [email, setEmail] = useState(getRestaurantEmail);
     const [website, setWebsite] = useState(getRestaurantWebsite);
+    const navigation = useNavigation();
     const handleRegisterRestaurantPhoneAndEmail = () => {
       if (phone && email) {
         const phoneRegex = Regex("telephone", phone);
@@ -31,14 +32,23 @@ import {
             const websiteRegex = Regex("website", website);
             if (!websiteRegex) {
               setRestaurantWebsite(website);
-              navigation.navigate("RenderRestaurantRegistered");
+              if(userLoggedOut===true){
+                navigation.navigate("RestaurantRegisterFirstLastName")
+              }
+              else{
+                navigation.navigate("RestaurantRegisterAddPhoto");}
+              
             } else {
               setErrorMsg(
                 "Bitte gib eine korrekte Internetadresse ein. (optional)"
               );
             }
           } else {
-            navigation.navigate("RenderRestaurantRegistered");
+            if(userLoggedOut===true){
+              navigation.navigate("RestaurantRegisterFirstLastName")
+            }
+            else{
+              navigation.navigate("RestaurantRegisterAddPhoto");}
           }
         } else {
           setErrorMsg(

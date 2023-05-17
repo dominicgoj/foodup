@@ -115,7 +115,7 @@ const compressPreviewImage = async (uri, format = SaveFormat.JPEG) => { // SaveF
   };
   const checkIfUserHasPostedAlreadyForThatRestaurant = async(restaurantScanned) =>{
     try{
-      request = await axios.get(BACKEND_URL+'/post?userid_posted='+authContext.loggedInUserData.id+'&restaurant_id='+restaurantScanned.id);
+      request = await axios.get(BACKEND_URL+'/post?userid_posted='+authContext.loggedInUserData.id+'&restaurant_id='+restaurantScanned.id+"&active=true");
       return request.data
     }catch(error){
       console.log(error)
