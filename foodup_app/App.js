@@ -36,7 +36,6 @@ export default function App() {
   };
   const handleGetUserLocation = async () => {
     const location = await getUserLocation()
-    console.log("App.js, location", location)
     setGlobalUserLocation(location)
   }
   const handleLogout = async () =>{

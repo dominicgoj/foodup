@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Platform, Text, View, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Entypo';
 import * as Location from 'expo-location';
 import FetchRestaurants from '../../api/fetchRestaurants';
 import RestaurantMapPoint from '../components/restaurantMapPoint';
-
+import AuthContext from '../../utilities/authcontext';
 
 export default function MapScreen() {
   const [location, setLocation] = useState(null);
@@ -13,8 +13,7 @@ export default function MapScreen() {
   const [latitudeDelta, setLatitudeDelta] = useState(20.22)
   const [longitudeDelta, setLongitudeDelta] = useState(10.421)
   const [allRestaurantData, setAllRestaurantData] = useState(null)
-  let latother = 46.623987692694676
-  let longother = 14.303890383506294
+  const { globalUserLocation } = useContext(AuthContext);
 
   const getAllRestaurants = async () =>{
     const allRestaurants = await FetchRestaurants(null)
@@ -57,7 +56,7 @@ export default function MapScreen() {
     
     <View style={styles.container}>
       <MapView style={styles.map} region={{ latitude: location?.coords.latitude, longitude: location?.coords.longitude, latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta }}>
-        {location && <Marker coordinate={{ latitude: location.coords.latitude, longitude: location.coords.longitude }} />}
+        {globalUserLocation && <Marker coordinate={{ latitude: globalUserLocation.coords.latitude, globalUserLocation: location.coords.longitude }} />}
         {renderRestaurantMapPoints()}
       </MapView>
     </View>
