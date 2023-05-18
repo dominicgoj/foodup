@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Platform, Text, View, StyleSheet } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Entypo';
 import * as Location from 'expo-location';
@@ -7,44 +7,18 @@ import FetchRestaurants from '../../api/fetchRestaurants';
 import RestaurantMapPoint from '../components/restaurantMapPoint';
 import AuthContext from '../../utilities/authcontext';
 
-export default function MapScreen() {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [latitudeDelta, setLatitudeDelta] = useState(20.22)
-  const [longitudeDelta, setLongitudeDelta] = useState(10.421)
-  const [allRestaurantData, setAllRestaurantData] = useState(null)
+export default function MapScreen({restaurantData}) {
+  const [latitudeDelta, setLatitudeDelta] = useState(0.052)
+  const [longitudeDelta, setLongitudeDelta] = useState(0.0821)
   const { globalUserLocation } = useContext(AuthContext);
 
-  const getAllRestaurants = async () =>{
-    const allRestaurants = await FetchRestaurants(null)
-    setAllRestaurantData(allRestaurants)
-  }
-  useEffect(() => {
-    
-    (async () => {
-      
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
+  console.log("restaurant data in mapscreen: ", restaurantData)
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    })();
-    getAllRestaurants()
-  }, []);
-
-  let text = 'Waiting..';
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-  }
-
-  const renderRestaurantMapPoints = () => {
-    if (allRestaurantData) {
-      return allRestaurantData.map((restaurant) => {
+  const RenderRestaurantMapPoints = () => {
+    console.log("RenderRestaurantMapPoints rendered")
+    if (restaurantData) {
+      console.log("restaurant data: ", restaurantData)
+      return restaurantData.map((restaurant) => {
         return <RestaurantMapPoint key={restaurant.id} restaurant={restaurant} />;
       });
     }
@@ -55,9 +29,18 @@ export default function MapScreen() {
   return (
     
     <View style={styles.container}>
-      <MapView style={styles.map} region={{ latitude: location?.coords.latitude, longitude: location?.coords.longitude, latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta }}>
-        {globalUserLocation && <Marker coordinate={{ latitude: globalUserLocation.coords.latitude, globalUserLocation: location.coords.longitude }} />}
-        {renderRestaurantMapPoints()}
+      <MapView style={styles.map} region={{ latitude: globalUserLocation?.latitude, longitude: globalUserLocation?.longitude, latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta }}>
+        {globalUserLocation && 
+
+        <Marker 
+        coordinate={{ latitude: globalUserLocation.latitude, longitude: globalUserLocation.longitude }} 
+        
+        >
+          <Image source={require('../../../assets/img/user_location_small.png')} style={{width: 25, height: 25}}/>
+        </Marker>
+        
+        }
+        <RenderRestaurantMapPoints />
       </MapView>
     </View>
   );

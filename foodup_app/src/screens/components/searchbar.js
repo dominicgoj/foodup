@@ -16,8 +16,14 @@ const SearchBar = () => {
   const navigation = useNavigation();
   useEffect(() => {
     const fetchResults = async () => {
-      const results = await SearchRestaurants(searchInput, 'restaurant_name');
-      setSearchResults(results);
+      try{
+        const results = await SearchRestaurants(searchInput, 'restaurant_name');
+        console.log(results)
+        setSearchResults(results);
+      }catch(error){
+        console.error(error)
+      }
+      
     };
 
     fetchResults();
@@ -42,23 +48,28 @@ const SearchBar = () => {
         value={searchInput}
         onChangeText={(text) => setSearchInput(text)}
       /><View style={Searchbar.resultsContainer}>
-      {searchResults ? (
-  searchResults.map((result, index) => (
+      {searchResults && searchResults.length > 0 ? (
+  searchResults.map((result, index) => {
+    console.log("RESULT", result.tags)
+    return(
     <TouchableOpacity key={`${result.id}-${index}`} onPress={() => handleRestaurantSelect(result)}>
       <View style={[Searchbar.resultContainer]}>
         <View style={[Searchbar.resultRow]}>
           <Icon name='magnifying-glass' style={Searchbar.magniGlass} />
           <View>
             <Text style={Searchbar.resultFont}>{result.restaurant_name}</Text>
-            <View style={{ flexDirection: 'row', marginLeft: 10, }}>
-              {result.tags.map((tag, index) => {
-                return (
-                  <Text key={`${result.id}-tag-${index}`} style={[Searchbar.tagText, Colors.quartaryText]}>
-                    {tag},
-                  </Text>
-                );
-              })}
-            </View>
+            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+          {result.tags && result.tags.length > 0 ? (
+            JSON.parse(result.tags).map((tag, index) => {
+          return (
+        <Text key={`${result.id}-tag-${index}`} style={[Searchbar.tagText, Colors.quartaryText]}>
+          {tag}
+          {index !== result.tags.length - 1 ? ', ' : ''}
+        </Text>
+      );
+    })
+  ) : null}
+</View>
           </View>
           <View style={{flexDirection: 'row', flex: 1, justifyContent:'flex-end', marginRight: 10}}>
           <View style={{ marginLeft: 10,}}><RenderStars rating={result.average_rating} /></View>
@@ -70,7 +81,7 @@ const SearchBar = () => {
         </View>
       </View>
     </TouchableOpacity>
-  ))
+  )})
 ) : null}
 
     </View></View>

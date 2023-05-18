@@ -38,7 +38,6 @@ export default function AppContainer() {
   const [restaurantData, setRestaurantData] = useState(null);
   const [isLoading, setIsLoading] = useState(true)
   const { globalUserLocation } = useContext(AuthContext);
-  console.log(globalUserLocation)
   const onRefresh = () => {
     setRefreshing(true);
     // Perform the necessary actions to refresh the screen or fetch new data
@@ -51,7 +50,9 @@ export default function AppContainer() {
         setRefreshing(false);
       });
   };
-
+  useEffect(()=>{
+    console.log("loading state: ", isLoading)
+  },[isLoading])
   const gatherAllDataFromUser = async () => {
     
     const userinfo = await getUserLoginInfo();
@@ -63,6 +64,7 @@ export default function AppContainer() {
     setUserPosts(userposts);
     setUserLikes(userlikes);
     setRestaurantData(restaurants);
+    console.log("loaded new restaurant data in appcontainer: ", restaurants)
     setIsLoading(false)
   };
   useEffect(() => {
@@ -117,8 +119,7 @@ export default function AppContainer() {
             ),
             headerShown: false,
           }}
-          component={MapScreen}
-        />
+        >{()=>(<MapScreen restaurantData={restaurantData}/>)}</Tab.Screen>
         <Tab.Screen
           name={tabTitles.profile}
           options={{

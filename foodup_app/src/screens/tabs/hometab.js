@@ -10,6 +10,7 @@ import RestaurantListScreen from '../components/restaurantListScreen';
 
 const HomeScreen = ({ restaurantData, onRefresh }) => {
   const Stack = createStackNavigator();
+  console.log("RestaurantData in home", restaurantData)
    return (
     <NavigationContainer independent={true}>
       <Stack.Navigator>

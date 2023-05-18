@@ -5,7 +5,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import RestaurantDetail from '../components/restaurantdetail.js';
 import CostumHeader from '../components/costumheader.js' 
-export default function MapScreen() {
+export default function MapScreen({restaurantData}) {
 
   const Stack = createStackNavigator();
   
@@ -15,11 +15,10 @@ export default function MapScreen() {
       <Stack.Navigator>
         <Stack.Screen
           name="Map"
-          component={Map}
           options={{ header: () => <CostumHeader arrowShown={false} logoShown={false} headerText={'Karte'}/>}}
           
           
-        />
+        >{()=><Map restaurantData={restaurantData} />}</Stack.Screen>
         <Stack.Screen
           name="Detail"
           component={RestaurantDetail}

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import MapView, { Marker, Callout, CalloutSubview, CalloutPressEvent } from 'react-native-maps';
-import { Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Marker, Callout, CalloutSubview } from 'react-native-maps';
+import { Text, Image } from 'react-native';
 import { MapStyles } from '../../styles/mapstyles';
 import { Colors } from '../../styles/colors';
 import Renderstars from './renderstars';
@@ -19,8 +19,8 @@ export default function RestaurantMapPoint(restaurant) {
   return (
     <Marker coordinate={{ latitude: restaurant.restaurant.latitude_gps, 
                           longitude: restaurant.restaurant.longitude_gps,
-                           }} image={require('../../../assets/img/cutlery_icon.png')}
-            >
+                           }}
+            ><Image source={require('../../../assets/img/resto_location_small.png')} style={{width: 35, height: 35}} />
         <Callout>
           <CalloutSubview style={MapStyles.calloutContainer} onPress={handleCalloutPress}>
         <Renderstars rating={restaurant.restaurant.average_rating}/>
