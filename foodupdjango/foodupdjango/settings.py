@@ -44,6 +44,7 @@ SMS_BACKEND = 'sms.backends.sns.SnsBackend'
 AWS_SNS_DEFAULT_SMS_TYPE = 'Promotional'
 AWS_SES_REGION_NAME = 'eu-north-1'
 AWS_SES_REGION_ENDPOINT = 'email.eu-north-1.amazonaws.com'
+DEFAULT_FROM_EMAIL = "dominicgoj@gmail.com"
 try:
     # Fetch the public IP address using an external service
     response = requests.get('https://api.ipify.org/?format=json')
@@ -68,6 +69,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'ratings',
     'sms',
+    'django_ses',
     
 ]
 
@@ -99,6 +101,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
     },
 ]
 

@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Image, View, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import Icon from 'react-native-vector-icons/Entypo';
-import * as Location from 'expo-location';
-import FetchRestaurants from '../../api/fetchRestaurants';
 import RestaurantMapPoint from '../components/restaurantMapPoint';
 import AuthContext from '../../utilities/authcontext';
 

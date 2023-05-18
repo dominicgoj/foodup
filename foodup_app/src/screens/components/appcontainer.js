@@ -37,7 +37,6 @@ export default function AppContainer() {
   const [refreshing, setRefreshing] = useState(false);
   const [restaurantData, setRestaurantData] = useState(null);
   const [isLoading, setIsLoading] = useState(true)
-  const { globalUserLocation } = useContext(AuthContext);
   const onRefresh = () => {
     setRefreshing(true);
     // Perform the necessary actions to refresh the screen or fetch new data
@@ -51,7 +50,6 @@ export default function AppContainer() {
       });
   };
   useEffect(()=>{
-    console.log("loading state: ", isLoading)
   },[isLoading])
   const gatherAllDataFromUser = async () => {
     

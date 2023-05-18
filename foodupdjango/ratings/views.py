@@ -17,7 +17,7 @@ from django.utils.decorators import method_decorator
 from django.db.models import F
 from math import radians, sin, cos, sqrt, atan2
 from django.shortcuts import render, HttpResponse
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.db.models import Q
 import random
 import json
@@ -29,6 +29,9 @@ from PIL import Image, ImageOps
 import io
 from django.core.files.base import ContentFile
 from .models import User
+from django.template.loader import render_to_string
+from django.conf import settings
+import mimetypes
 
 os.environ["AWS_ACCESS_KEY_ID"] = "AKIA34HPQHKM7C3GQBPC"
 os.environ["AWS_SECRET_ACCESS_KEY"] = "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"
@@ -223,6 +226,7 @@ class RestaurantCreate(APIView):
 
 
 
+
 class CreateRestaurant(APIView):
     def post(self, request, *args, **kwargs):
         # Access the form data
@@ -312,6 +316,17 @@ class CreateRestaurant(APIView):
         # Save the title image preview URL in the model field
         restaurant.title_image_preview = os.path.join('restaurants', str(restaurant_id), 'title_image_preview.jpg')
         restaurant.save()
+        #########
+        ####    SEND REGISTRATION EMAIL ####
+        subject = 'Foodup: Restaurant Registrierung'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        to_email = [email]
+
+        msg = EmailMultiAlternatives(subject, '', from_email, to_email)
+        
+        html_content = render_to_string('registerRestaurant.html')
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
         return JsonResponse({'message': 'Restaurant created successfully'})
 
 
@@ -558,7 +573,6 @@ class SendActivationView(APIView):
     def post(self, request):
         email = request.data.get("email")
         phone = request.data.get("phone")
-        
         activation_code = generate_activation_code()
         if email:
             serializer = ActivationCodeSerializer(
@@ -567,8 +581,15 @@ class SendActivationView(APIView):
             if serializer.is_valid():
                 serializer.save()
 
-                message = f"Your activation code is: {activation_code}"
-                # send_mail('Activation Code', message, 'dominicgoj@gmail.com', [email])
+                subject = 'Foodup: Aktivierungscode'
+                from_email = settings.DEFAULT_FROM_EMAIL
+                to_email = [email]
+
+                msg = EmailMultiAlternatives(subject, '', from_email, to_email)
+                
+                html_content = render_to_string('welcomeemail.html', {'activation_code': activation_code})
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
 
                 return Response({"message": "Email sent"}, status=status.HTTP_200_OK)
         if phone:
