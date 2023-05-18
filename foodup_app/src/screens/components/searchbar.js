@@ -18,7 +18,6 @@ const SearchBar = () => {
     const fetchResults = async () => {
       try{
         const results = await SearchRestaurants(searchInput, 'restaurant_name');
-        console.log(results)
         setSearchResults(results);
       }catch(error){
         console.error(error)
@@ -50,7 +49,6 @@ const SearchBar = () => {
       /><View style={Searchbar.resultsContainer}>
       {searchResults && searchResults.length > 0 ? (
   searchResults.map((result, index) => {
-    console.log("RESULT", result.tags)
     return(
     <TouchableOpacity key={`${result.id}-${index}`} onPress={() => handleRestaurantSelect(result)}>
       <View style={[Searchbar.resultContainer]}>
