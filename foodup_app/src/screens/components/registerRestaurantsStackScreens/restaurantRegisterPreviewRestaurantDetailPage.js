@@ -1,38 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { View, Modal, ScrollView, Text, Image, StyleSheet, TouchableOpacity, Pressable, Linking } from 'react-native';
-import { commonStyles } from '../../styles/commonstyles';
+import React from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import { RestaurantDetailViewStyles } from "../../../styles/restaurantDetailViewStyles";
+import { commonStyles } from "../../../styles/commonstyles";
+import RenderStars from '../renderstars.js' 
 import Icon from 'react-native-vector-icons/Entypo';
-import ImageList from './imageList.js'
-import RenderStars from './renderstars';
-import getRestaurantPosts from "../../api/getRestaurantPosts";
-import { RestaurantDetailViewStyles } from '../../styles/restaurantDetailViewStyles';
+import RestaurantRegisterPreviewImageList from "./restaurantRegisterPreviewImageList";
 
-const RestaurantDetail = ({route}) =>{
-    const {restaurant} = route.params
-    const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const fetchedPosts = await getRestaurantPosts(restaurant.id, {"active":"true"});
-      setPosts(fetchedPosts);
-    };
-
-    fetchPosts();
-  }, []);
-
-    return (
-        
-        <ScrollView>
+export default RestaurantRegisterPreviewRestaurantDetailPage = ({getRestaurantImages, setRestaurantImage, getRestaurantName}) => {
+    const photo = getRestaurantImages()[0]
+    return(
+        <View>
             <View style={RestaurantDetailViewStyles.detailheader}>
-            <Image style={RestaurantDetailViewStyles.headerimage} source={{uri: restaurant.title_image}} />
+            <Image style={RestaurantDetailViewStyles.headerimage} source={{ uri: photo.uri }} />
             </View>
             <View style={RestaurantDetailViewStyles.container}>   
-            <Text style={commonStyles.restaurantTitleDetailView}>{restaurant.restaurant_name}</Text>
+            <Text style={commonStyles.restaurantTitleDetailView}>{getRestaurantName()}</Text>
             <View style={RestaurantDetailViewStyles.ratingBox}>
-            <RenderStars rating={restaurant.average_rating}/>
+            <RenderStars rating={5}/>
             </View>
             <View style={{marginTop: 20}}>
-                <ImageList posts={posts}/>
+               <RestaurantRegisterPreviewImageList />
             </View>
             <View style={RestaurantDetailViewStyles.rowWebIcons}>
             <TouchableOpacity onPress={()=>{Linking.openURL(restaurant.website)}}><Text style={RestaurantDetailViewStyles.webIcon}>.com</Text></TouchableOpacity>
@@ -43,7 +30,6 @@ const RestaurantDetail = ({route}) =>{
             </View>
             </View>
             
-        </ScrollView>
+        </View>
     )
 }
-export default RestaurantDetail;

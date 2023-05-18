@@ -30,5 +30,11 @@ export const Colors = StyleSheet.create({
     },
     secondaryOutline: {
         borderColor: '#4dad88'
+    },
+    lightGreyText: {
+        color: '#E6E6E6'
+    },
+    lightGreyBackground: {
+        backgroundColor:'#E6E6E6'
     }
 })

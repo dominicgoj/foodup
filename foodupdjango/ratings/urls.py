@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PostList, PostDetail, PostDelete, AllPostList, PostSetInactive, RestaurantList, RestaurantDelete, RestaurantDetailActiveAndInactive, RestaurantCreate, RestaurantActiveAndInactive, RestaurantDistance, RestaurantSearch, RestaurantDetail, UserList, UserDetail, LikeList, LikeDetail, LikeDeleteView, LikeCreateView, SearchUser, CreateUser, UserDelete, CreatePost, SendActivationView, VerifyActivationCodeView, ActivationCodeList
+from .views import CreateRestaurant, PostList, PostDetail, PostDelete, AllPostList, PostSetInactive, RestaurantList, RestaurantDelete, RestaurantDetailActiveAndInactive, RestaurantCreate, RestaurantActiveAndInactive, RestaurantDistance, RestaurantSearch, RestaurantDetail, UserList, UserDetail, LikeList, LikeDetail, LikeDeleteView, LikeCreateView, SearchUser, CreateUser, UserDelete, CreatePost, SendActivationView, VerifyActivationCodeView, ActivationCodeList
 
 urlpatterns = [ path('post/', PostList.as_view(), name="post_list"),
                path('post/<int:pk>', PostDetail.as_view(), name="post_detail"),
@@ -17,6 +17,7 @@ urlpatterns = [ path('post/', PostList.as_view(), name="post_list"),
                path('restaurant/id/<int:pk>', RestaurantDetailActiveAndInactive.as_view(), name="restaurant-detail-inactiveandactive"),
                path('restaurant/search', RestaurantSearch.as_view(), name="restaurant-search"),
                path('restaurant/create/', RestaurantCreate.as_view(), name="restaurant-create"),
+               path('restaurant/create/2', CreateRestaurant.as_view(), name="restaurant-create2"),
                path('restaurant/delete/', RestaurantDelete.as_view(), name="restaurant-delete"),
                path('like/', LikeList.as_view(), name="like_list"),
                path('like/<int:pk>', LikeDetail.as_view(), name="like_detail"),

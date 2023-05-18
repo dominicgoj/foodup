@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { NavigationContainer, useFocusEffect } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../tabs/hometab.js";
@@ -17,6 +17,8 @@ import getUserLikes from "../../utilities/getUserLikes.js";
 import fetchRestaurantData from "../../api/fetchRestaurantData.js";
 import { View } from "react-native";
 import SpinningWheel from "./spinningWheel.js";
+import AuthContext from "../../utilities/authcontext.js";
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -35,7 +37,8 @@ export default function AppContainer() {
   const [refreshing, setRefreshing] = useState(false);
   const [restaurantData, setRestaurantData] = useState(null);
   const [isLoading, setIsLoading] = useState(true)
-
+  const { globalUserLocation } = useContext(AuthContext);
+  console.log(globalUserLocation)
   const onRefresh = () => {
     setRefreshing(true);
     // Perform the necessary actions to refresh the screen or fetch new data
@@ -50,6 +53,7 @@ export default function AppContainer() {
   };
 
   const gatherAllDataFromUser = async () => {
+    
     const userinfo = await getUserLoginInfo();
     const restaurants = await fetchRestaurantData();
     const userposts = await getUserPosts(userinfo.id, {"active":"true"});

@@ -17,15 +17,16 @@ import {
   export default RenderRestaurantRegistered = ({dataset, userinfo, navigateBackDestination, setRestaurantRegistered}) => {
     const navigation = useNavigation()
     const handleRestaurantRegistered = async () => {
-      console.log("passed dataset is: ", dataset())
-      const response = await createRestaurant(dataset, userinfo)
+      
       if(userinfo){
-        setRestaurantRegistered(true)
+        
         navigation.navigate(navigateBackDestination)
+        
       }else{
-        setRestaurantRegistered(true)
         navigation.navigate(navigateBackDestination)
       }
+      const response = await createRestaurant(dataset, userinfo)
+      setRestaurantRegistered(true)
       
     };
 

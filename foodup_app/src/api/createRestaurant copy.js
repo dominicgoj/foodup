@@ -3,30 +3,21 @@ import { BACKEND_URL } from "../../config";
 
 export default async function createRestaurant(dataset, userinfo) {
   const formData = new FormData();
-  
-  // Add form data fields
-  formData.append('city', dataset().registerRestaurantCity);
-  formData.append('email', dataset().registerRestaurantEmail);
-  formData.append('title_image', {
-    uri: dataset().registerRestaurantImage.uri,
-    type: dataset().registerRestaurantImage.type,
-    name: 'title_image.jpg',
+  formData.append("restaurant_name", dataset().registerRestaurantName);
+  formData.append("telephone", dataset().registerRestaurantTelephone);
+  formData.append("email", dataset().registerRestaurantEmail);
+  formData.append("website", dataset().registerRestaurantWebsite);
+  formData.append("street", dataset().registerRestaurantStreet);
+  formData.append("zip", dataset().registerRestaurantZip);
+  formData.append("city", dataset().registerRestaurantCity);
+  formData.append("tags", dataset().registerRestaurantTags);
+  formData.append("image_url", {
+    uri: dataset().registerRestaurantImage,
+    type: "image/jpeg", // Set the correct MIME type for the image file
+    name: "photo.jpg", // Set a desired filename for the image
   });
-  // Compress and add title_image_preview (code to compress the image is not provided here)
-  formData.append('title_image_preview', {
-    uri: dataset().registerRestaurantImage.uri,
-    type: dataset().registerRestaurantImage.type,
-    name: 'title_image_preview.jpg',
-  });
-  // Loop through restaurant images and add them to formData
- 
-  formData.append('restaurant_name', dataset().registerRestaurantName);
-  formData.append('street', dataset().registerRestaurantStreet);
-  formData.append('tags', JSON.stringify(dataset().registerRestaurantTags));
-  formData.append('telephone', dataset().registerRestaurantTelephone);
-  formData.append('website', dataset().registerRestaurantWebsite);
-  formData.append('zip', dataset().registerRestaurantZip);
-  
+  console.log("Form Data: ", formData)
+
   if (userinfo) {
     formData.append("userid", userinfo.id);
     try {
@@ -64,6 +55,7 @@ export default async function createRestaurant(dataset, userinfo) {
           console.log(error);
         }
       } else {
+        console.log("User non existent, creating new with: ", user);
         const userResponse = await axios.post(
           BACKEND_URL + "/user/create/",
           user
@@ -85,4 +77,3 @@ export default async function createRestaurant(dataset, userinfo) {
     }
   }
 }
-

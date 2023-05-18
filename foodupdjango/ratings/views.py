@@ -9,6 +9,7 @@ from .serializers import (
     LikeSerializer,
     ActivationCodeSerializer,
 )
+from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -22,6 +23,12 @@ import random
 import json
 import os
 import boto3
+from django.core.files.storage import default_storage
+from django.http import JsonResponse
+from PIL import Image, ImageOps
+import io
+from django.core.files.base import ContentFile
+from .models import User
 
 os.environ["AWS_ACCESS_KEY_ID"] = "AKIA34HPQHKM7C3GQBPC"
 os.environ["AWS_SECRET_ACCESS_KEY"] = "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"
@@ -181,7 +188,7 @@ class RestaurantDelete(generics.DestroyAPIView):
 class RestaurantCreate(APIView):
     def post(self, request):
         restaurant_serializer = RestaurantSerializer(data=request.data)
-        print(request.data)
+        
         if restaurant_serializer.is_valid():
             restaurant = restaurant_serializer.save()
             restaurant_id = restaurant_serializer.instance.id
@@ -216,6 +223,100 @@ class RestaurantCreate(APIView):
 
 
 
+class CreateRestaurant(APIView):
+    def post(self, request, *args, **kwargs):
+        # Access the form data
+        city = request.POST.get('city')
+        email = request.POST.get('email')
+        title_image = request.FILES['title_image']
+        title_image_preview = request.FILES['title_image_preview']
+        restaurant_name = request.POST.get('restaurant_name')
+        street = request.POST.get('street')
+        tags = request.POST.get('tags')
+        telephone = request.POST.get('telephone')
+        website = request.POST.get('website')
+        zip_code = request.POST.get('zip')
+        userid = request.POST.get('userid')
+        
+        try:
+            user = User.objects.get(id=userid)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        
+        # Create the restaurant instance
+        restaurant = Restaurant(
+            restaurant_name=restaurant_name,
+            street=street,
+            city=city,
+            zip=zip_code,
+            email=email,
+            telephone=telephone,
+            website=website,
+            tags=tags,
+            userid=user
+        )
+        
+        # Save the restaurant instance
+        restaurant.save()
+        restaurant_id = restaurant.id
+        folder_path = os.path.join(settings.MEDIA_ROOT, 'restaurants', str(restaurant_id))
+        os.makedirs(folder_path, exist_ok=True)
+        
+        # Save the title image
+        # Open the title image using Pillow
+        title_img = Image.open(title_image)
+        print(title_img)
+        title_img = ImageOps.exif_transpose(title_img)
+        print(title_img)
+        
+        # Resize the title image if needed
+        title_max_width = 800
+        if title_img.width > title_max_width:
+            title_aspect_ratio = title_max_width / float(title_img.width)
+            title_height = int(title_aspect_ratio * title_img.height)
+            title_img = title_img.resize((title_max_width, title_height), Image.ANTIALIAS)
+
+        
+        # Compress the title image by reducing the quality
+        title_img_io = io.BytesIO()
+        title_img.save(title_img_io, format='JPEG', quality=80)
+        
+        # Save the compressed title image to the desired location
+        title_image_path = os.path.join(folder_path, "title_image.jpg")
+        default_storage.save(title_image_path, ContentFile(title_img_io.getvalue()))
+        
+        # Save the title image URL in the model field
+        restaurant.title_image = os.path.join('restaurants', str(restaurant_id), 'title_image.jpg')
+        
+        # Save the title image preview
+        # Open the title image preview using Pillow
+        title_img_preview = Image.open(title_image_preview)
+        title_img_preview = ImageOps.exif_transpose(title_img_preview)
+        
+        # Resize the title image preview if needed
+        title_max_width_preview = 600
+        if title_img_preview.width > title_max_width_preview:
+            title_aspect_ratio_preview = title_max_width_preview / float(title_img_preview.width)
+            title_height_preview = int(title_aspect_ratio_preview * title_img_preview.height)
+            title_img_preview = title_img_preview.resize((title_max_width_preview, title_height_preview), Image.ANTIALIAS)
+        
+        # Compress the title image preview by reducing the quality
+        title_img_preview_io = io.BytesIO()
+        title_img_preview.save(title_img_preview_io, format='JPEG', quality=80)
+        
+        # Save the compressed title image preview to the desired location
+        title_image_preview_path = os.path.join(folder_path, "title_image_preview.jpg")
+        default_storage.save(title_image_preview_path, ContentFile(title_img_preview_io.getvalue()))
+        
+        # Save the title image preview URL in the model field
+        restaurant.title_image_preview = os.path.join('restaurants', str(restaurant_id), 'title_image_preview.jpg')
+        restaurant.save()
+        return JsonResponse({'message': 'Restaurant created successfully'})
+
+
+
+
 class RestaurantDistance(APIView):
     serializer_class = RestaurantSerializer
 
@@ -239,8 +340,11 @@ class RestaurantDistance(APIView):
         user_latitude = float(request.GET.get("user_latitude"))
         user_longitude = float(request.GET.get("user_longitude"))
         restaurants = Restaurant.objects.filter(active=True)
-        serialized_restaurants = self.serializer_class(restaurants, many=True).data
-
+        serialized_restaurants = self.serializer_class(
+        restaurants,
+        many=True,
+        context={'request': request}
+        ).data
         for restaurant in serialized_restaurants:
             restaurant_latitude = restaurant["latitude_gps"]
             restaurant_longitude = restaurant["longitude_gps"]
@@ -253,7 +357,7 @@ class RestaurantDistance(APIView):
                     float(restaurant_longitude),
                 )
                 restaurant["distance"] = distance
-
+        print(serialized_restaurants)
         return Response(serialized_restaurants)
 
 
@@ -284,10 +388,11 @@ class UserList(generics.ListCreateAPIView):
 
 class SearchUser(generics.ListAPIView):
     serializer_class = UserSerializer
-
     def get_queryset(self):
         telephone = self.request.GET.get("telephone")
         email = self.request.GET.get("email")
+
+        print("telephone email search: ", telephone, email)
 
         if telephone:
             queryset = User.objects.filter(telephone=telephone)

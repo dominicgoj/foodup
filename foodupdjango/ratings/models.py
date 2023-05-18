@@ -29,7 +29,7 @@ def get_post_image_upload_path(instance, filename):
 
 def get_restaurant_image_upload_path(instance, filename):
     # Get the user who posted the post
-    restaurant_post_path = "posts/restaurant_"+str(instance.id)
+    restaurant_post_path = "restaurants/restaurant_"+str(instance.id)
     # Generate a unique identifier for the filename
     unique_filename = uuid.uuid4().hex
     # Get the file extension from the original filename
@@ -63,8 +63,8 @@ class Restaurant(models.Model):
     def generate_qr_id():
         return uuid.uuid4().hex
     restaurant_name = models.TextField(blank = True)
-    image_url = models.ImageField(upload_to=get_restaurant_image_upload_path, blank=True)
-    image_preview_url = models.ImageField(upload_to=get_restaurant_image_upload_path, blank=True)
+    title_image = models.ImageField(blank=True)
+    title_image_preview = models.ImageField(blank=True)
     latitude_gps = models.TextField(blank = True)
     longitude_gps = models.TextField(blank = True)
     timestamp_gps = models.TextField(blank = True)
@@ -81,6 +81,9 @@ class Restaurant(models.Model):
     qr_id = models.CharField(max_length=32, default=generate_qr_id)
     tags = models.JSONField(default=dict)
     active = models.BooleanField(default=False)
+
+
+
 
 class Like(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)

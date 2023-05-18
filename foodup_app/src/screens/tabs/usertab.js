@@ -14,6 +14,9 @@ import RenderRestaurantRegisterPhoneEmail from '../components/registerRestaurant
 import RenderRestaurantRegistered from '../components/registerRestaurantsStackScreens/restaurantRegisterFinal';
 import UserRestaurantEdit from '../components/userRestaurantEdit';
 import UserRestaurantDetailView from '../components/userRestaurantDetailView';
+import RestaurantRegisterAddPhoto from "../components/registerRestaurantsStackScreens/restaurantRegisterAddPhoto";
+import RestaurantRegisterSelectPhoto from "../components/registerRestaurantsStackScreens/restaurantRegisterSelectPhoto";
+
 function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
   const Stack = createStackNavigator();
   const [userRestaurants, setUserRestaurants] = useState([])
@@ -29,6 +32,8 @@ function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
     getRestaurantZip,
     getRestaurantCity,
     getRestaurantTags,
+    getRestaurantFirstName,
+    getRestaurantLastName,
     setRestaurantName,
     setRestaurantTelephone,
     setRestaurantEmail,
@@ -37,8 +42,14 @@ function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
     setRestaurantZip,
     setRestaurantCity,
     setRestaurantTags,
+    setRestaurantFirstName,
+    setRestaurantLastName,
     getRestaurantDataset,
-    resetRegisterRestaurant
+    getRestaurantImage,
+    setRestaurantImage,
+    getRestaurantImages,
+    setRestaurantImages,
+    resetRegisterRestaurant,
 } = RestaurantRegisterHelpers()
 
   const triggerRefresh = () =>{
@@ -136,7 +147,7 @@ function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
           setRestaurantWebsite={setRestaurantWebsite} 
           />}
         </Stack.Screen>
-        <Stack.Screen name="RenderRestaurantRegistered" options={{
+        <Stack.Screen name="RenderRestaurantRegisterFinal" options={{
           header: () => <CustomHeader arrowShown={true} logoShown={false} />,
         }}>
           {()=><RenderRestaurantRegistered 
@@ -152,6 +163,21 @@ function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
         }}
         component={UserRestaurantDetailView} // Pass the component directly
       />
+      <Stack.Screen
+        name="RestaurantRegisterAddPhoto"
+        options={{
+          header: () => <CustomHeader arrowShown={true} logoShown={false} />,
+        }}
+      >
+        {() => <RestaurantRegisterAddPhoto setRestaurantImages={setRestaurantImages}/>}
+      </Stack.Screen>
+      <Stack.Screen
+        name="RestaurantRegisterSelectPhoto"
+        options={{
+          header: () => <CustomHeader arrowShown={true} logoShown={false} />,
+        }}
+      >{()=><RestaurantRegisterSelectPhoto getRestaurantImages={getRestaurantImages} getRestaurantName={getRestaurantName} setRestaurantImage={setRestaurantImage}/>}</Stack.Screen>
+      
         
           
       </Stack.Navigator>

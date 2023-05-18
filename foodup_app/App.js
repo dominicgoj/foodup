@@ -8,19 +8,21 @@ import AuthContext from './src/utilities/authcontext';
 import { NavigationContainer } from '@react-navigation/native';
 import { ScrollView, View } from 'react-native';
 import TestComponent from './src/screens/components/testcomponent';
+import getUserLocation from './src/utilities/getUserLocation';
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginChecked, setLoginChecked] = useState(false);
   const [loggedInUserData, setLoggedInUserData] = useState(null)
-  const [testMode, setTestmode] = useState(true)
+  const [globalUserLocation, setGlobalUserLocation] = useState(0)
+  const [testMode, setTestmode] = useState(false)
   // Rest of your app code
 
   useEffect(() => {
     checkUserLoginStatus();
   }, [loggedIn]); // Include loggedIn in the dependency array
   useEffect(()=>{
-    console.log("change in authcontext")
-  },[AuthContext.loggedInUserData])
+    handleGetUserLocation();
+  },[])
 
   const checkUserLoginStatus = async () => {
     const userInfo = await getUserLoginInfo(handleLoginSuccess);
@@ -32,6 +34,11 @@ export default function App() {
     }
     setLoginChecked(true);
   };
+  const handleGetUserLocation = async () => {
+    const location = await getUserLocation()
+    console.log("App.js, location", location)
+    setGlobalUserLocation(location)
+  }
   const handleLogout = async () =>{
     await deleteUserLoginInfo()
     setLoggedIn(false)
@@ -52,6 +59,7 @@ export default function App() {
           value={{
             loggedInUserData: loggedInUserData,
             onLogout: handleLogout,
+            globalUserLocation : globalUserLocation,
           }}
         >
           {loginChecked ? (

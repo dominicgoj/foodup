@@ -1,11 +1,10 @@
 import * as ImagePicker from 'expo-image-picker';
 import React, { useState, useEffect } from "react";
 import Icon from 'react-native-vector-icons/Entypo';
-import { TouchableOpacity, View, Alert  } from 'react-native';
+import { TouchableOpacity, View, Alert } from 'react-native';
 import { CreateRestaurantStyles } from '../styles/createRestaurantStyles';
-export default OpenRetrievePhotos = ({setPhotos}) => {
-  //const [selectedPhotos, setSelectedPhotos] = useState([]);
 
+export default OpenRetrievePhotos = ({ setPhotos }) => {
   useEffect(() => {
     requestPermission();
   }, []);
@@ -28,7 +27,7 @@ export default OpenRetrievePhotos = ({setPhotos}) => {
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: true,
+      allowsMultipleSelection: false,
       quality: 1,
     });
 
@@ -36,29 +35,25 @@ export default OpenRetrievePhotos = ({setPhotos}) => {
       if (result.assets.length > 3) {
         showAlertMessage("Das ist zu viel!", "Bitte wähle maximal 3 Bilder aus.");
       } else {
-        const formData = new FormData();
-      result.assets.forEach((photo, index) => {
-        formData.append(`image${index + 1}`, {
-          uri: photo.uri,
+        const selectedPhotos = result.assets.map((asset) => ({
+          uri: asset.uri,
           type: 'image/jpeg',
-          name: `photo${index + 1}.jpg`,
-        });
-      });
-        setPhotos(formData);
+          name: asset.uri.split('/').pop(),
+        }));
+        setPhotos(selectedPhotos); // Pass the selected photos to the server
       }
     }
-    
   };
+
   const showAlertMessage = (title, message) => {
-    Alert.alert(title, message, [
-      { text: "OK", onPress: () => console.log("OK Pressed") }
-    ]);
+    Alert.alert(title, message, [{ text: "OK", onPress: () => console.log("OK Pressed") }]);
   };
-  return(
+
+  return (
     <TouchableOpacity onPress={openPhotosApp}>
-    <View>
-      <Icon name="circle-with-plus" style={CreateRestaurantStyles.addPhotoIcon}/>
+      <View>
+        <Icon name="circle-with-plus" style={CreateRestaurantStyles.addPhotoIcon} />
       </View>
-      </TouchableOpacity>
-  )
-}
+    </TouchableOpacity>
+  );
+};

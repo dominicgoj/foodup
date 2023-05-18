@@ -10,7 +10,6 @@ import RenderRestaurantRegisterName from "./registerRestaurantsStackScreens/rest
 import RenderRestaurantRegisterTags from "./registerRestaurantsStackScreens/restaurantRegisterTags";
 import RenderRestaurantRegisterAddress from "./registerRestaurantsStackScreens/restaurantRegisterAddress";
 import RenderRestaurantRegisterPhoneEmail from "./registerRestaurantsStackScreens/restaurantRegisterPhoneEmail";
-import RenderRestaurantRegisterPhoto from "./registerRestaurantsStackScreens/restaurantRegisterAddPhoto";
 import RenderRestaurantRegisterFirstLastName from "./registerRestaurantsStackScreens/restaurantRegisterFirstLastName";
 import RenderRestaurantRegisterFinal from "./registerRestaurantsStackScreens/restaurantRegisterFinal";
 import LoginHelper from "./loginComponents/loginHelper";
@@ -59,12 +58,13 @@ const LoginForm = (props) => {
     setRestaurantTags,
     setRestaurantFirstName,
     setRestaurantLastName,
-    getRestaurantDataset,
+    
     getRestaurantImage,
     setRestaurantImage,
     getRestaurantImages,
     setRestaurantImages,
     resetRegisterRestaurant,
+    getRestaurantDataset,
     
 
   } = RestaurantRegisterHelpers();
@@ -75,13 +75,8 @@ const LoginForm = (props) => {
     setLoginFinalisedBool(true);
   };
 
-  useEffect(()=>{
-    console.log("GetRestaurantImage UseEffect Login", getRestaurantImage())
-  }, [getRestaurantDataset()])
-
   useEffect(() => {
     if (loginFinalisedBool) {
-      console.log("Resta image login", getRestaurantImage())
       handleLogin(
         getLoginUsername,
         getLoginPhoneNumber,
@@ -97,10 +92,12 @@ const LoginForm = (props) => {
   }, [loginFinalisedBool]);
   useEffect(() => {
     if (restaurantRegistered) {
+
       resetRegisterRestaurant();
     }
     return setRestaurantRegistered(false);
   }, [restaurantRegistered]);
+
 
   return (
     <Stack.Navigator>
@@ -173,6 +170,37 @@ const LoginForm = (props) => {
           <RenderLoginChooseUsername
             setLoginUsername={setLoginUsername}
             setLoginFinalisedBoolTrue={setLoginFinalisedBoolTrue}
+          />
+        )}
+      </Stack.Screen>
+      
+
+      <Stack.Screen
+        name="RestaurantRegisterAddPhoto"
+        options={{
+          header: () => <CostumHeader arrowShown={true} logoShown={false} />,
+        }}
+      >
+        {() => <RestaurantRegisterAddPhoto setRestaurantImages={setRestaurantImages}/>}
+      </Stack.Screen>
+      <Stack.Screen
+        name="RestaurantRegisterSelectPhoto"
+        options={{
+          header: () => <CostumHeader arrowShown={true} logoShown={false} />,
+        }}
+      >{()=><RestaurantRegisterSelectPhoto getRestaurantImages={getRestaurantImages} getRestaurantName={getRestaurantName} setRestaurantImage={setRestaurantImage}/>}</Stack.Screen>
+      <Stack.Screen
+        name="RenderRestaurantRegisterFinal"
+        options={{
+          header: () => <CostumHeader arrowShown={true} logoShown={false} />,
+        }}
+      >
+        {() => (
+          <RenderRestaurantRegisterFinal
+            dataset={getRestaurantDataset}
+            userinfo={null}
+            navigateBackDestination={"LoginDeviceChoice"}
+            setRestaurantRegistered={setRestaurantRegistered}
           />
         )}
       </Stack.Screen>
@@ -249,36 +277,6 @@ const LoginForm = (props) => {
             setRestaurantLastName={setRestaurantLastName}
             getRestaurantLastName={getRestaurantLastName}
             getRestaurantFirstName={getRestaurantFirstName}
-          />
-        )}
-      </Stack.Screen>
-
-      <Stack.Screen
-        name="RestaurantRegisterAddPhoto"
-        options={{
-          header: () => <CostumHeader arrowShown={true} logoShown={false} />,
-        }}
-      >
-        {() => <RestaurantRegisterAddPhoto setRestaurantImages={setRestaurantImages}/>}
-      </Stack.Screen>
-      <Stack.Screen
-        name="RestaurantRegisterSelectPhoto"
-        options={{
-          header: () => <CostumHeader arrowShown={true} logoShown={false} />,
-        }}
-      >{()=><RestaurantRegisterSelectPhoto getRestaurantImages={getRestaurantImages} setRestaurantImage={setRestaurantImage}/>}</Stack.Screen>
-      <Stack.Screen
-        name="RenderRestaurantRegisterFinal"
-        options={{
-          header: () => <CostumHeader arrowShown={true} logoShown={false} />,
-        }}
-      >
-        {() => (
-          <RenderRestaurantRegisterFinal
-            dataset={getRestaurantDataset}
-            userinfo={null}
-            navigateBackDestination={"LoginDeviceChoice"}
-            setRestaurantRegistered={setRestaurantRegistered}
           />
         )}
       </Stack.Screen>

@@ -17,7 +17,6 @@ import { useNavigation } from "@react-navigation/native";
     const navigation = useNavigation()
     useEffect(()=>{
       if(selectedPhotos.length>0){
-        console.log("Selected photos in add photos", selectedPhotos)
         setRestaurantImages(selectedPhotos)
         navigation.navigate("RestaurantRegisterSelectPhoto")
       }
@@ -26,8 +25,7 @@ import { useNavigation } from "@react-navigation/native";
       <View style={{flex: 1}}>
         <View style={[CreateRestaurantStyles.container, {height:'100%'}]}>
           <View style={CreateRestaurantStyles.headerContainer}>
-            <Text style={CreateRestaurantStyles.title}>Füge repräsentative Fotos für Deine Restaurant und Deine Küche hinzu.</Text>
-            <Text style={CreateRestaurantStyles.info}>Wähle 1 bis 3 Bilder aus Deiner Galerie aus.</Text>
+            <Text style={CreateRestaurantStyles.title}>Füge ein Fotos für Dein Restaurant hinzu.</Text>
             
           
           </View>

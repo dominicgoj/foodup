@@ -8,7 +8,7 @@ import ContentLoader from 'react-native-easy-content-loader';
 import RestaurantInactiveRibbon from './restaurantInactive';
 const RestaurantCard = ({restaurant, showActivity}) => {
     const [isLoaded, setIsLoaded] = useState(true)
-    const imageSource = require('../../../assets/img/food.jpg');
+    const imageSource = restaurant.title_image_preview;
     const handleImageLoad = () => {
         setIsLoaded(false);
       };
@@ -18,7 +18,7 @@ const RestaurantCard = ({restaurant, showActivity}) => {
         <View style={styles.container}>
             <View style={styles.imageContainer} >
             <ContentLoader active loading={isLoaded} />
-            <Image style={styles.image} onLoad={handleImageLoad} source={imageSource}/>
+            <Image style={styles.image} onLoad={handleImageLoad} source={{uri: imageSource}}/>
             </View>
             <View style={styles.row}>
             <Text style={commonStyles.restaurantTitle}>{restaurant.restaurant_name}</Text>

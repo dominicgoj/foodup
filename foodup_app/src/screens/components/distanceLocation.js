@@ -1,37 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../../../config";
 import * as Location from 'expo-location';
-import { View, Text } from "react-native";
+import { ActivityIndicator, View, Text } from "react-native";
 import { MapStyles } from "../../styles/mapstyles";
+import { Colors } from "../../styles/colors";
+import AuthContext from "../../utilities/authcontext";
+
 const DistanceLocation = (result) => {
-    const [userLocation, setUserLocation] = useState(null);
     const [distanceKM, setDistanceKM] = useState(null)
     const [distanceM, setDistanceM] = useState(null)
-
-    const getUserLocation = async () => {
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-            return status;
-        }
-
-        try {
-            let { coords } = await Location.getCurrentPositionAsync({});
-            return coords;
-        } catch (error) {
-            console.log('Error fetching location:', error);
-        }
-    };
+    const [gpsAvailable, setGPSAvailable] = useState(true)
+    const { globalUserLocation } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchUserLocation = async () => {
-            const location = await getUserLocation();
-            const distanceM = await getDistance(location.latitude, location.longitude, result.restaurant.latitude_gps, result.restaurant.longitude_gps, 'm')
-            const distanceKM = await getDistance(location.latitude, location.longitude, result.restaurant.latitude_gps, result.restaurant.longitude_gps, 'km')
+            
+            if(result.restaurant.latitude_gps!=""||result.restaurant.longitude_gps!="")
+            {
+                
+                const distanceM = await getDistance(globalUserLocation.latitude, globalUserLocation.longitude, result.restaurant.latitude_gps, result.restaurant.longitude_gps, 'm')
+                const distanceKM = await getDistance(globalUserLocation.latitude, globalUserLocation.longitude, result.restaurant.latitude_gps, result.restaurant.longitude_gps, 'km')
+                setDistanceKM(Math.round(distanceKM))
+                setDistanceM(Math.round(distanceM))
+            }
+            else{
+                const distanceM = "0"
+                const distanceKM = "0"
+                setGPSAvailable(false)
+            }
 
-            setUserLocation(location);
-            setDistanceKM(Math.round(distanceKM))
-            setDistanceM(Math.round(distanceM))
+            
         };
         fetchUserLocation();
         
@@ -55,11 +54,14 @@ const DistanceLocation = (result) => {
       function toRad(value) {
         return (value * Math.PI) / 180; // Convert degrees to radians
       }
-    
+   
     return(
         <View>
-            {distanceKM<1?
-            (<Text style={MapStyles.distance}>{distanceM} m</Text>):(<Text style={MapStyles.distance}>{distanceKM} km</Text>)}
+            {gpsAvailable?(
+                distanceKM<1?
+                    (<Text style={MapStyles.distance}>{distanceM}m</Text>):(<Text style={MapStyles.distance}>{distanceKM} km</Text>)
+            ):(<Text style={MapStyles.distance}>Keine Standortdaten verfügbar</Text>)}
+            
         </View>
     )
 

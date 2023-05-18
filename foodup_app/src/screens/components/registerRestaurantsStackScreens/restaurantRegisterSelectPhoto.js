@@ -9,19 +9,17 @@ import {
   } from "react-native";
 
 import RestaurantImageList from "./restaurantImageList";
+import RestaurantRegisterPreviewRestaurantDetailPage from "./restaurantRegisterPreviewRestaurantDetailPage";
 import { useNavigation } from "@react-navigation/native";
 
 
-  export default RenderRestaurantSelectPhoto = ({getRestaurantImages, setRestaurantImage}) => {
+  export default RenderRestaurantSelectPhoto = ({getRestaurantImages, setRestaurantImage, getRestaurantName}) => {
     const [errorMsg, setErrorMsg] = useState(null);
     const navigation = useNavigation()
     
-    const photoDictionary = getRestaurantImages().reduce((dict, photo, index) => {
-      dict[index] = photo;
-      return dict;
-    }, {});
     
     const handleRegisterRestaurantSendPhoto = () => {
+      setRestaurantImage(getRestaurantImages()[0])
       navigation.navigate("RenderRestaurantRegisterFinal")
     }
     return(
@@ -29,7 +27,7 @@ import { useNavigation } from "@react-navigation/native";
         <View style={[CreateRestaurantStyles.container, {height:'100%'}]}>
           <View>
           
-            <Text style={CreateRestaurantStyles.title}>Wähle ein Titelbild aus</Text>
+            <Text style={CreateRestaurantStyles.title}>So sieht deine Seite aus:</Text>
             {errorMsg ? <Text style={CreateRestaurantStyles.info}>{errorMsg}</Text> : null}
           
           </View>
@@ -40,14 +38,11 @@ import { useNavigation } from "@react-navigation/native";
             <Text style={CreateRestaurantStyles.buttonText}>Weiter</Text>
           </TouchableOpacity>
             <View style={CreateRestaurantStyles.imageContainer}>
-              <RestaurantImageList photos={photoDictionary} setRestaurantImage={setRestaurantImage}/>
+              
+              
             </View>
-          
-        
-          
-        
-       
         </View>
+        <RestaurantRegisterPreviewRestaurantDetailPage getRestaurantImages={getRestaurantImages} getRestaurantName={getRestaurantName} setRestaurantImage={setRestaurantImage} />
       </ScrollView>
       
     
