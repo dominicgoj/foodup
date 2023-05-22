@@ -12,7 +12,6 @@ const getUserLoginInfo = async () => {
       try {
         const response = await axios.get(BACKEND_URL + "/user/" + userInfo.id);
         const { data } = response;
-        console.log('User login information retrieved successfully:', data);
         return data;
         // Do something with the retrieved user info, e.g., auto-login
       } catch (error) {
@@ -25,7 +24,6 @@ const getUserLoginInfo = async () => {
         }
       }
     } else {
-      console.log('User login information not found on the device');
       // Handle the case when the user is not logged in (item not found on the device)
     }
   } catch (error) {

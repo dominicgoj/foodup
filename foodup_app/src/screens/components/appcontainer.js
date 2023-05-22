@@ -13,11 +13,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import CustomHeader from "./costumheader.js";
 import getUserLoginInfo from "../../utilities/retrieveloggedin.js";
 import getUserPosts from "../../utilities/getUserPosts.js";
-import getUserLikes from "../../utilities/getUserLikes.js";
+import getLikesAssociatedWithUser from "../../api/getLikesAssociatedWithUser.js";
 import fetchRestaurantData from "../../api/fetchRestaurantData.js";
+import fetchRestaurantLikeByUserID from "../../api/fetchRestaurantLikeByUserID.js";
 import { View } from "react-native";
 import SpinningWheel from "./spinningWheel.js";
-import AuthContext from "../../utilities/authcontext.js";
 
 
 const Tab = createBottomTabNavigator();
@@ -37,6 +37,10 @@ export default function AppContainer() {
   const [refreshing, setRefreshing] = useState(false);
   const [restaurantData, setRestaurantData] = useState(null);
   const [isLoading, setIsLoading] = useState(true)
+  const [userRestaurantLikes, setUserRestaurantLikes] = useState([])
+  const [likesAssociatedWithUser, setLikesAssociatedWithUser] = useState([])
+
+
   const onRefresh = () => {
     setRefreshing(true);
     // Perform the necessary actions to refresh the screen or fetch new data
@@ -49,20 +53,19 @@ export default function AppContainer() {
         setRefreshing(false);
       });
   };
-  useEffect(()=>{
-  },[isLoading])
+ 
   const gatherAllDataFromUser = async () => {
     
     const userinfo = await getUserLoginInfo();
     const restaurants = await fetchRestaurantData();
-    const userposts = await getUserPosts(userinfo.id, {"active":"true"});
-    const userlikes = await getUserLikes(userinfo.id);
-
+    const userposts = await getUserPosts(userinfo.id, {"active":"true"}); //all posts by user
+    const likesAssociatedWithUser = await getLikesAssociatedWithUser(userinfo); //all likes given by user
+    const userrestaurantlikes = await fetchRestaurantLikeByUserID(userinfo) //saved restaurants by user
     setUserLoggedIn(userinfo);
     setUserPosts(userposts);
-    setUserLikes(userlikes);
+    setLikesAssociatedWithUser(likesAssociatedWithUser);
     setRestaurantData(restaurants);
-    console.log("loaded new restaurant data in appcontainer: ", restaurants)
+    setUserRestaurantLikes(userrestaurantlikes)
     setIsLoading(false)
   };
   useEffect(() => {
@@ -89,16 +92,6 @@ export default function AppContainer() {
             <HomeScreen restaurantData={restaurantData} onRefresh={onRefresh} />
           )}
         </Tab.Screen>
-        <Tab.Screen
-          name={tabTitles.search}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="voicemail" size={size} color={color} />
-            ),
-            headerShown: false,
-          }}
-          component={SearchTab}
-        />
         <Tab.Screen
           name={tabTitles.post}
           component={AddTabStack}
@@ -130,10 +123,12 @@ export default function AppContainer() {
           {() => (
             <UserScreen
               posts={userPosts}
-              likes={userLikes}
+              likesAssociatedWithUser={likesAssociatedWithUser}
               onRefresh={onRefresh}
               userinfo={userLoggedIn}
               tabTitles={tabTitles}
+              userRestaurantLikes={userRestaurantLikes}
+              
             />
           )}
         </Tab.Screen>

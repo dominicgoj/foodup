@@ -27,6 +27,7 @@ export default async function createRestaurant(dataset, userinfo) {
   formData.append('telephone', dataset().registerRestaurantTelephone);
   formData.append('website', dataset().registerRestaurantWebsite);
   formData.append('zip', dataset().registerRestaurantZip);
+  formData.append('description', dataset().registerRestaurantDescription);
   
   if (userinfo) {
     formData.append("userid", userinfo.id);

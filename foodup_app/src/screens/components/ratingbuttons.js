@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-const RatingButtons = ({ onRatingPlaced, resetData }) => {
+const RatingButtons = ({ onRatingPlaced, resetData, triggerTooltip }) => {
   const [selected, setSelected] = useState([]);
   
   const handleButtonPress = (buttonIndex) => {
     setSelected([...Array(buttonIndex + 1).keys()]);
     onRatingPlaced(["rating", buttonIndex+1]);
+    triggerTooltip()
   };
 
   useEffect(()=>{

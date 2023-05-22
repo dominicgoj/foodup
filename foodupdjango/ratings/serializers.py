@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Restaurant, User, Like, ActivationCode
+from .models import Post, Restaurant, User, Like, ActivationCode, RestaurantLike, LoginData
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -21,19 +21,30 @@ class RestaurantSerializer(serializers.ModelSerializer):
         return representation
     class Meta:
         model = Restaurant
-        fields = ['id', 'restaurant_name', 'title_image', 'title_image_preview', 'latitude_gps', 'longitude_gps', 'timestamp_gps', 'telephone', 'email', 'website', 'instagram', 'facebook', 'street', 'zip', 'city', 'average_rating', 'qr_id', 'userid', 'tags', 'active']
+        fields = ['id', 'restaurant_name', 'title_image', 'title_image_preview', 'latitude_gps', 'longitude_gps', 'timestamp_gps', 'telephone', 'email', 'website', 'instagram', 'facebook', 'street', 'zip', 'city', 'average_rating', 'qr_id', 'userid', 'tags', 'active', 'description']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'telephone', 'email', 'active', 'username', 'user_firstname', 'user_lastname']
+        fields = ['id', 'telephone', 'email', 'active', 'username', 'user_firstname', 'user_lastname', 'profile_img']
 
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
-        fields = ['id', 'userid', 'restaurantid', 'commentid', 'created_at']
+        fields = ['id', 'userid', 'restaurantid', 'commentid', 'created_at', 'userid_got_like']
 
 class ActivationCodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ActivationCode
         fields = ['id', 'email', 'code', 'phone', 'active']
+
+class RestaurantLikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RestaurantLike
+        fields = ['id', 'userid', 'restaurantid', 'created_at', 'active', 'modified_at']
+
+class LoginDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LoginData
+        fields = ['id', 'userid', 'created_at', 'model', 'latitude', 'longitude', 'is_connected', 'connection_type']
+

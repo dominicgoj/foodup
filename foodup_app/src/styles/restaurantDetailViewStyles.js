@@ -42,6 +42,54 @@ export const RestaurantDetailViewStyles = StyleSheet.create({
           },
         container:{
             flex:1,
+            paddingLeft: 15,
+            paddingRight: 15,
+        },
+        titleContainer:{
+            
+        },
+        titleContainerRow:{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            
+        },
+        restaurantDescriptionTextContainer:{
+            marginTop: 0,
+
+        },
+        tagContainer: {
+            borderWidth: 1,
+            padding: 3,
+            marginLeft: 5,
+            marginRight: 0,
+            borderColor: "#332E33",
+          },
+          tagFont: {
+            fontSize: 12,
+          },
+          tagRow: {
+            flexDirection: "row",
+            flexWrap: "wrap",
+            marginBottom: 0,
+          },
+        unwrapDescriptionContainer:{
+            paddingTop: 5,
+
+        },
+        unwrapDescriptionText:{
+            fontWeight: '600'
+        },
+        
+        restaurantDescriptionText:{
+            fontSize: 14,
+        },
+        restaurantTitleDetailView:
+        {
+            fontSize: 24,
+            flexWrap: 'wrap',
+            paddingTop: 20,
+            color: '#303030',
+            fontWeight: 'bold',
         },
         webIcon:{
             fontSize: 20,
@@ -57,6 +105,7 @@ export const RestaurantDetailViewStyles = StyleSheet.create({
             height: 100,
             width: "100%",
             backgroundColor: 'white',
+            
             
         },
         starsRow:{

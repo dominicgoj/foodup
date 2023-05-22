@@ -12,6 +12,7 @@ import RenderRestaurantRegisterAddress from "./registerRestaurantsStackScreens/r
 import RenderRestaurantRegisterPhoneEmail from "./registerRestaurantsStackScreens/restaurantRegisterPhoneEmail";
 import RenderRestaurantRegisterFirstLastName from "./registerRestaurantsStackScreens/restaurantRegisterFirstLastName";
 import RenderRestaurantRegisterFinal from "./registerRestaurantsStackScreens/restaurantRegisterFinal";
+import RestaurantRegisterDescription from "./registerRestaurantsStackScreens/restaurantRegisterDescription";
 import LoginHelper from "./loginComponents/loginHelper";
 import RestaurantRegisterHelpers from "./registerRestaurantsStackScreens/restaurantRegisterHelpers";
 import CostumHeader from "./costumheader";
@@ -58,13 +59,14 @@ const LoginForm = (props) => {
     setRestaurantTags,
     setRestaurantFirstName,
     setRestaurantLastName,
-    
+    getRestaurantDataset,
     getRestaurantImage,
     setRestaurantImage,
     getRestaurantImages,
     setRestaurantImages,
     resetRegisterRestaurant,
-    getRestaurantDataset,
+    getRestaurantDescription,
+    setRestaurantDescription
     
 
   } = RestaurantRegisterHelpers();
@@ -277,6 +279,20 @@ const LoginForm = (props) => {
             setRestaurantLastName={setRestaurantLastName}
             getRestaurantLastName={getRestaurantLastName}
             getRestaurantFirstName={getRestaurantFirstName}
+          />
+        )}
+      </Stack.Screen>
+      <Stack.Screen
+        name="RestaurantRegisterDescription"
+        options={{
+          header: () => <CostumHeader arrowShown={true} logoShown={false} />,
+        }}
+      >
+        {() => (
+          <RestaurantRegisterDescription
+            getRestaurantDescription={getRestaurantDescription}
+            setRestaurantDescription={setRestaurantDescription}
+            
           />
         )}
       </Stack.Screen>

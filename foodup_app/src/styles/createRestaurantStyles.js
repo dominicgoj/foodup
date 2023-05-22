@@ -35,6 +35,17 @@ export const CreateRestaurantStyles = StyleSheet.create({
       paddingHorizontal: 10,
       backgroundColor: "white",
     },
+    inputTextbox: {
+      width: "80%",
+      height: 200,
+      borderColor: "white",
+      borderWidth: 1,
+      borderRadius: 5,
+      marginBottom: 10,
+      paddingHorizontal: 10,
+      backgroundColor: "white",
+      paddingTop: 10,
+    },
     bigbutton: {
       width: "50%",
       height: 120,

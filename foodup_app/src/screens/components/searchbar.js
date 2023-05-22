@@ -35,18 +35,19 @@ const SearchBar = () => {
   };
 
     const handleRestaurantSelect = (result) =>{
+      setSearchInput('')
     navigation.navigate('Detail', { restaurant: result });
    }
 
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <TextInput
         style={[Searchbar.input]}
-        placeholder="Restaurant oder Stichwort..."
+        placeholder="Worauf hast du Lust?"
         value={searchInput}
         onChangeText={(text) => setSearchInput(text)}
-      /><View style={Searchbar.resultsContainer}>
+      /><View style={[Searchbar.resultsContainer]}>
       {searchResults && searchResults.length > 0 ? (
   searchResults.map((result, index) => {
     return(
@@ -82,7 +83,8 @@ const SearchBar = () => {
   )})
 ) : null}
 
-    </View></View>
+    </View>
+    </View>
     </TouchableWithoutFeedback>
   );
 }
@@ -91,7 +93,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    padding: 20,
+    padding: 15,
+
   },
   input: {
     width: '100%',
@@ -101,6 +104,16 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
   },
+  resultsOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    zIndex: 1,
+  },
+  
 });
 
 export default SearchBar;

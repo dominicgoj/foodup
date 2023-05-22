@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from rest_framework import generics
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from .models import Post, Restaurant, User, Like, ActivationCode
+from .models import Post, Restaurant, User, Like, ActivationCode, RestaurantLike, LoginData
 from .serializers import (
     PostSerializer,
     RestaurantSerializer,
     UserSerializer,
     LikeSerializer,
     ActivationCodeSerializer,
+    RestaurantLikeSerializer,
+    LoginDataSerializer
 )
 from django.conf import settings
 from rest_framework.response import Response
@@ -32,7 +34,7 @@ from .models import User
 from django.template.loader import render_to_string
 from django.conf import settings
 import mimetypes
-
+from django.utils import timezone
 os.environ["AWS_ACCESS_KEY_ID"] = "AKIA34HPQHKM7C3GQBPC"
 os.environ["AWS_SECRET_ACCESS_KEY"] = "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"
 region_name = "eu-north-1"
@@ -185,8 +187,63 @@ class RestaurantDelete(generics.DestroyAPIView):
     def get(self, request):
         restaurant_id = self.request.GET.get("id")
 
+class RestaurantSearchByTags(APIView):
+    def calculate_distance(self, lat1, lon1, lat2, lon2):
+        # Convert coordinates from degrees to radians
+        lat1_rad = radians(lat1)
+        lon1_rad = radians(lon1)
+        lat2_rad = radians(lat2)
+        lon2_rad = radians(lon2)
 
+        # Haversine formula
+        dlon = lon2_rad - lon1_rad
+        dlat = lat2_rad - lat1_rad
+        a = sin(dlat / 2) ** 2 + cos(lat1_rad) * cos(lat2_rad) * sin(dlon / 2) ** 2
+        c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        distance = 6371 * c  # Radius of the Earth in kilometers
 
+        return distance
+
+    def get_queryset(self, search_tags):
+        queryset = Restaurant.objects.all()
+
+        if search_tags:
+            query = Q()
+            for tag in search_tags:
+                query |= Q(tags__icontains=tag)  # Assuming "tags" is a TextField or CharField
+
+            queryset = queryset.filter(query)
+
+        return queryset
+
+    def get(self, request):
+        user_latitude = request.GET.get("user_latitude")
+        user_longitude = request.GET.get("user_longitude")
+        search_tags = request.GET.get("search", "").split()  # Split the search tags into a list
+
+        queryset = self.get_queryset(search_tags)
+
+        if user_latitude and user_longitude:
+            queryset = queryset.filter(active=True)
+            serialized_restaurants = RestaurantSerializer(queryset, many=True).data
+
+            for restaurant in serialized_restaurants:
+                restaurant_latitude = restaurant["latitude_gps"]
+                restaurant_longitude = restaurant["longitude_gps"]
+
+                if restaurant_latitude and restaurant_longitude:
+                    distance = self.calculate_distance(
+                        float(user_latitude),
+                        float(user_longitude),
+                        float(restaurant_latitude),
+                        float(restaurant_longitude),
+                    )
+                    restaurant["distance"] = distance
+
+            return Response(serialized_restaurants)
+
+        serializer = RestaurantSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 class RestaurantCreate(APIView):
     def post(self, request):
@@ -240,6 +297,7 @@ class CreateRestaurant(APIView):
         telephone = request.POST.get('telephone')
         website = request.POST.get('website')
         zip_code = request.POST.get('zip')
+        description = request.POST.get('description')
         userid = request.POST.get('userid')
         
         try:
@@ -258,6 +316,7 @@ class CreateRestaurant(APIView):
             telephone=telephone,
             website=website,
             tags=tags,
+            description=description,
             userid=user
         )
         
@@ -270,9 +329,7 @@ class CreateRestaurant(APIView):
         # Save the title image
         # Open the title image using Pillow
         title_img = Image.open(title_image)
-        print(title_img)
         title_img = ImageOps.exif_transpose(title_img)
-        print(title_img)
         
         # Resize the title image if needed
         title_max_width = 800
@@ -326,7 +383,7 @@ class CreateRestaurant(APIView):
         
         html_content = render_to_string('registerRestaurant.html')
         msg.attach_alternative(html_content, "text/html")
-        msg.send()
+        #msg.send()
         return JsonResponse({'message': 'Restaurant created successfully'})
 
 
@@ -354,26 +411,28 @@ class RestaurantDistance(APIView):
     def get(self, request):
         user_latitude = float(request.GET.get("user_latitude"))
         user_longitude = float(request.GET.get("user_longitude"))
-        restaurants = Restaurant.objects.filter(active=True)
-        serialized_restaurants = self.serializer_class(
-        restaurants,
-        many=True,
-        context={'request': request}
-        ).data
-        for restaurant in serialized_restaurants:
-            restaurant_latitude = restaurant["latitude_gps"]
-            restaurant_longitude = restaurant["longitude_gps"]
-            if restaurant_latitude != "" and restaurant_longitude != "":
+       
+        if(user_latitude and user_longitude):
+            print(user_longitude, user_latitude)
+            restaurants = Restaurant.objects.filter(active=True)
+            serialized_restaurants = self.serializer_class(
+            restaurants,
+            many=True,
+            context={'request': request}
+            ).data
+            for restaurant in serialized_restaurants:
+                restaurant_latitude = restaurant["latitude_gps"]
+                restaurant_longitude = restaurant["longitude_gps"]
+                if restaurant_latitude != "" and restaurant_longitude != "":
 
-                distance = self.calculate_distance(
-                    user_latitude,
-                    user_longitude,
-                    float(restaurant_latitude),
-                    float(restaurant_longitude),
-                )
-                restaurant["distance"] = distance
-        print(serialized_restaurants)
-        return Response(serialized_restaurants)
+                    distance = self.calculate_distance(
+                        user_latitude,
+                        user_longitude,
+                        float(restaurant_latitude),
+                        float(restaurant_longitude),
+                    )
+                    restaurant["distance"] = distance
+            return Response(serialized_restaurants)
 
 
 class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -407,7 +466,6 @@ class SearchUser(generics.ListAPIView):
         telephone = self.request.GET.get("telephone")
         email = self.request.GET.get("email")
 
-        print("telephone email search: ", telephone, email)
 
         if telephone:
             queryset = User.objects.filter(telephone=telephone)
@@ -491,21 +549,34 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         self.perform_update(serializer)
         return Response(serializer.data)
 
+class UserShow(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
 
 class LikeList(generics.ListCreateAPIView):
     serializer_class = LikeSerializer
 
     def get_queryset(self):
         user_id = self.request.GET.get("userid")
+        userid_got_like = self.request.GET.get("userid_got_like")
         restaurant_id = self.request.GET.get("restaurantid")
         comment_id = self.request.GET.get("commentid")
 
         if user_id and restaurant_id and comment_id:
+            print("ausgelöst")
             queryset = Like.objects.filter(
                 userid=user_id, restaurantid=restaurant_id, commentid=comment_id
             )
+            print(queryset)
+        elif user_id and userid_got_like:
+            queryset = Like.objects.filter(Q(userid=user_id) | Q(userid_got_like=userid_got_like))
         elif user_id:
             queryset = Like.objects.filter(userid=user_id)
+        elif userid_got_like:
+            queryset = Like.objects.filter(userid_got_like=userid_got_like)
+        elif comment_id:
+            queryset = Like.objects.filter(commentid=comment_id) 
         else:
             queryset = Like.objects.all()
 
@@ -533,6 +604,7 @@ class LikeCreateView(APIView):
         user_id = request.data.get("userid")
         restaurant_id = request.data.get("restaurantid")
         comment_id = request.data.get("commentid")
+        userid_got_like = request.data.get("userid_got_like")
 
         # Validate the required fields (user_id, restaurant_id, comment_id)
         if not (user_id and restaurant_id and comment_id):
@@ -545,6 +617,7 @@ class LikeCreateView(APIView):
             "userid": user_id,
             "restaurantid": restaurant_id,
             "commentid": comment_id,
+            "userid_got_like": userid_got_like,
             # Add other fields if needed
         }
         serializer = LikeSerializer(data=like_data)
@@ -589,7 +662,7 @@ class SendActivationView(APIView):
                 
                 html_content = render_to_string('welcomeemail.html', {'activation_code': activation_code})
                 msg.attach_alternative(html_content, "text/html")
-                msg.send()
+                #msg.send()
 
                 return Response({"message": "Email sent"}, status=status.HTTP_200_OK)
         if phone:
@@ -669,3 +742,86 @@ class VerifyActivationCodeView(APIView):
             return Response(
                 {"message": "Invalid request"}, status=status.HTTP_400_BAD_REQUEST
             )
+
+class LikeRestaurantList(generics.ListCreateAPIView):
+    queryset = RestaurantLike.objects.all()
+    serializer_class = RestaurantLikeSerializer
+
+class RestaurantLikeCreateUpdate(APIView):
+    def post(self, request):
+        userid = request.data.get('userid')
+        restaurantid = request.data.get('restaurantid')
+
+        try:
+            restaurant_like = RestaurantLike.objects.get(userid=userid, restaurantid=restaurantid)
+            restaurant_like.active = not restaurant_like.active
+            restaurant_like.modified_at = timezone.now()
+            restaurant_like.save()
+            return Response({'message': 'RestaurantLike entry updated!'})
+        except RestaurantLike.DoesNotExist:
+            user = User.objects.get(id=userid)
+            restaurant = Restaurant.objects.get(id=restaurantid)
+            RestaurantLike.objects.create(userid=user, restaurantid=restaurant)
+            return Response({'message': 'Invalid request.'})
+
+
+class RetrieveLikedRestaurants(generics.ListAPIView):
+    serializer_class = RestaurantSerializer
+
+    def get_queryset(self):
+        userid = self.request.query_params.get('userid')
+        restaurantid = self.request.query_params.get('restaurantid')
+
+        if userid and restaurantid:
+            try:
+                restaurant_likes = RestaurantLike.objects.filter(userid=userid, restaurantid=restaurantid, active=True)
+                restaurant_ids = restaurant_likes.values_list('restaurantid', flat=True)
+                restaurants = Restaurant.objects.filter(id__in=restaurant_ids)
+                return restaurants
+            except RestaurantLike.DoesNotExist:
+                return Restaurant.objects.none()
+        elif userid and not restaurantid:
+            try:
+                restaurant_likes = RestaurantLike.objects.filter(userid=userid, active=True)
+                restaurant_ids = restaurant_likes.values_list('restaurantid', flat=True)
+                restaurants = Restaurant.objects.filter(id__in=restaurant_ids)
+                return restaurants
+            except RestaurantLike.DoesNotExist:
+                return Restaurant.objects.none()
+        elif restaurantid and not userid:
+            try:
+                restaurant_likes = RestaurantLike.objects.filter(restaurantid=restaurantid, active=True)
+                restaurant_ids = restaurant_likes.values_list('restaurantid', flat=True)
+                restaurants = Restaurant.objects.filter(id__in=restaurant_ids)
+                return restaurants
+            except RestaurantLike.DoesNotExist:
+                return Restaurant.objects.none()
+        else:
+            return Restaurant.objects.none()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+class CreateLoginDataView(APIView):
+    def post(self, request):
+        serializer = LoginDataSerializer(data=request.data)
+        print(request.data)
+        if serializer.is_valid():
+            print("is valid")
+            try:
+                user = User.objects.get(id=request.data.get('userid'))
+                serializer.save(userid=user)
+                return Response({'status': 'success'}, status=201)
+            except User.DoesNotExist:
+                return Response({'error': 'User not found'}, status=400)
+        return Response(serializer.errors, status=400)
+class LoginDataView(generics.ListAPIView):
+    queryset = LoginData.objects.all()
+    serializer_class = LoginDataSerializer
+
+
+
+
+

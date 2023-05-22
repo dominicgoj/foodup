@@ -45,6 +45,7 @@ AWS_SNS_DEFAULT_SMS_TYPE = 'Promotional'
 AWS_SES_REGION_NAME = 'eu-north-1'
 AWS_SES_REGION_ENDPOINT = 'email.eu-north-1.amazonaws.com'
 DEFAULT_FROM_EMAIL = "dominicgoj@gmail.com"
+
 try:
     # Fetch the public IP address using an external service
     response = requests.get('https://api.ipify.org/?format=json')
@@ -52,7 +53,7 @@ try:
 except (requests.RequestException, KeyError):
     # If fetching the IP address fails, fallback to a default value
     public_ip = '192.168.0.1'
-ALLOWED_HOSTS = [public_ip, 'localhost','127.0.0.1','192.168.0.167']
+ALLOWED_HOSTS = [public_ip, 'localhost','127.0.0.1','192.168.1.11']
 print(ALLOWED_HOSTS)
 
 

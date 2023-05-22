@@ -9,11 +9,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { ScrollView, View } from 'react-native';
 import TestComponent from './src/screens/components/testcomponent';
 import getUserLocation from './src/utilities/getUserLocation';
+import createLoginData from './src/utilities/createLoginData';
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginChecked, setLoginChecked] = useState(false);
   const [loggedInUserData, setLoggedInUserData] = useState(null)
-  const [globalUserLocation, setGlobalUserLocation] = useState(0)
+  const [globalUserLocation, setGlobalUserLocation] = useState()
   const [testMode, setTestmode] = useState(false)
   // Rest of your app code
 
@@ -29,6 +30,7 @@ export default function App() {
     if (userInfo) {
       setLoggedIn(true);
       setLoggedInUserData(userInfo)
+      createLoginData(userInfo.id)
     } else {
       setLoggedIn(false);
     }
@@ -36,7 +38,10 @@ export default function App() {
   };
   const handleGetUserLocation = async () => {
     const location = await getUserLocation()
-    setGlobalUserLocation(location)
+    if(location){
+      setGlobalUserLocation(location)
+    }
+    
   }
   const handleLogout = async () =>{
     await deleteUserLoginInfo()
@@ -47,6 +52,7 @@ export default function App() {
 
   const handleLoginSuccess = () => {
     setLoggedIn(true);
+    
   };
 
   return (

@@ -9,7 +9,6 @@ import {
     Keyboard,
     Button,
   } from "react-native";
-  import { createStackNavigator } from "@react-navigation/stack";
   import { useNavigation } from "@react-navigation/native";
   import dismissKeyboard from "../../../functions/dismissKeyboard";
   import { CreateRestaurantStyles } from "../../../styles/createRestaurantStyles";

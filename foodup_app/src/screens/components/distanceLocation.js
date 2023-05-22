@@ -10,19 +10,18 @@ import AuthContext from "../../utilities/authcontext";
 const DistanceLocation = (result) => {
     const [distanceKM, setDistanceKM] = useState(null)
     const [distanceM, setDistanceM] = useState(null)
-    const [gpsAvailable, setGPSAvailable] = useState(true)
+    const [gpsAvailable, setGPSAvailable] = useState(false)
     const { globalUserLocation } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchUserLocation = async () => {
-            
-            if(result.restaurant.latitude_gps!=""||result.restaurant.longitude_gps!="")
+            if(result.restaurant.latitude_gps!=""&&result.restaurant.longitude_gps!=""&&typeof globalUserLocation != "string")
             {
-                
                 const distanceM = await getDistance(globalUserLocation.latitude, globalUserLocation.longitude, result.restaurant.latitude_gps, result.restaurant.longitude_gps, 'm')
                 const distanceKM = await getDistance(globalUserLocation.latitude, globalUserLocation.longitude, result.restaurant.latitude_gps, result.restaurant.longitude_gps, 'km')
                 setDistanceKM(Math.round(distanceKM))
                 setDistanceM(Math.round(distanceM))
+                setGPSAvailable(true)
             }
             else{
                 const distanceM = "0"

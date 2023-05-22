@@ -23,7 +23,7 @@ import {
     const handleRegisterRestaurantName = () => {
       if (localRestaurantName) {
         setRestaurantName(localRestaurantName);
-        navigation.navigate("UserRegisterRestaurantTags");
+        navigation.navigate("RestaurantRegisterDescription");
       } else {
         setErrorMsg("Bitte gib den Namen Deines Restaurants an.");
       }

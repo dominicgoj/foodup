@@ -22,7 +22,7 @@ import {
     const [tagInput, setTagInput] = useState("");
     const [tags, setTags] = useState(getRestaurantTags);
     useEffect(() => {
-      if (tags.length < 10) {
+      if (tags.length < 5) {
         if (tagInput.includes(",") || tagInput.includes(" ")) {
           const newTags = tagInput
             .split(/[, ]+/)

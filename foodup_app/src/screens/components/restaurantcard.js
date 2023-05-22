@@ -6,9 +6,11 @@ import DistanceLocation from './distanceLocation';
 import { useNavigation } from '@react-navigation/native';
 import ContentLoader from 'react-native-easy-content-loader';
 import RestaurantInactiveRibbon from './restaurantInactive';
+import { BACKEND_URL } from '../../../config';
 const RestaurantCard = ({restaurant, showActivity}) => {
     const [isLoaded, setIsLoaded] = useState(true)
-    const imageSource = restaurant.title_image_preview;
+    const baseRegex = /^(?:https?:\/\/)?[^/]+/i;
+    const imageSource = restaurant.title_image_preview.replace(baseRegex, '');
     const handleImageLoad = () => {
         setIsLoaded(false);
       };
@@ -18,10 +20,12 @@ const RestaurantCard = ({restaurant, showActivity}) => {
         <View style={styles.container}>
             <View style={styles.imageContainer} >
             <ContentLoader active loading={isLoaded} />
-            <Image style={styles.image} onLoad={handleImageLoad} source={{uri: imageSource}}/>
+            <Image style={styles.image} onLoad={handleImageLoad} source={{uri: BACKEND_URL+imageSource}}/>
             </View>
             <View style={styles.row}>
+                <View>
             <Text style={commonStyles.restaurantTitle}>{restaurant.restaurant_name}</Text>
+            </View>
             <View style={styles.ratingBox}>
             <Icon name="star" style={styles.star}/>
             <Text style={styles.ratingText}>{restaurant.average_rating}</Text>

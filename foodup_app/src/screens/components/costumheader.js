@@ -9,19 +9,21 @@ const CustomHeader = ({arrowShown, logoShown, headerText }) => {
     const navigation = useNavigation();
     
     return (
-        <View style={commonStyles.headerContainer}>
+      
+        <View style={[commonStyles.headerContainer]}>
         {arrowShown ? (
           <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-            <View style={commonStyles.iconContainerButtonBack}>
+            <View style={[commonStyles.iconContainerButtonBack]}>
               <Icon name='chevron-small-left' style={commonStyles.headerBackButton} />
               
             </View>
             
-          </TouchableWithoutFeedback>
+            </TouchableWithoutFeedback>
         ) : null}
         {logoShown ? <View style={commonStyles.foodUpLogo}><Image source={require("../../../assets/img/foodup_logo_small.png")} style={{height: 50, width: 150}}/></View>:null}
-        {headerText?<Text style={[commonStyles.headerText, Colors.primaryText]}>{headerText}</Text>:null}
+        {headerText?<View style={{justifyContent: 'flex-end', flex: 1, alignContent:'center', paddingRight: arrowShown ? 40 : 0}}><Text style={[commonStyles.headerText, Colors.primaryText]}>{headerText}</Text></View>:null}
       </View>
+      
     );
   };
 

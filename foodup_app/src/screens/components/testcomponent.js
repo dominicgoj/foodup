@@ -1,13 +1,15 @@
-import React from "react"
-import { Text, View } from "react-native"
-import { createStackNavigator } from "@react-navigation/stack"
-import RestaurantRegisterAddPhoto from "./registerRestaurantsStackScreens/restaurantRegisterAddPhoto"
-import RestaurantRegisterSelectPhoto from "./registerRestaurantsStackScreens/restaurantRegisterSelectPhoto"
-import axios from "axios"
-import { BACKEND_URL } from "../../../config"
-export default TestComponent = () =>{
+import React, { useState } from 'react';
+import { View, Image, Button } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 
-    return(
-        <View></View>
-    )
-}
+export default TestComponent = () => {
+    const [selectedImage, setSelectedImage] = useState(null);
+  
+  
+    return (
+      <View>
+        
+      </View>
+    );
+  }
+  

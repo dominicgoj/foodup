@@ -13,6 +13,7 @@ export default function RestaurantRegisterHelpers() {
   const [registerRestaurantLastName, setRegisterRestaurantLastName] = useState("");
   const [registerRestaurantImage, setRegisterRestaurantImage] = useState(null);
   const [registerRestaurantImages, setRegisterRestaurantImages] = useState(null);
+  const [registerRestaurantDescription, setRegisterRestaurantDescription] = useState("")
 
  
   // Getter methods
@@ -28,6 +29,7 @@ export default function RestaurantRegisterHelpers() {
   const getRestaurantLastName = () => registerRestaurantLastName;
   const getRestaurantImage = () => registerRestaurantImage;
   const getRestaurantImages = () => registerRestaurantImages;
+  const getRestaurantDescription = () => registerRestaurantDescription;
   const getRestaurantDataset = () => {
     return {
       registerRestaurantName,
@@ -41,6 +43,7 @@ export default function RestaurantRegisterHelpers() {
       registerRestaurantFirstName,
       registerRestaurantLastName,
       registerRestaurantImage,
+      registerRestaurantDescription,
       registerRestaurantImages
     };
   };
@@ -58,6 +61,7 @@ export default function RestaurantRegisterHelpers() {
   const setRestaurantLastName = (newValue) => setRegisterRestaurantLastName(newValue);
   const setRestaurantImage = (newValue) => setRegisterRestaurantImage(newValue);
   const setRestaurantImages = (newValue) => setRegisterRestaurantImages(newValue);
+  const setRestaurantDescription = (newValue) => setRegisterRestaurantDescription(newValue)
   const resetRegisterRestaurant = () => {
     setRegisterRestaurantName("");
     setRegisterRestaurantTelephone("");
@@ -71,6 +75,7 @@ export default function RestaurantRegisterHelpers() {
     setRegisterRestaurantLastName("");
     setRegisterRestaurantImage(null)
     setRegisterRestaurantImages(null)
+    setRegisterRestaurantDescription("")
   };
   
   return {
@@ -100,6 +105,8 @@ export default function RestaurantRegisterHelpers() {
     getRestaurantImages,
     setRestaurantImages,
     resetRegisterRestaurant,
+    getRestaurantDescription,
+    setRestaurantDescription
     
   };
 }

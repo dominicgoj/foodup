@@ -17,6 +17,7 @@ const AddContentScreen = () => {
   const [sendDataRequest, setSendDataRequest] = useState(false)
   const [resetData, setResetData] = useState(false)
   const [restaurant, setRestaurant] = useState(null)
+  
   const onPressLinkToRestaurant = (restaurant) =>{
     navigation.navigate('RestaurantDetail', {restaurant})
   }
@@ -140,11 +141,14 @@ const AddContentScreen = () => {
   };
 
   return (
+
+    <View style={{ flex: 1 }}>
     <ViewPager key={0} style={styles.viewPager} initialPage={0} orientation="vertical" onPageSelected={handlePageSelected} ref={viewPagerRef}>
       <View key={0}style={styles.page}><TakePhoto key="1" onPhotoTaken={handleData} onRestaurantIdentified={handleRestaurantIdentified} onPressLinkToRestaurant={onPressLinkToRestaurant}/></View>
       <View key={1} style={styles.page}><RateRestaurant onRatingPlaced={handleData} resetData={resetData} /></View>
       <View key={2} style={styles.page}><CommentSection onCommentPlaced={handleData} onCommentSent={checkDataValid} resetData={resetData}/></View>
     </ViewPager>
+    </View>
   );
 };
 

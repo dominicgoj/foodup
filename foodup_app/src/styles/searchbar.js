@@ -3,7 +3,6 @@ export const Searchbar = StyleSheet.create({
     resultsContainer: {
         backgroundColor: 'white',
         borderColor: '#D6D6D6',
-        borderWidth: 1,
         borderRadius: 5,
         width: '100%',
         shadowColor: 'black',
@@ -12,6 +11,9 @@ export const Searchbar = StyleSheet.create({
         shadowOffset: {
             height: 10, // Vertical offset
           },
+        position: 'absolute',
+        top:80,
+        zIndex: 1,
         
     },
     resultContainer:{

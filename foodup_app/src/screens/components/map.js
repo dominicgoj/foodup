@@ -4,18 +4,15 @@ import MapView, { Marker } from 'react-native-maps';
 import RestaurantMapPoint from '../components/restaurantMapPoint';
 import AuthContext from '../../utilities/authcontext';
 
-export default function MapScreen({restaurantData}) {
+export default function MapScreen({route}) {
+  const {restaurantData} = route.params
   const [latitudeDelta, setLatitudeDelta] = useState(0.052)
   const [longitudeDelta, setLongitudeDelta] = useState(0.0821)
   const { globalUserLocation } = useContext(AuthContext);
-
-  console.log("restaurant data in mapscreen: ", restaurantData)
-
+  const restaurants = Array.isArray(restaurantData) ? restaurantData : [restaurantData];
   const RenderRestaurantMapPoints = () => {
-    console.log("RenderRestaurantMapPoints rendered")
     if (restaurantData) {
-      console.log("restaurant data: ", restaurantData)
-      return restaurantData.map((restaurant) => {
+      return restaurants.map((restaurant) => {
         return <RestaurantMapPoint key={restaurant.id} restaurant={restaurant} />;
       });
     }

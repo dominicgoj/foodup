@@ -11938,3 +11938,3219 @@ Average rating for Restaurant object (13) is 0
 Average rating for Restaurant object (14) is 0
 Average ratings calculated successfully.
 [2023-05-18 20:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average ratings calculated successfully.
+[2023-05-18 20:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average ratings calculated successfully.
+[2023-05-18 20:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average ratings calculated successfully.
+[2023-05-18 20:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average ratings calculated successfully.
+[2023-05-18 21:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average ratings calculated successfully.
+[2023-05-18 21:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average ratings calculated successfully.
+[2023-05-18 21:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average ratings calculated successfully.
+[2023-05-18 21:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average ratings calculated successfully.
+[2023-05-18 21:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average ratings calculated successfully.
+[2023-05-18 21:50:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average ratings calculated successfully.
+[2023-05-18 22:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Traceback (most recent call last):
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/backends/sqlite3/base.py", line 423, in execute
+    return Database.Cursor.execute(self, query, params)
+sqlite3.OperationalError: no such column: ratings_restaurant.description
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "manage.py", line 22, in <module>
+    main()
+  File "manage.py", line 18, in main
+    execute_from_command_line(sys.argv)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/__init__.py", line 419, in execute_from_command_line
+    utility.execute()
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/__init__.py", line 413, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/base.py", line 354, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/base.py", line 398, in execute
+    output = self.handle(*args, **options)
+  File "/home/pi/coding/foodup/foodupdjango/ratings/management/commands/averagerating.py", line 13, in handle
+    for restaurant in restaurants:
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/models/query.py", line 280, in __iter__
+    self._fetch_all()
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/models/query.py", line 1324, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/models/query.py", line 51, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1175, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/backends/utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/backends/utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/backends/utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/db/backends/sqlite3/base.py", line 423, in execute
+    return Database.Cursor.execute(self, query, params)
+django.db.utils.OperationalError: no such column: ratings_restaurant.description
+[2023-05-18 22:10:01] Script encountered an error
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average ratings calculated successfully.
+[2023-05-18 22:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average ratings calculated successfully.
+[2023-05-18 22:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average ratings calculated successfully.
+[2023-05-18 22:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average ratings calculated successfully.
+[2023-05-18 22:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average ratings calculated successfully.
+[2023-05-18 23:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average ratings calculated successfully.
+[2023-05-18 23:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average ratings calculated successfully.
+[2023-05-18 23:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-18 23:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-18 23:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-18 23:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Traceback (most recent call last):
+  File "manage.py", line 22, in <module>
+    main()
+  File "manage.py", line 18, in main
+    execute_from_command_line(sys.argv)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/__init__.py", line 419, in execute_from_command_line
+    utility.execute()
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/__init__.py", line 413, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/base.py", line 354, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/base.py", line 393, in execute
+    self.check()
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/base.py", line 423, in check
+    databases=databases,
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/checks/registry.py", line 76, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/checks/urls.py", line 13, in check_url_config
+    return check_resolver(resolver)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/checks/urls.py", line 23, in check_resolver
+    return check_method()
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/urls/resolvers.py", line 416, in check
+    for pattern in self.url_patterns:
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/urls/resolvers.py", line 602, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/urls/resolvers.py", line 595, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/pi/coding/foodup/foodupdjango/foodupdjango/urls.py", line 24, in <module>
+    path('', include('ratings.urls')),
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/urls/conf.py", line 34, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/pi/coding/foodup/foodupdjango/ratings/urls.py", line 2, in <module>
+    from .views import LikeRestaurantList, RestaurantLikeCreate, RestaurantLikeSearch, CreateRestaurant, PostList, PostDetail, PostDelete, AllPostList, PostSetInactive, RestaurantList, RestaurantDelete, RestaurantDetailActiveAndInactive, RestaurantCreate, RestaurantActiveAndInactive, RestaurantDistance, RestaurantSearch, RestaurantDetail, UserList, UserDetail, LikeList, LikeDetail, LikeDeleteView, LikeCreateView, SearchUser, CreateUser, UserDelete, CreatePost, SendActivationView, VerifyActivationCodeView, ActivationCodeList
+ImportError: cannot import name 'RestaurantLikeSearch' from 'ratings.views' (/home/pi/coding/foodup/foodupdjango/ratings/views.py)
+[2023-05-19 00:00:01] Script encountered an error
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 00:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 00:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 00:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 00:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 00:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 01:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 01:10:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 01:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 01:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 01:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 01:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 02:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 02:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 02:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 02:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 02:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 02:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 03:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 03:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 03:20:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 03:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 03:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 03:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 04:00:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 04:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 04:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 04:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 04:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 04:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 05:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 05:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 05:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 05:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 05:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 05:50:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 06:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 06:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 06:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 06:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 06:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 06:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 07:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 07:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 07:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Traceback (most recent call last):
+  File "manage.py", line 22, in <module>
+    main()
+  File "manage.py", line 18, in main
+    execute_from_command_line(sys.argv)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/__init__.py", line 419, in execute_from_command_line
+    utility.execute()
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/__init__.py", line 413, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/base.py", line 354, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/base.py", line 393, in execute
+    self.check()
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/base.py", line 423, in check
+    databases=databases,
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/checks/registry.py", line 76, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/checks/urls.py", line 13, in check_url_config
+    return check_resolver(resolver)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/checks/urls.py", line 23, in check_resolver
+    return check_method()
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/urls/resolvers.py", line 416, in check
+    for pattern in self.url_patterns:
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/urls/resolvers.py", line 602, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/urls/resolvers.py", line 595, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/pi/coding/foodup/foodupdjango/foodupdjango/urls.py", line 24, in <module>
+    path('', include('ratings.urls')),
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/urls/conf.py", line 34, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/pi/coding/foodup/foodupdjango/ratings/urls.py", line 2, in <module>
+    from .views import LikeRestaurantList, RestaurantLikeCreateUpdate, RestaurantLikeSearch, CreateRestaurant, PostList, PostDetail, PostDelete, AllPostList, PostSetInactive, RestaurantList, RestaurantDelete, RestaurantDetailActiveAndInactive, RestaurantCreate, RestaurantActiveAndInactive, RestaurantDistance, RestaurantSearch, RestaurantDetail, UserList, UserDetail, LikeList, LikeDetail, LikeDeleteView, LikeCreateView, SearchUser, CreateUser, UserDelete, CreatePost, SendActivationView, VerifyActivationCodeView, ActivationCodeList
+  File "/home/pi/coding/foodup/foodupdjango/ratings/views.py", line 680, in <module>
+    class RestaurantLikeCreateUpdate(View):
+NameError: name 'View' is not defined
+[2023-05-19 07:30:01] Script encountered an error
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 07:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Traceback (most recent call last):
+  File "manage.py", line 22, in <module>
+    main()
+  File "manage.py", line 18, in main
+    execute_from_command_line(sys.argv)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/__init__.py", line 419, in execute_from_command_line
+    utility.execute()
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/__init__.py", line 413, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/base.py", line 354, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/base.py", line 393, in execute
+    self.check()
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/management/base.py", line 423, in check
+    databases=databases,
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/checks/registry.py", line 76, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/checks/urls.py", line 13, in check_url_config
+    return check_resolver(resolver)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/core/checks/urls.py", line 23, in check_resolver
+    return check_method()
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/urls/resolvers.py", line 416, in check
+    for pattern in self.url_patterns:
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/urls/resolvers.py", line 602, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/urls/resolvers.py", line 595, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/pi/coding/foodup/foodupdjango/foodupdjango/urls.py", line 24, in <module>
+    path('', include('ratings.urls')),
+  File "/home/pi/coding/venv/lib/python3.7/site-packages/django/urls/conf.py", line 34, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 967, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 677, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/pi/coding/foodup/foodupdjango/ratings/urls.py", line 2, in <module>
+    from .views import LikeRestaurantList, RestaurantLikeCreateUpdate, RestaurantLikeSearch, CreateRestaurant, PostList, PostDetail, PostDelete, AllPostList, PostSetInactive, RestaurantList, RestaurantDelete, RestaurantDetailActiveAndInactive, RestaurantCreate, RestaurantActiveAndInactive, RestaurantDistance, RestaurantSearch, RestaurantDetail, UserList, UserDetail, LikeList, LikeDetail, LikeDeleteView, LikeCreateView, SearchUser, CreateUser, UserDelete, CreatePost, SendActivationView, VerifyActivationCodeView, ActivationCodeList
+ImportError: cannot import name 'RestaurantLikeSearch' from 'ratings.views' (/home/pi/coding/foodup/foodupdjango/ratings/views.py)
+[2023-05-19 07:50:01] Script encountered an error
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 08:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 08:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 08:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 08:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 08:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 08:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 09:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 09:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 09:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 09:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 09:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 09:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 10:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 10:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 10:20:45] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 10:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 10:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 10:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 1.0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 11:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 1.0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 11:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 1.0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 11:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 1.0
+Average rating for Restaurant object (12) is 0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 11:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 11:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 11:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 12:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 12:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 12:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 12:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 12:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 12:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 13:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 13:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 13:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 13:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 13:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 13:50:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 14:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 14:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 14:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 14:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 14:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 14:50:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 15:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 15:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 15:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 15:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 15:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 15:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 16:00:01] Script executed successfully
+['192.168.0.1', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 16:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 16:20:01] Script executed successfully
+SystemCheckError: System check identified some issues:
+
+ERRORS:
+ratings.Like.userid: (fields.E304) Reverse accessor for 'ratings.Like.userid' clashes with reverse accessor for 'ratings.Like.userid_posted_comment'.
+	HINT: Add or change a related_name argument to the definition for 'ratings.Like.userid' or 'ratings.Like.userid_posted_comment'.
+ratings.Like.userid_posted_comment: (fields.E304) Reverse accessor for 'ratings.Like.userid_posted_comment' clashes with reverse accessor for 'ratings.Like.userid'.
+	HINT: Add or change a related_name argument to the definition for 'ratings.Like.userid_posted_comment' or 'ratings.Like.userid'.
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+[2023-05-19 16:30:01] Script encountered an error
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 16:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 16:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 17:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 17:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 17:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 17:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 17:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 17:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 18:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 18:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 18:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 18:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 18:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 18:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 19:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 19:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 2.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 19:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 19:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 19:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 19:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 20:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 20:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 20:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 20:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 20:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 20:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 21:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 21:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 21:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 21:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (11) is 3.0
+Average rating for Restaurant object (12) is 1.0
+Average rating for Restaurant object (13) is 0
+Average rating for Restaurant object (14) is 0
+Average rating for Restaurant object (15) is 0
+Average rating for Restaurant object (16) is 0
+Average ratings calculated successfully.
+[2023-05-19 21:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average ratings calculated successfully.
+[2023-05-19 21:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average ratings calculated successfully.
+[2023-05-19 22:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average ratings calculated successfully.
+[2023-05-19 22:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average ratings calculated successfully.
+[2023-05-19 22:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 0
+Average rating for Restaurant object (2) is 0
+Average ratings calculated successfully.
+[2023-05-19 22:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-19 22:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-19 22:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-19 23:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-19 23:10:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-19 23:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-19 23:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-19 23:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-19 23:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 00:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 00:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 00:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 00:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 00:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 00:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 01:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 01:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 01:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 01:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 01:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 01:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 02:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 02:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 02:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 02:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 02:40:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 02:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 03:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 03:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 03:20:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 03:30:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 03:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 03:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 04:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 04:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 04:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 04:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 04:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 04:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 05:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 05:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 05:20:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 05:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 05:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 05:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 06:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 06:10:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 06:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 06:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 06:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 06:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 07:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 07:10:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 07:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 07:30:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 07:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 07:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 08:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 08:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 08:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 08:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 08:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 08:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 09:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 09:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 09:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 09:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 09:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 09:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 10:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 10:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 10:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 10:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 10:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 10:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 11:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 11:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 11:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 11:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 11:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 11:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 12:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 12:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 12:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 12:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 12:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 12:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 13:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 13:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 13:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 13:30:01] Script executed successfully
+['192.168.0.1', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 13:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 13:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 14:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 14:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 14:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 14:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 14:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 14:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 15:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 15:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 15:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 15:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 15:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 15:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 16:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 16:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 16:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 16:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 16:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 16:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 17:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 17:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 17:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 17:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 17:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 17:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 18:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 18:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 18:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 18:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 18:40:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 18:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 19:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 19:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 19:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 19:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 19:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 19:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 20:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 20:10:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 20:20:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 20:30:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 20:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 20:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 21:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 21:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 21:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 21:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 21:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 21:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 22:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 22:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 22:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 22:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 22:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 22:50:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 23:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 23:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 23:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 23:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 23:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-20 23:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 00:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 00:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 00:20:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 00:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 00:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 00:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 01:00:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 01:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 01:20:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 01:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 01:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 01:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 02:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 02:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 02:20:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 02:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 02:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 02:50:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 03:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 03:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 03:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 03:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 03:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 03:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 04:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 04:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 04:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 04:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 04:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 04:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 05:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 05:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 05:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 05:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 05:40:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 05:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 06:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 06:10:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 06:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 06:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 06:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 06:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 07:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 07:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 07:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 07:30:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 07:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 07:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 08:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 08:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 08:20:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 08:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 08:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 08:50:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 09:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 09:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 09:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 09:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 09:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 09:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 10:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 10:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 10:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 10:30:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 10:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 10:50:01] Script executed successfully
+['192.168.0.1', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 11:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 11:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 11:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 11:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 11:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 11:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 12:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 12:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 12:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 12:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 12:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 12:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 13:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 13:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 13:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 13:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 13:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 13:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 14:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 14:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 14:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 14:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 14:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 14:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 15:00:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 15:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 15:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 15:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 15:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 15:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 16:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 16:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 16:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 16:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 16:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 16:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 17:00:02] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 17:10:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 17:20:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 17:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 17:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 17:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 18:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 18:10:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.0.167']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 20:10:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 20:20:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 20:30:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 20:40:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 20:50:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 21:00:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 21:10:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 21:20:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 21:30:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 21:40:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 21:50:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 22:00:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 22:10:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 22:20:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 22:30:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 22:40:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 22:50:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 23:00:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 23:10:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 23:20:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 23:30:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 23:40:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-21 23:50:02] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 00:00:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 00:10:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 00:20:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 00:30:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 00:40:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 00:50:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 01:00:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 01:10:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 01:20:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 01:30:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 01:40:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 01:50:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 02:00:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 02:10:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 02:20:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 02:30:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 02:40:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 02:50:02] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 03:00:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 03:10:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 03:20:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 03:30:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 03:40:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 03:50:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 04:00:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 04:10:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 04:20:02] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 04:30:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 04:40:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 04:50:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 05:00:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 05:10:02] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 05:20:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 05:30:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 05:40:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 05:50:15] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 06:00:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 06:10:02] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 06:20:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 06:30:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 06:40:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 06:50:00] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 07:00:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 07:10:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.0
+Average ratings calculated successfully.
+[2023-05-22 07:20:01] Script executed successfully
+['213.162.73.204', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.3
+Average ratings calculated successfully.
+[2023-05-22 07:30:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.3
+Average ratings calculated successfully.
+[2023-05-22 10:40:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.3
+Average ratings calculated successfully.
+[2023-05-22 10:50:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.3
+Average ratings calculated successfully.
+[2023-05-22 11:00:01] Script executed successfully
+['84.115.219.255', 'localhost', '127.0.0.1', '192.168.1.11']
+Average rating for Restaurant object (1) is 4.5
+Average rating for Restaurant object (2) is 3.3
+Average ratings calculated successfully.
+[2023-05-22 11:10:01] Script executed successfully

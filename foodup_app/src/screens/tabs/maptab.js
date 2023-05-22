@@ -8,9 +8,10 @@ import CostumHeader from '../components/costumheader.js'
 export default function MapScreen({restaurantData}) {
 
   const Stack = createStackNavigator();
+  const route = {params: {
+                  "restaurantData": restaurantData}} //fake "route"
   
   return (
-    
     <NavigationContainer independent={true}>
       <Stack.Navigator>
         <Stack.Screen
@@ -18,7 +19,7 @@ export default function MapScreen({restaurantData}) {
           options={{ header: () => <CostumHeader arrowShown={false} logoShown={false} headerText={'Karte'}/>}}
           
           
-        >{()=><Map restaurantData={restaurantData} />}</Stack.Screen>
+        >{()=><Map route={route} />}</Stack.Screen>
         <Stack.Screen
           name="Detail"
           component={RestaurantDetail}

@@ -3,7 +3,7 @@ import * as Location from 'expo-location';
 export default getUserLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
-        return status;
+        return "no-location-service"
     }
 
     try {

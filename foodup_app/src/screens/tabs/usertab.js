@@ -16,13 +16,16 @@ import UserRestaurantEdit from '../components/userRestaurantEdit';
 import UserRestaurantDetailView from '../components/userRestaurantDetailView';
 import RestaurantRegisterAddPhoto from "../components/registerRestaurantsStackScreens/restaurantRegisterAddPhoto";
 import RestaurantRegisterSelectPhoto from "../components/registerRestaurantsStackScreens/restaurantRegisterSelectPhoto";
-
-function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
+import UserSavedContents from '../components/userSavedContents';
+import UserLikeContents from '../components/userLikeContents';
+import RestaurantDetail from '../components/restaurantdetail';
+import RestaurantRegisterDescription from '../components/registerRestaurantsStackScreens/restaurantRegisterDescription';
+import MapScreen from '../components/map';
+function UserScreen({posts, likesAssociatedWithUser, userinfo, onRefresh, tabTitles, userRestaurantLikes}) {
   const Stack = createStackNavigator();
   const [userRestaurants, setUserRestaurants] = useState([])
   const [refreshBool, setRefreshBool] = useState(false)
   const [restaurantRegistered, setRestaurantRegistered] = useState(false);
-
   const {
     getRestaurantName,
     getRestaurantTelephone,
@@ -50,6 +53,8 @@ function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
     getRestaurantImages,
     setRestaurantImages,
     resetRegisterRestaurant,
+    getRestaurantDescription,
+    setRestaurantDescription
 } = RestaurantRegisterHelpers()
 
   const triggerRefresh = () =>{
@@ -83,7 +88,7 @@ function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
   useFocusEffect(
     React.useCallback(() => {
       // Add your focus effect logic here
-      triggerRefresh();
+      onRefresh();
       
     }, [])
   );
@@ -92,7 +97,8 @@ function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
       <Stack.Navigator>
         <Stack.Screen name="UserContent" options={{
           header: () => <CustomHeader arrowShown={false} logoShown={false} headerText={tabTitles.profile}/>,
-        }}>{()=><UserContent posts={posts} likes={likes} userinfo={userinfo} onRefresh={onRefresh} triggerRefresh={triggerRefresh}/>}</Stack.Screen>
+        }}>{()=><UserContent posts={posts} likesAssociatedWithUser={likesAssociatedWithUser} userinfo={userinfo} onRefresh={onRefresh} triggerRefresh={triggerRefresh}
+        userRestaurantLikes={userRestaurantLikes}/>}</Stack.Screen>
         
         <Stack.Screen name="UserRestaurants" options={{
           header: () => <CustomHeader arrowShown={true} logoShown={false} />,
@@ -177,10 +183,42 @@ function UserScreen({posts, likes, userinfo, onRefresh, tabTitles}) {
           header: () => <CustomHeader arrowShown={true} logoShown={false} />,
         }}
       >{()=><RestaurantRegisterSelectPhoto getRestaurantImages={getRestaurantImages} getRestaurantName={getRestaurantName} setRestaurantImage={setRestaurantImage}/>}</Stack.Screen>
-      
-        
-          
+      <Stack.Screen name="UserSavedContents" options={{header: () => <CustomHeader arrowShown={true} logoShown={false} headerText={"Gespeicherte Restaurants"}/>}} >
+        {()=><UserSavedContents userRestaurantLikes={userRestaurantLikes} />}
+        </Stack.Screen>
+        <Stack.Screen name="UserLikeContents" options={{header: () => <CustomHeader arrowShown={true} logoShown={false} headerText={"Markierte Inhalte"}/>}} >
+        {()=><UserLikeContents userinfo={userinfo} likesAssociatedWithUser={likesAssociatedWithUser}/>}
+        </Stack.Screen>
+        <Stack.Screen
+          name="Detail"
+          component={RestaurantDetail}
+          options={{
+            header: () => <CustomHeader arrowShown={true} logoShown={false} />,
+          }}
+        />
+        <Stack.Screen
+        name="RestaurantRegisterDescription"
+        options={{
+          header: () => <CustomHeader arrowShown={true} logoShown={false} />,
+        }}
+      >
+        {() => (
+          <RestaurantRegisterDescription
+            getRestaurantDescription={getRestaurantDescription}
+            setRestaurantDescription={setRestaurantDescription}
+            
+          />
+        )}
+      </Stack.Screen>
+      <Stack.Screen
+        name="Map"
+        component={MapScreen}
+        options={{
+          header: () => <CustomHeader arrowShown={true} logoShown={false} />,
+        }}/>
+
       </Stack.Navigator>
+      
     
   );
 }

@@ -64,6 +64,22 @@ thumbsUpContainer: {
   justifyContent: 'center',
   marginRight: 10,
 },
+ribbonContainer:{
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'row',
+  paddingRight: 0,
+
+},
+locationMarkerContainer:{
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginRight: 20,
+},
+
+ribbon: {
+  fontSize: 32,
+},
 bottomImageContainer: {
   flexDirection:'row', 
   justifyContent:'space-between',
@@ -90,28 +106,38 @@ subheader: {
   fontWeight: 'bold',
   fontSize: 36,
   marginBottom: '3%',
-  marginLeft: 10,
-  color: 'white'
+  color: 'white',
+  
   
  },
  headerContainer: {
      height: 120,
      backgroundColor: '#4dad88',
-     justifyContent : 'flex-end',
+     flexDirection: 'row',
  },
  iconContainerButtonBack: {
   padding: 5,
   borderRadius: 10,
   backgroundColor: 'transparent',
+  justifyContent: 'flex-end',
+  bottom: 5,
 },
 foodUpLogo: {
   marginBottom: 10,
   marginLeft: 5,
+  justifyContent: 'flex-end', 
+  flex: 1, 
+  alignContent:'center'
 },
 headerText: {
   fontSize: 24,
   textAlign:'center',
   fontWeight: 'bold',
-  marginBottom: 15
-  }
+  marginBottom: 15,
+  },
+  navigationHeaderContainer: {
+    height: 120,
+    backgroundColor: '#4dad88',
+    justifyContent: 'flex-end',
+},
 });
