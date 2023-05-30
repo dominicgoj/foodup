@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { View, ScrollView, Text, Image, StyleSheet } from 'react-native';
-
+import { View, StyleSheet } from 'react-native';
 import TakePhoto from '../components/camera.js';
 import RateRestaurant from '../components/rating.js';
-import ViewPager from '@react-native-community/viewpager';
+import PagerView from 'react-native-pager-view';
 import CommentSection from '../components/commentsection.js';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
-import { BACKEND_URL } from '../../../config.js';
+import createPost from '../../api/createPost.js';
 import AuthContext from '../../utilities/authcontext';
-
+import calculatePointsIncrease from '../../utilities/calculatePointsIncrease.js';
+import ModalView from '../components/modalView.js'
+import UpdateUserPoints from '../../api/updateUserPoints.js';
+import BananaPointsUserView from '../components/bananaPointsUserView.js';
 const AddContentScreen = () => {
   
   const navigation = useNavigation();
@@ -17,7 +18,9 @@ const AddContentScreen = () => {
   const [sendDataRequest, setSendDataRequest] = useState(false)
   const [resetData, setResetData] = useState(false)
   const [restaurant, setRestaurant] = useState(null)
-  
+  const [increasedPoints, setIncreasedPoints] = useState(0)
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+
   const onPressLinkToRestaurant = (restaurant) =>{
     navigation.navigate('RestaurantDetail', {restaurant})
   }
@@ -45,7 +48,6 @@ const AddContentScreen = () => {
         setFormState((prevState) => ({ ...prevState, comment: ' ' }));
       }
       if (!rating) {
-        console.log("no rating")
         setFormState((prevState) => ({ ...prevState, rating: '0' }));
       }
 
@@ -67,15 +69,27 @@ const AddContentScreen = () => {
         name: 'photo.jpg', // Set a desired filename for the image
       }); 
   
-      try {
-        
-        const response = await axios.post(BACKEND_URL + '/post/create/', formData);
-      } catch (error) {
-        console.error('Error sending post request:', error);
-      }
+      const post_request = await createPost(formData, restaurant.id)
+      // UPDATING AUTHCONTEXT
+      const updatedUserPosts = [...authContext.userPosts, post_request.post_response];
+      authContext.setUserPosts(updatedUserPosts);
+      const increasePoints = calculatePointsIncrease(updatedUserPosts)
+      setIncreasedPoints(increasePoints)
+      const updatedPoints = authContext.loggedInUserData.banana_points + increasePoints;
+      const updatedUserData = {
+        ...authContext.loggedInUserData,
+        banana_points: updatedPoints
+      };
+      authContext.setLoggedInUserData(updatedUserData);
+      setShowSuccessModal(true)
+      await UpdateUserPoints(authContext.loggedInUserData, updatedPoints)
+
+      
+      
+      
+      
     }
     else{
-      console.log("No restaurant identified by user")
     }
    
   };
@@ -116,38 +130,44 @@ const AddContentScreen = () => {
     setRestaurant(null)
   }
 
-
+  
 
   useEffect(() => {
     if (sendDataRequest) {
-      
       sendPostToAPI();
       setResetData(true);
       resetStates();
-      setTimeout(() => {
-        viewPagerRef.current.setPage(0);
-      }, 200);
-      setTimeout(() => {
-        setResetData(false);
-        navigation.navigate('For You');
-      }, 400);
     }
   }, [sendDataRequest, navigation]);
     
   /// handles the restaurant which is identified by camera and qr code
   const handleRestaurantIdentified = (identifiedRestaurant) => {
     setRestaurant(identifiedRestaurant)
-    
   };
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false)
+    viewPagerRef.current.setPage(0);
+    setResetData(false);
+    navigation.navigate('For You');
+  }
 
   return (
 
     <View style={{ flex: 1 }}>
-    <ViewPager key={0} style={styles.viewPager} initialPage={0} orientation="vertical" onPageSelected={handlePageSelected} ref={viewPagerRef}>
+    <PagerView key={0} style={styles.viewPager} initialPage={0} orientation="vertical" onPageSelected={handlePageSelected} ref={viewPagerRef}>
       <View key={0}style={styles.page}><TakePhoto key="1" onPhotoTaken={handleData} onRestaurantIdentified={handleRestaurantIdentified} onPressLinkToRestaurant={onPressLinkToRestaurant}/></View>
-      <View key={1} style={styles.page}><RateRestaurant onRatingPlaced={handleData} resetData={resetData} /></View>
+      <View key={1} style={styles.page}><RateRestaurant onRatingPlaced={handleData} resetData={resetData}/></View>
       <View key={2} style={styles.page}><CommentSection onCommentPlaced={handleData} onCommentSent={checkDataValid} resetData={resetData}/></View>
-    </ViewPager>
+    </PagerView>
+    {showSuccessModal ? (
+        <ModalView 
+        onClose={() => handleCloseSuccessModal()}
+        visible={showSuccessModal}
+        modalContent={<BananaPointsUserView userinfo={authContext.loggedInUserData} 
+        userPosts={authContext.userPosts} increasedPoints={increasedPoints}
+        triggerModalView={()=>handleCloseSuccessModal()}/>}
+        />
+      ) : null}
     </View>
   );
 };

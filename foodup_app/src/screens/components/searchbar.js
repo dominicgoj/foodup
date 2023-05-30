@@ -29,10 +29,11 @@ const SearchBar = () => {
     
   }, [searchInput]);
   
-  
-  const dismissKeyboard = () => {
-    Keyboard.dismiss();
-  };
+
+  const handleResetSearchbar = () => {
+    setSearchResults([])
+    setSearchInput("")
+  }
 
     const handleRestaurantSelect = (result) =>{
       setSearchInput('')
@@ -40,13 +41,15 @@ const SearchBar = () => {
    }
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+    
     <View style={[styles.container]}>
       <TextInput
         style={[Searchbar.input]}
         placeholder="Worauf hast du Lust?"
         value={searchInput}
         onChangeText={(text) => setSearchInput(text)}
+        onBlur={handleResetSearchbar}
+        
       /><View style={[Searchbar.resultsContainer]}>
       {searchResults && searchResults.length > 0 ? (
   searchResults.map((result, index) => {
@@ -85,7 +88,7 @@ const SearchBar = () => {
 
     </View>
     </View>
-    </TouchableWithoutFeedback>
+    
   );
 }
 
@@ -93,8 +96,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    padding: 15,
-
   },
   input: {
     width: '100%',

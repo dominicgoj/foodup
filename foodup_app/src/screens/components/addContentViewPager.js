@@ -64,14 +64,12 @@ const AddContentScreen = ({onPressLinkToRestaurant}) => {
   
       
       try {
-        console.log(formData)
         const response = await axios.post(BACKEND_URL + '/post/create/', formData);
       } catch (error) {
         console.error('Error sending post request:', error);
       }
     }
     else{
-      console.log("No restaurant identified by user")
     }
    
   };

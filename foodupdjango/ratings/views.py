@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from .models import Post, Restaurant, User, Like, ActivationCode, RestaurantLike, LoginData
+from .models import Post, Restaurant, User, Like, ActivationCode, RestaurantLike, LoginData, Notification, ProfileImageDummies
 from .serializers import (
     PostSerializer,
     RestaurantSerializer,
@@ -9,7 +9,9 @@ from .serializers import (
     LikeSerializer,
     ActivationCodeSerializer,
     RestaurantLikeSerializer,
-    LoginDataSerializer
+    LoginDataSerializer,
+    NotificationSerializer,
+    ProfileImageDummiesSerializer,
 )
 from django.conf import settings
 from rest_framework.response import Response
@@ -35,6 +37,9 @@ from django.template.loader import render_to_string
 from django.conf import settings
 import mimetypes
 from django.utils import timezone
+import secrets
+from rest_framework.exceptions import ValidationError
+
 os.environ["AWS_ACCESS_KEY_ID"] = "AKIA34HPQHKM7C3GQBPC"
 os.environ["AWS_SECRET_ACCESS_KEY"] = "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"
 region_name = "eu-north-1"
@@ -85,8 +90,25 @@ class PostList(generics.ListCreateAPIView):
         if sort_by:
             queryset = queryset.order_by("-created_at")
         return queryset
+    
+class PostListFromMultipleRestaurants(APIView):
+    def get(self, request):
+        restaurant_ids = request.GET.getlist('restaurant_ids[]')
+        posts = Post.objects.filter(restaurant_id__in=restaurant_ids, active=True)
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class PostListForRestaurantOwner(APIView):
+    serializer_class = PostSerializer
 
+    def post(self, request):
+        hex_identifiers = request.data.get("hex_identifiers", [])
+        queryset = Post.objects.filter(hex_identifier__in=hex_identifiers, active=True)
+        queryset = queryset.order_by("-created_at")
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data, status=200)
 
+    
 class AllPostList(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
@@ -116,11 +138,12 @@ class PostSetInactive(APIView):
                 post = Post.objects.get(id=post_id)
                 post.active = False
                 post.save()
-                return Response({"message": "Post set inactive successfully."})
+                serializer = PostSerializer(post)
+                return Response(serializer.data, status=status.HTTP_200_OK)
             except Post.DoesNotExist:
-                return Response({"message": "Post not found."}, status=404)
+                return Response({"message": "Post not found."}, status=status.HTTP_404_NOT_FOUND)
         else:
-            return Response({"message": "Invalid request."}, status=400)
+            return Response({"message": "Invalid request."}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -299,7 +322,9 @@ class CreateRestaurant(APIView):
         zip_code = request.POST.get('zip')
         description = request.POST.get('description')
         userid = request.POST.get('userid')
-        
+        latitude_gps = request.POST.get('latitude_gps')
+        longitude_gps = request.POST.get('longitude_gps')
+        active = request.POST.get('active')
         try:
             user = User.objects.get(id=userid)
         except User.DoesNotExist:
@@ -319,60 +344,67 @@ class CreateRestaurant(APIView):
             description=description,
             userid=user
         )
+
+        if latitude_gps is not None:
+            restaurant.latitude_gps = latitude_gps
+        if longitude_gps is not None:
+            restaurant.longitude_gps = longitude_gps
+        if active is not None:
+            restaurant.active = active
         
         # Save the restaurant instance
         restaurant.save()
         restaurant_id = restaurant.id
         folder_path = os.path.join(settings.MEDIA_ROOT, 'restaurants', str(restaurant_id))
         os.makedirs(folder_path, exist_ok=True)
-        
-        # Save the title image
-        # Open the title image using Pillow
-        title_img = Image.open(title_image)
-        title_img = ImageOps.exif_transpose(title_img)
-        
-        # Resize the title image if needed
-        title_max_width = 800
-        if title_img.width > title_max_width:
-            title_aspect_ratio = title_max_width / float(title_img.width)
-            title_height = int(title_aspect_ratio * title_img.height)
-            title_img = title_img.resize((title_max_width, title_height), Image.ANTIALIAS)
+        if(title_image is not None and title_image_preview is not None):
+            # Save the title image
+            # Open the title image using Pillow
+            title_img = Image.open(title_image)
+            title_img = ImageOps.exif_transpose(title_img)
+            
+            # Resize the title image if needed
+            title_max_width = 800
+            if title_img.width > title_max_width:
+                title_aspect_ratio = title_max_width / float(title_img.width)
+                title_height = int(title_aspect_ratio * title_img.height)
+                title_img = title_img.resize((title_max_width, title_height), Image.ANTIALIAS)
 
-        
-        # Compress the title image by reducing the quality
-        title_img_io = io.BytesIO()
-        title_img.save(title_img_io, format='JPEG', quality=80)
-        
-        # Save the compressed title image to the desired location
-        title_image_path = os.path.join(folder_path, "title_image.jpg")
-        default_storage.save(title_image_path, ContentFile(title_img_io.getvalue()))
-        
-        # Save the title image URL in the model field
-        restaurant.title_image = os.path.join('restaurants', str(restaurant_id), 'title_image.jpg')
-        
-        # Save the title image preview
-        # Open the title image preview using Pillow
-        title_img_preview = Image.open(title_image_preview)
-        title_img_preview = ImageOps.exif_transpose(title_img_preview)
-        
-        # Resize the title image preview if needed
-        title_max_width_preview = 600
-        if title_img_preview.width > title_max_width_preview:
-            title_aspect_ratio_preview = title_max_width_preview / float(title_img_preview.width)
-            title_height_preview = int(title_aspect_ratio_preview * title_img_preview.height)
-            title_img_preview = title_img_preview.resize((title_max_width_preview, title_height_preview), Image.ANTIALIAS)
-        
-        # Compress the title image preview by reducing the quality
-        title_img_preview_io = io.BytesIO()
-        title_img_preview.save(title_img_preview_io, format='JPEG', quality=80)
-        
-        # Save the compressed title image preview to the desired location
-        title_image_preview_path = os.path.join(folder_path, "title_image_preview.jpg")
-        default_storage.save(title_image_preview_path, ContentFile(title_img_preview_io.getvalue()))
-        
-        # Save the title image preview URL in the model field
-        restaurant.title_image_preview = os.path.join('restaurants', str(restaurant_id), 'title_image_preview.jpg')
-        restaurant.save()
+            
+            # Compress the title image by reducing the quality
+            title_img_io = io.BytesIO()
+            title_img.save(title_img_io, format='JPEG', quality=80)
+            
+            # Save the compressed title image to the desired location
+            title_image_path = os.path.join(folder_path, "title_image.jpg")
+            default_storage.save(title_image_path, ContentFile(title_img_io.getvalue()))
+            
+            # Save the title image URL in the model field
+            restaurant.title_image = os.path.join('restaurants', str(restaurant_id), 'title_image.jpg')
+            
+            # Save the title image preview
+            # Open the title image preview using Pillow
+            title_img_preview = Image.open(title_image_preview)
+            title_img_preview = ImageOps.exif_transpose(title_img_preview)
+            
+            # Resize the title image preview if needed
+            title_max_width_preview = 600
+            if title_img_preview.width > title_max_width_preview:
+                title_aspect_ratio_preview = title_max_width_preview / float(title_img_preview.width)
+                title_height_preview = int(title_aspect_ratio_preview * title_img_preview.height)
+                title_img_preview = title_img_preview.resize((title_max_width_preview, title_height_preview), Image.ANTIALIAS)
+            
+            # Compress the title image preview by reducing the quality
+            title_img_preview_io = io.BytesIO()
+            title_img_preview.save(title_img_preview_io, format='JPEG', quality=80)
+            
+            # Save the compressed title image preview to the desired location
+            title_image_preview_path = os.path.join(folder_path, "title_image_preview.jpg")
+            default_storage.save(title_image_preview_path, ContentFile(title_img_preview_io.getvalue()))
+            
+            # Save the title image preview URL in the model field
+            restaurant.title_image_preview = os.path.join('restaurants', str(restaurant_id), 'title_image_preview.jpg')
+            restaurant.save()
         #########
         ####    SEND REGISTRATION EMAIL ####
         subject = 'Foodup: Restaurant Registrierung'
@@ -384,7 +416,8 @@ class CreateRestaurant(APIView):
         html_content = render_to_string('registerRestaurant.html')
         msg.attach_alternative(html_content, "text/html")
         #msg.send()
-        return JsonResponse({'message': 'Restaurant created successfully'})
+        serializer = RestaurantSerializer(restaurant)
+        return Response({'restaurant': serializer.data}, status=status.HTTP_201_CREATED)
 
 
 
@@ -413,7 +446,6 @@ class RestaurantDistance(APIView):
         user_longitude = float(request.GET.get("user_longitude"))
        
         if(user_latitude and user_longitude):
-            print(user_longitude, user_latitude)
             restaurants = Restaurant.objects.filter(active=True)
             serialized_restaurants = self.serializer_class(
             restaurants,
@@ -438,21 +470,112 @@ class RestaurantDistance(APIView):
 class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
-
+    
     def post(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response(serializer.data)
+        folder_path = os.path.join('restaurants', str(instance.id))
+        random_hex = secrets.token_hex(8)
+        # Check if 'title_image' or 'title_image_preview' is present in the request data
+        if 'title_image' in request.data and 'title_image_preview' in request.data:
+            # Handle the update of 'title_image'
+            title_image = request.data['title_image']
+
+            # Open the title image using Pillow
+            title_img = Image.open(title_image)
+            title_img = ImageOps.exif_transpose(title_img)
+
+            # Resize the title image if needed
+            title_max_width = 800
+            if title_img.width > title_max_width:
+                title_aspect_ratio = title_max_width / float(title_img.width)
+                title_height = int(title_aspect_ratio * title_img.height)
+                title_img = title_img.resize((title_max_width, title_height), Image.ANTIALIAS)
+
+            # Compress the title image by reducing the quality
+            title_img_io = io.BytesIO()
+            title_img.save(title_img_io, format='JPEG', quality=80)
+
+            # Generate a unique file name for the title image
+            title_image_name = "title_image_"+random_hex+".jpg"
+
+            # Save the compressed title image to the desired location
+            title_image_path = os.path.join(folder_path, title_image_name)
+            default_storage.save(title_image_path, ContentFile(title_img_io.getvalue()))
+
+            instance.title_image = title_image_path
+
+            # Handle the update of 'title_image_preview'
+            title_image_preview = request.data['title_image_preview']
+
+            # Open the title image preview using Pillow
+            title_img_preview = Image.open(title_image_preview)
+            title_img_preview = ImageOps.exif_transpose(title_img_preview)
+
+            # Resize the title image preview if needed
+            title_max_width_preview = 600
+            if title_img_preview.width > title_max_width_preview:
+                title_aspect_ratio_preview = title_max_width_preview / float(title_img_preview.width)
+                title_height_preview = int(title_aspect_ratio_preview * title_img_preview.height)
+                title_img_preview = title_img_preview.resize((title_max_width_preview, title_height_preview), Image.ANTIALIAS)
+
+            # Compress the title image preview by reducing the quality
+            title_img_preview_io = io.BytesIO()
+            title_img_preview.save(title_img_preview_io, format='JPEG', quality=80)
+
+            # Generate a unique file name for the title image preview
+            title_image_preview_name = "title_image_"+random_hex+"preview.jpg"
+
+            # Save the compressed title image preview to the desired location
+            title_image_preview_path = os.path.join(folder_path, title_image_preview_name)
+            default_storage.save(title_image_preview_path, ContentFile(title_img_preview_io.getvalue()))
+
+            instance.title_image_preview = title_image_preview_path
+
+            instance.save()
+            serializer.is_valid(raise_exception=True)
+            return Response(serializer.data)
+        
+        if 'title_image' not in request.data and 'title_image_preview' not in request.data:
+            try:
+                serializer.is_valid(raise_exception=True)
+                self.perform_update(serializer)
+                return Response(serializer.data)
+            except ValidationError as e:
+                print("Validation error:", e.detail)
+                return Response({'error': 'Validation error'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class RestaurantDetailActiveAndInactive(generics.RetrieveUpdateDestroyAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
+
+
+class RestaurantMapViewUpdate(APIView):
+    def get(self, request):
+        latitude_delta = float(request.GET.get('latitudeDelta'))
+        longitude_delta = float(request.GET.get('longitudeDelta'))
+        region_latitude = float(request.GET.get('regionLatitude'))
+        region_longitude = float(request.GET.get('regionLongitude'))
+        min_latitude = region_latitude - (latitude_delta / 2)
+        max_latitude = region_latitude + (latitude_delta / 2)
+        min_longitude = region_longitude - (longitude_delta / 2)
+        max_longitude = region_longitude + (longitude_delta / 2)
+        
+        restaurants = Restaurant.objects.filter(
+            latitude_gps__gte=min_latitude,
+            latitude_gps__lte=max_latitude,
+            longitude_gps__gte=min_longitude,
+            longitude_gps__lte=max_longitude,
+            active=True
+        )
+        
+        # Serialize the restaurants and return the data
+        serializer = RestaurantSerializer(restaurants, many=True)
+        return Response(serializer.data)
 
 
 class UserList(generics.ListCreateAPIView):
@@ -481,40 +604,46 @@ class SearchUser(generics.ListAPIView):
 
 class CreateUser(APIView):
     def post(self, request):
+        random_hex = secrets.token_hex(8)
         serializer = UserSerializer(data=request.data)
 
         if serializer.is_valid():
             telephone = serializer.validated_data.get("telephone")
             email = serializer.validated_data.get("email")
-            testone = User.objects.filter(telephone=telephone)
-
+            
             # Check if telephone or email already exists in the database
             existing_user = User.objects.filter(
-            Q(telephone=telephone) & ~Q(telephone='') |
-            Q(email=email) & ~Q(email='')
-        ).first()
-            
+                Q(telephone=telephone) & ~Q(telephone='') |
+                Q(email=email) & ~Q(email='')
+            ).first()
+
             if existing_user:
                 # Return the existing user data instead of creating a new one
                 existing_user_data = UserSerializer(existing_user).data
                 return Response(existing_user_data, status=status.HTTP_200_OK)
-
             else:
-                serializer.save()
-
-                user_id = serializer.instance.id
-                folder_name = f"posts_{user_id}"
-                folder_path = os.path.join("static/images/posts/", folder_name)
-                
-
-                # Create the folder if it doesn't exist
-                if not os.path.exists(folder_path):
-                    os.makedirs(folder_path)
-
-                # Update the user_posts_path field with the folder path
-                user = serializer.instance
+                user = User()
+                user.username = serializer.validated_data['username']
+                user.telephone = serializer.validated_data['telephone']
+                user.email = serializer.validated_data['email']
                 user.save()
+                # Save profile image to the desired location
+                profile_img = request.FILES.get('profile_img')
+                if profile_img:
+                    # Create directory for user if it doesn't exist
+                    user_directory = os.path.join(settings.MEDIA_ROOT, f"users/user_{user.id}")
+                    os.makedirs(user_directory, exist_ok=True)
 
+                    # Save profile image with filename profile_img.jpg
+                    image_path = os.path.join(user_directory, "profile_img_"+random_hex+".jpg")
+                    with open(image_path, 'wb') as image_file:
+                        for chunk in profile_img.chunks():
+                            image_file.write(chunk)
+
+                    # Update profile_img field in the database with the absolute URL
+                    user.profile_img = f"users/user_{user.id}/profile_img_"+random_hex+".jpg"
+                    user.save()
+                serializer = UserSerializer(user)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -539,15 +668,48 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def post(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
+    
+class UserUpdateView(APIView):
+    def patch(self, request, user_id):
+        try:
+            user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return Response({"error": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+        random_hex = secrets.token_hex(8)
+        # Update user fields based on the data passed from React
+        if 'telephone' in request.data:
+            user.telephone = request.data['telephone']
+        if 'banana_points' in request.data:
+            user.banana_points = request.data['banana_points']
+        if 'email' in request.data:
+            user.email = request.data['email']
+        if 'username' in request.data:
+            user.username = request.data['username']
+        if 'profile_img' in request.data:
+            if request.data['profile_img'] == 'reset':
+                # Set the default value for profile_img field
+                user.profile_img = "blankuser/profile_image.png"
+        if 'profile_img' in request.FILES:
+            profile_img = request.FILES['profile_img']
+            # Save the new profile image to the desired location
+            profile_img = request.FILES['profile_img']
+            user_directory = os.path.join(settings.MEDIA_ROOT, f"users/user_{user.id}")
+            os.makedirs(user_directory, exist_ok=True)
+            image_path = os.path.join(user_directory, "profile_img_"+random_hex+".jpg")
+            with open(image_path, 'wb') as image_file:
+                for chunk in profile_img.chunks():
+                    image_file.write(chunk)
+            # Update profile_img field in the database with the relative path
+            user.profile_img = f"users/user_{user.id}/profile_img_"+random_hex+".jpg"
 
-    def partial_update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response(serializer.data)
+        # Save the updated user
+        user.save()
+
+        # Return the serialized data of the updated user
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
 
 class UserShow(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
@@ -562,15 +724,27 @@ class LikeList(generics.ListCreateAPIView):
         userid_got_like = self.request.GET.get("userid_got_like")
         restaurant_id = self.request.GET.get("restaurantid")
         comment_id = self.request.GET.get("commentid")
+        visible_in_timeline = self.request.GET.get("visible_in_timeline")
+        # this is not necessary and not used####
+        if visible_in_timeline is not None and visible_in_timeline.lower() == "true":
+            visible_in_timeline = True
+        elif visible_in_timeline is not None and visible_in_timeline.lower() == "false":
+            visible_in_timeline = False
+        else:
+            visible_in_timeline = None
+            #######
 
         if user_id and restaurant_id and comment_id:
-            print("ausgelöst")
             queryset = Like.objects.filter(
                 userid=user_id, restaurantid=restaurant_id, commentid=comment_id
             )
-            print(queryset)
+            #######
+        elif user_id and userid_got_like and visible_in_timeline is not None:
+            queryset = Like.objects.filter(Q(userid=user_id) | Q(userid_got_like=userid_got_like), visible_in_timeline=visible_in_timeline)
+            ########
         elif user_id and userid_got_like:
             queryset = Like.objects.filter(Q(userid=user_id) | Q(userid_got_like=userid_got_like))
+        
         elif user_id:
             queryset = Like.objects.filter(userid=user_id)
         elif userid_got_like:
@@ -593,10 +767,19 @@ class LikeDeleteView(APIView):
             like_instance = Like.objects.get(
                 userid=user_id, restaurantid=restaurant_id, commentid=comment_id
             )
+            serializer = LikeSerializer(like_instance)
+            serialized_like = serializer.data
             like_instance.delete()
-            return Response(status=204)  # Success response
+            
+            return Response(
+                {"message": "Like instance deleted successfully", "like_instance": serialized_like},
+                status=200,
+            )
         except Like.DoesNotExist:
-            return Response(status=404)  # Not found response
+            return Response(
+                {"error": "Like instance does not exist"},
+                status=404,
+            )
 
 
 class LikeCreateView(APIView):
@@ -605,6 +788,7 @@ class LikeCreateView(APIView):
         restaurant_id = request.data.get("restaurantid")
         comment_id = request.data.get("commentid")
         userid_got_like = request.data.get("userid_got_like")
+        hex_identifier = request.data.get("hex_identifier")
 
         # Validate the required fields (user_id, restaurant_id, comment_id)
         if not (user_id and restaurant_id and comment_id):
@@ -618,6 +802,7 @@ class LikeCreateView(APIView):
             "restaurantid": restaurant_id,
             "commentid": comment_id,
             "userid_got_like": userid_got_like,
+            'hex_identifier': hex_identifier,
             # Add other fields if needed
         }
         serializer = LikeSerializer(data=like_data)
@@ -746,6 +931,9 @@ class VerifyActivationCodeView(APIView):
 class LikeRestaurantList(generics.ListCreateAPIView):
     queryset = RestaurantLike.objects.all()
     serializer_class = RestaurantLikeSerializer
+class RestaurantLikeDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = RestaurantLike.objects.all()
+    serializer_class = RestaurantLikeSerializer
 
 class RestaurantLikeCreateUpdate(APIView):
     def post(self, request):
@@ -763,7 +951,19 @@ class RestaurantLikeCreateUpdate(APIView):
             restaurant = Restaurant.objects.get(id=restaurantid)
             RestaurantLike.objects.create(userid=user, restaurantid=restaurant)
             return Response({'message': 'Invalid request.'})
-
+class RestaurantLikeCreate(APIView):
+    def post(self, request):
+        userid = User.objects.get(id=request.data.get('userid'))
+        restaurantid = Restaurant.objects.get(id=request.data.get('restaurantid'))
+        hex_identifier = request.data.get('hex_identifier')
+        serializer = RestaurantLikeSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                serializer.save(userid=userid, restaurantid=restaurantid, hex_identifier=hex_identifier)
+                return Response({'status':'success'}, status=201)
+            except:
+                return Response({'error':'Could not create restaurant like'}, status=400)
+        
 
 class RetrieveLikedRestaurants(generics.ListAPIView):
     serializer_class = RestaurantSerializer
@@ -807,9 +1007,7 @@ class RetrieveLikedRestaurants(generics.ListAPIView):
 class CreateLoginDataView(APIView):
     def post(self, request):
         serializer = LoginDataSerializer(data=request.data)
-        print(request.data)
         if serializer.is_valid():
-            print("is valid")
             try:
                 user = User.objects.get(id=request.data.get('userid'))
                 serializer.save(userid=user)
@@ -817,10 +1015,77 @@ class CreateLoginDataView(APIView):
             except User.DoesNotExist:
                 return Response({'error': 'User not found'}, status=400)
         return Response(serializer.errors, status=400)
+    
 class LoginDataView(generics.ListAPIView):
-    queryset = LoginData.objects.all()
     serializer_class = LoginDataSerializer
+    def get_queryset(self):
+        queryset = LoginData.objects.all()
+        userid = self.request.query_params.get('userid')
+        if userid:
+            queryset = queryset.filter(userid=userid)
+        return queryset
 
+
+class NotificationListView(generics.ListAPIView):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+
+class NotificationDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+
+class CreateNotification(APIView):
+    def post(self, request):
+        hex_identifier = request.data.get('hex_identifier')
+        userid = User.objects.get(id=request.data.get('userid'))
+
+        serializer = NotificationSerializer(data=request.data)
+       
+        if serializer.is_valid():
+            try:
+                serializer.save(hex_identifier=hex_identifier, userid=userid)
+                return Response({'status':'success'}, status=201)
+            except:
+                return Response({'error':'Could not create notification'}, status=400)
+
+class RetrieveNotifications(APIView):
+    def get(self, request):
+        userid = request.GET.get('userid')
+        hex_identifier = request.GET.get('hex_identifier')
+        if userid:
+            notifications = Notification.objects.filter(userid=userid, visible=True)
+        if hex_identifier:
+            notifications = Notification.objects.filter(hex_identifier=hex_identifier, visible=True)
+
+        serializer = NotificationSerializer(notifications, many=True)
+        return Response(serializer.data, status=200)
+
+    
+class UpdateNotificationVisibility(APIView):
+    def post(self, request):
+        userid = request.data.get('userid')
+        hex_identifiers = request.data.get('hex_identifiers')
+
+        try:
+            notifications = Notification.objects.filter(userid=userid, hex_identifier__in=hex_identifiers)
+            notifications.update(visible=False)
+            serializer = NotificationSerializer(notifications, many=True)
+            return Response(serializer.data, status=200)
+        except Notification.DoesNotExist:
+            return Response({'error': 'Notification not found'}, status=404)
+
+class ProfileImageDummiesList(generics.ListCreateAPIView):
+    queryset = ProfileImageDummies.objects.all()
+    serializer_class = ProfileImageDummiesSerializer
+
+class ProfileImageDummiesDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ProfileImageDummies.objects.all()
+    serializer_class = ProfileImageDummiesSerializer
+
+
+
+        
+            
 
 
 

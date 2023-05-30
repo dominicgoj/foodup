@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { View, ScrollView, Text, RefreshControl, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import RestaurantCard from '../components/restaurantcard';
 import infomsg from '../../data/infomsg.json';
 import { useNavigation } from '@react-navigation/native';

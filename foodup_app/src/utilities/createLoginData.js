@@ -6,7 +6,7 @@ import axios from 'axios';
 
 // Function to retrieve device data and create a new login data instance
 export default createLoginData = async (userId) => {
-  let location = {"latitude": 0, "longitude": 0}
+  let location;
   let deviceModel;
   let netInfo;
   try {
@@ -15,8 +15,8 @@ export default createLoginData = async (userId) => {
       const locationPromise = new Promise((resolve, reject) => {
         Location.getCurrentPositionAsync({})
           .then(position => {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
             resolve({ latitude, longitude });
           })
           .catch(error => {
@@ -25,13 +25,11 @@ export default createLoginData = async (userId) => {
       });
     
     try{
-      const location = await locationPromise;
+      location = await locationPromise;
     }catch(error){
-      const location = {"latitude": 0, "longitude": 0}
+      location = {"latitude": 0, "longitude": 0}
     }
-
-    console.log(location)
-    
+   
     const deviceModel = Device.modelName;
     const netInfo = await Network.getNetworkStateAsync();
 

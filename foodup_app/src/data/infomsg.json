@@ -7,12 +7,18 @@
     },
     "delete-post": {
         "name": "delete-post",
-        "title": "Beitrag entfernen?",
+        "title": "Löschen",
         "language": "DE"
     },
     "nocontentsavailable": {
         "name": "nocontentsavailable",
         "title": "Es sieht noch ziemlich leer hier aus.",
         "language": "DE"
+    },
+    "no-posts-available":{
+        "name": "no-posts-available",
+        "title": "Leider gibt es noch keine Beiträge zu teilnehmenden Restaurants in Deiner Nähe",
+        "language": "DE",
+        "subtitle": "Teilnehmende Restaurants findest Du in der Karte. Sei der Erste und füge einen Beitrag hinzu!"
     }
 }

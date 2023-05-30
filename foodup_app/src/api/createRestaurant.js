@@ -22,7 +22,6 @@ export default async function createRestaurant(dataset, userinfo) {
  
   formData.append('restaurant_name', dataset().registerRestaurantName);
   formData.append('street', dataset().registerRestaurantStreet);
-  console.log(dataset().registerRestaurantTags)
   formData.append('tags', JSON.stringify(dataset().registerRestaurantTags));
   formData.append('telephone', dataset().registerRestaurantTelephone);
   formData.append('website', dataset().registerRestaurantWebsite);

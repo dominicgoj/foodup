@@ -7,7 +7,11 @@ chevronIconModal:{
     marginBottom: 10,
 },
 
-
+foreignUserProfileImg: {
+  width: 40,
+  height: 30,
+  justifyContent: 'center'
+},
 date:{
     
 },
@@ -22,19 +26,20 @@ commentUserTitle:{
     
 },
 commentUserTitleHeader:{
-    fontWeight: 'bold',
-    fontSize: 15,
     paddingRight: 15,
-    paddingLeft: 5,
+    paddingLeft: 10,
     paddingBottom: 10,
+    flexDirection: 'row'
+},
+commentUserTitleHeaderBoldText: {
+  fontWeight: 'bold',
+    fontSize: 15,
 },
 commentImg:{
     width: "100%",
     height: 400,
-    borderRadius: 15,
 },
 commentImgContainer:{
-  
     alignItems: 'center',
     maxHeight: 400
 

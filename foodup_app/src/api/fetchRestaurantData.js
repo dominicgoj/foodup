@@ -1,6 +1,5 @@
 import getUserLocation from "../utilities/getUserLocation";
 import { getDistance } from "../utilities/locationUtils";
-import { useContext } from "react";
 import FetchRestaurants from './fetchRestaurants.js'
 import maxrestaurantdistance from '../data/maxrestaurantdistance'
 

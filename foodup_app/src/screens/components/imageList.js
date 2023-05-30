@@ -1,17 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, View} from "react-native";
-import CommentContent from './commentDetail'
 import ModalView from './modalView';
-
 import AuthContext from '../../utilities/authcontext';
 import FetchRestaurants from "../../api/fetchRestaurants";
-
 import PreviewImage from "./previewImage";
+import { useNavigation } from "@react-navigation/native";
 const ImageList = ({ posts }) => {
   const [selectedPost, setSelectedPost] = useState();
   const authContext = useContext(AuthContext);
   const userData = authContext.loggedInUserData;
-  const [commentModalVisible, setCommentModalVisible] = useState(false);
+  const navigation = useNavigation()
   const renderCommentRows = () => {
     const rows = [];
 
@@ -20,12 +18,9 @@ const ImageList = ({ posts }) => {
       
       const row = (
         <View key={i} style={[styles.row]}>
-          {rowOfPosts.map((post, index) => {
-            return(
-            
-           <PreviewImage key={index} post={post} openComment={openComment}/>
-          )
-    })}
+          {rowOfPosts.map((post, index) => (
+  <PreviewImage key={index} post={post} openComment={(post) => openComment(post, i + index)}/>
+))}
         </View>
       );
       rows.push(row);
@@ -33,7 +28,8 @@ const ImageList = ({ posts }) => {
     return rows;
   };
 
- 
+  
+
       const [likedData, setLikedData] = useState({
         
         userid: userData.id,
@@ -60,20 +56,24 @@ const ImageList = ({ posts }) => {
       
       //here we need to get the restaurant name first because usertab doesnt pass any specific restaurant from the restaurant
       //card. 
-    const openComment = async (post) => {
-      const postObject = {"post": post}
-      setSelectedPost({
-        ...postObject,
-        restaurant_name: (await FetchRestaurants(post.restaurant_id, 'id'))[0].restaurant_name
-      });
-        setCommentModalVisible(true);
-      };
+      const openComment = async (post, index) => {
+        const postObject = { post };
+        const restaurant_name = await FetchRestaurants(post.restaurant_id, 'id')
 
+
+        setSelectedPost({
+          ...postObject,
+          restaurant_name: restaurant_name[0].restaurant_name
+        });
+        const headerTextOfStack = "Posts"
+        navigation.setOptions()
+        navigation.push("RestaurantDetailFeed", {posts: posts, selectedPost:{post, index}, headerTextOfStack:headerTextOfStack, costumHeaderBool:true})
+      };  
       return(
         <View>
         {renderCommentRows()}
-        <ModalView modalContent={<CommentContent post={selectedPost} userinfo={authContext.loggedInUserData}/>} visible={commentModalVisible} onClose={()=>setCommentModalVisible(false)} />
         
+          
         </View>
       )
 

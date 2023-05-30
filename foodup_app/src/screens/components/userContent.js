@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
@@ -6,11 +6,15 @@ import {
   ScrollView,
   RefreshControl,
   Pressable,
-  Image
+  Image,
+  Animated
 } from "react-native";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { useContext } from "react";
 import Icon from "react-native-vector-icons/Entypo";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import {FontAwesomeIcon as FortAwesomeIcon} from '@fortawesome/react-native-fontawesome'
+import { faBell } from '@fortawesome/free-solid-svg-icons/faBell'
 import ModalView from "./modalView";
 import { commonStyles } from "../../styles/commonstyles";
 import ImageList from "./imageList";
@@ -19,16 +23,25 @@ import NoContentsAvailable from "./nocontentsavailable";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { BACKEND_URL } from "../../../config";
 import ProfileImageDetailView from "./profileImageDetailView";
-const UserContent = ({ posts, likesAssociatedWithUser, userinfo, onRefresh, userRestaurantLikes }) => {
-  useFocusEffect(
-    React.useCallback(() => {
-      onRefresh();
-      return;
-    }, [])
-  );
+import filterHexId from "../../utilities/filterHexId";
+import AuthContext from "../../utilities/authcontext";
+import BananaIcon from "./bananaComponent";
+import BananaPointsUserView from "./bananaPointsUserView";
+import UserContentStyles from "../../styles/userContentStyles";
+const UserContent = ({ posts, likesAssociatedWithUser, userinfo, userRestaurantLikes, userNotifications, postsByHex, userPosts }) => {
+  
   const navigation = useNavigation()
   const baseRegex = /^(?:https?:\/\/)?[^/]+/i;
   const user_profile_img = userinfo.profile_img.replace(baseRegex, '')
+  const [modalVisible, setModalVisible] = useState(false);
+  const [userprofileImgModal, setUserprofileImgModal] = useState(false)
+  const [bananaPointsModal, setBananaPointsModal] = useState(false)
+  const cameraScaleValue = useRef(new Animated.Value(1)).current;
+  const authcontext = useContext(AuthContext)
+  const userProfileImageURLCleared = BACKEND_URL+authcontext.loggedInUserData.profile_img.replace(baseRegex, '')
+
+
+  
   const returnLengthUserSavedContents = () => {
     let counter = 0
     if(userRestaurantLikes){
@@ -36,12 +49,13 @@ const UserContent = ({ posts, likesAssociatedWithUser, userinfo, onRefresh, user
     }
     return counter
   }
-  const returnLikesAssociatedWithUser = () => {
+  const returnNotificationsAssociatedWithUser = () => {
     counter = 0
-    if(likesAssociatedWithUser){
-      counter += likesAssociatedWithUser.length
+    const visible_dataset_likes = filterHexId(userNotifications, likesAssociatedWithUser)    
+    const visible_dataset_postsByHex = filterHexId(userNotifications, postsByHex)   
+    if(visible_dataset_likes||visible_dataset_postsByHex){
+      counter = counter + visible_dataset_likes.length + visible_dataset_postsByHex.length
     }
-    
     return counter
   }
   const returnLengthUserPosts = () => {
@@ -51,53 +65,112 @@ const UserContent = ({ posts, likesAssociatedWithUser, userinfo, onRefresh, user
     }
     return counter
   }
-  const [modalVisible, setModalVisible] = useState(false);
-  const [userprofileImgModal, setUserprofileImgModal] = useState(false)
+  
+  const handleCameraIconPressed = () => {
+   
+
+    // Start the animation
+    Animated.spring(cameraScaleValue, {
+      toValue: 1.1,
+      friction: 2, // Adjust the friction value to control the animation speed
+      useNativeDriver: true,
+    }).start(() => {
+      Animated.spring(cameraScaleValue, {
+        toValue: 1,
+        friction: 2, // Adjust the friction value to control the animation speed
+        useNativeDriver: true,
+      }).start(() => {
+        
+      });
+    });
+  };
+
+  const animatedCameraStyle = {
+    transform: [
+      {
+        scale: cameraScaleValue.interpolate({
+          inputRange: [1, 1.1],
+          outputRange: [1, 1.1],
+        }),
+      },
+    ],
+  };
+
+
   return (
     <ScrollView
       refreshControl={
-        <RefreshControl onRefresh={onRefresh} />
+        <RefreshControl onRefresh={authcontext.handleGlobalRefresh}/>
       }
     >
-      <View style={styles.menuRow}>
-        <View style={[styles.userBox]}>
-          <View style={styles.profileImgContainer} >
+      <View style={[UserContentStyles.menuRow]}>
+        <View style={[UserContentStyles.userBox]}>
+          <View style={UserContentStyles.profileImgContainer} >
             <TouchableOpacity onPress={()=>setUserprofileImgModal(true)}>
-          <Image source={{uri: BACKEND_URL+user_profile_img}} style={styles.profileImg} />
+          <Image source={{uri: userProfileImageURLCleared}} style={UserContentStyles.profileImg} />
           </TouchableOpacity>
           </View>
-          <View style={styles.usernameContainer}>
-          <Text style={styles.usernameHeader}>{userinfo.username}</Text>
-          </View>
+          
         </View>
-        <View style={styles.thumbsCameraBox}>
-          <TouchableOpacity onPress={()=>navigation.navigate("UserSavedContents")}>
-            <FontAwesomeIcon name="bookmark" style={styles.thumbsCameraIcon} />
-              <Text style={styles.counterText}>{returnLengthUserSavedContents()}</Text>
+        <View style={UserContentStyles.thumbsCameraBox}>
+        <TouchableOpacity onPress={()=>navigation.navigate("UserSavedContents")}>
+          <View>
+          
+            <FontAwesomeIcon name="bookmark" style={UserContentStyles.thumbsCameraIcon} />
+              <Text style={UserContentStyles.counterText}>{returnLengthUserSavedContents()}</Text>
+              
+              </View>
               </TouchableOpacity>
-          <View>
-            <TouchableOpacity onPress={()=>navigation.navigate("UserLikeContents")}>
-            <Icon name="heart" style={styles.thumbsCameraIcon} />
-            <Text style={styles.counterText}>{returnLikesAssociatedWithUser()}</Text>
+              <TouchableOpacity onPress={()=>navigation.navigate("UserLikeContents")}>
+              <View>
+            
+              <View style={UserContentStyles.bellIcon}>
+            <FortAwesomeIcon icon={faBell} size={21} color="#faab14"/>
+            </View>
+            <Text style={UserContentStyles.counterText}>{returnNotificationsAssociatedWithUser()}</Text>
+            
+            </View>
             </TouchableOpacity>
+            <TouchableOpacity onPress={handleCameraIconPressed}>
+            <View>
+          
+            <Animated.View style={[animatedCameraStyle]}>
+              <Icon name="camera" style={UserContentStyles.thumbsCameraIcon} />
+              <Text style={UserContentStyles.counterText}>{returnLengthUserPosts()}</Text>
+            </Animated.View>
+          
           </View>
+          </TouchableOpacity>
           <View>
-            <Icon name="camera" style={styles.thumbsCameraIcon} />
-            <Text style={styles.counterText}>{returnLengthUserPosts()}</Text>
+
+          <TouchableOpacity onPress={()=>setBananaPointsModal(true)}>
+            <View style={UserContentStyles.thumbsCameraIcon}>
+            
+          <BananaIcon width={21} height={21}/>
+          
+          </View>  
+          </TouchableOpacity>
+              <Text style={UserContentStyles.counterText}>{userinfo.banana_points}</Text> 
+          
           </View>
         </View>
-        <View style={styles.menuIconBox}>
+        <View style={UserContentStyles.menuIconBox}>
           <Pressable onPress={() => setModalVisible(true)}>
-            <Icon name="menu" style={styles.menuIcon} />
+            <Icon name="menu" style={UserContentStyles.menuIcon} />
           </Pressable>
         </View>
       </View>
-      <View style={{ alignItems: "center", marginBottom: 10 }}>
+      <View style={UserContentStyles.menuRow}>
+      <View style={UserContentStyles.usernameContainer}>
+          <Text style={UserContentStyles.usernameHeader}>{userinfo.username}</Text>
+          </View>
+      </View>
+      <Animated.View style={[{ alignItems: "center", marginBottom: 10 }, animatedCameraStyle]}>
         <Text style={commonStyles.restaurantTitleDetailView}>
           Deine Bewertungen
         </Text>
-      </View>
-      <View style={commonStyles.row}></View>
+      </Animated.View>
+      
       {posts.length > 0 ? (
         <ImageList
           restaurant={userinfo}
@@ -121,61 +194,19 @@ const UserContent = ({ posts, likesAssociatedWithUser, userinfo, onRefresh, user
         <ModalView 
         onClose={() => setUserprofileImgModal(false)}
         visible={userprofileImgModal}
-        modalContent={<ProfileImageDetailView userinfo={userinfo} image={user_profile_img}/>}
+        modalContent={<ProfileImageDetailView userinfo={userinfo} image={user_profile_img} setUserprofileImgModal={setUserprofileImgModal} />}
+        />
+      ) : null}
+      {bananaPointsModal ? (
+        <ModalView 
+        onClose={() => setBananaPointsModal(false)}
+        visible={bananaPointsModal}
+        modalContent={<BananaPointsUserView userinfo={userinfo} userPosts={userPosts} increasedPoints={0} triggerModalView={()=>setBananaPointsModal(false)}/>}
         />
       ) : null}
     </ScrollView>
   );
 };
 
-const styles = StyleSheet.create({
-  menuIcon: {
-    fontSize: 34,
-    color: "#303030",
-  },
-  counterText: {
-    textAlign: "center",
-    fontSize: 14,
-  },
-  menuIconBox: {
-    justifyContent: "center",
-  },
-  usernameHeader: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  thumbsCameraIcon: {
-    padding: 20,
-    fontSize: 21,
-  },
-  thumbsCameraBox: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  userBox: {
-    justifyContent: "center",
-    alignItems: 'center'
-  },
-  usernameContainer: {
-    justifyContent: "center",
-    alignItems: 'center'
-  },
-
-  menuRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 15,
-  },
-  profileImg: {
-    width: 40,
-    height: 40,
-    borderRadius: 40,
-  },
-  profileImgContainer: {
-    justifyContent: "center",
-    alignItems: 'center',
-
-  }
-});
 
 export default UserContent;

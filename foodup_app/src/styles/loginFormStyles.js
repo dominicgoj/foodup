@@ -54,6 +54,15 @@ export const LoginFormStyle = StyleSheet.create({
           alignItems: "center",
           margin: 10,
         },
+        smallbuttonInactive: {
+          padding: 30,
+          height: 80,
+          backgroundColor: "#AEB6BD",
+          borderRadius: 5,
+          justifyContent: "center",
+          alignItems: "center",
+          margin: 10,
+        },
         buttonText: {
           color: "white",
           fontSize: 16,

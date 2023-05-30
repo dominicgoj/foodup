@@ -2,9 +2,11 @@ import React, { Component, useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Button, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { commonStyles } from '../../styles/commonstyles.js';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { KeyboardAvoidingView } from 'react-native';
+import { Colors } from '../../styles/colors.js';
 export default function CommentSection({ onCommentPlaced, onCommentSent, resetData }) {
   const [text, setText] = useState('');
-
+  
   const handleChangeText = (newText) => {
     setText(newText);
     onCommentPlaced(["comment", newText]);
@@ -20,8 +22,10 @@ export default function CommentSection({ onCommentPlaced, onCommentSent, resetDa
     Keyboard.dismiss();
   };
 
+
   return (
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
     <View>
     <View style={styles.container}>
       <Text style={commonStyles.header}>
@@ -36,8 +40,12 @@ export default function CommentSection({ onCommentPlaced, onCommentSent, resetDa
         placeholder="Optional"
         maxLength={330}
       /></View>
-        <TouchableOpacity style={styles.sendButtonContainer} onPress={onCommentSent}><Text style={styles.buttonText}>Senden</Text></TouchableOpacity>
-    </View></TouchableWithoutFeedback>
+        <View style={{marginTop: 100}}><TouchableOpacity style={[styles.sendButtonContainer, Colors.secondaryBackground]} onPress={onCommentSent}><Text style={styles.buttonText}>Senden</Text></TouchableOpacity>
+        </View>
+    </View>
+    </KeyboardAvoidingView>
+    
+    </TouchableWithoutFeedback>
   );
 }
 const styles = StyleSheet.create({
@@ -47,20 +55,20 @@ const styles = StyleSheet.create({
         
     },
     sendButtonContainer:{
-      borderWidth: 1,
       justifyContent: 'center',
       alignItems: 'center',
       marginLeft: 120,
       marginRight: 120,
       marginTop: 50,
       height: 50,
-      backgroundColor: 'blue',
       borderRadius: 5
 
 
     },  
     buttonText:{
       color:'white',
+      fontSize: 16,
+      fontWeight: 'bold'
     },
     container: {
         alignItems: 'center',

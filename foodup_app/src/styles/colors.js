@@ -14,16 +14,19 @@ export const Colors = StyleSheet.create({
         backgroundColor: '#4dad88'
     },
     tertiaryText: {
-        color: '#AE343B'
+        color: '#C8334E'
     },
     tertiaryBackground:{
-        backgroundColor: '#AE343B'
+        backgroundColor: '#C8334E'
     },
     quartaryText: {
         color: '#516B6B'
     },
     quartaryBackground: {
         backgroundColor: '#516B6B'
+    },
+    tertiaryOutline: {
+        borderColor: '#C8334E'
     },
     primaryOutline: {
         borderColor: '#142A6B'
@@ -36,5 +39,14 @@ export const Colors = StyleSheet.create({
     },
     lightGreyBackground: {
         backgroundColor:'#E6E6E6'
+    },
+    redHeartColourText: {
+        color: '#F5385F',
+    },
+    redHeartColourBackground: {
+        backgroundColor: '#F5385F',
+    },
+    redHeartColourOutline: {
+        borderColor: '#F5385F',
     }
 })

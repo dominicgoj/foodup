@@ -6,9 +6,10 @@ export const userRestaurantsStyles = StyleSheet.create({
         borderRadius: 2,
         fontSize: 14,
         width: '100%',
-        height: '100%'
+        height: 40,
        
     },
+
     inputTextDescription: {
         fontSize: 14,
         fontWeight: 'bold',
@@ -22,7 +23,6 @@ export const userRestaurantsStyles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 20,
         marginRight: 20,
-        height: 40,
         marginBottom: 20,
     },
     inputFieldContainer:{
@@ -53,5 +53,13 @@ export const userRestaurantsStyles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         textAlign: 'center'
+    },
+    selectImageButton:{
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderRadius: 5,
+       
     }
 })

@@ -65,16 +65,16 @@ thumbsUpContainer: {
   marginRight: 10,
 },
 ribbonContainer:{
-  justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'row',
   paddingRight: 0,
-
+  flex: 1,
+  justifyContent: 'space-between',
+  
 },
 locationMarkerContainer:{
   justifyContent: 'center',
   alignItems: 'center',
-  marginRight: 20,
 },
 
 ribbon: {
@@ -85,6 +85,8 @@ bottomImageContainer: {
   justifyContent:'space-between',
   marginTop: 10,
   marginBottom: 10,
+  paddingLeft: 10,
+  paddingRight: 10,
 },
 modalView: {
   marginLeft: 20,

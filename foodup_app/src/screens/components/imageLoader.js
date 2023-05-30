@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import { commentStyles } from "../../styles/commentstyles";
 import { View, Text, Animated } from "react-native";
 import Icon from 'react-native-vector-icons/Entypo';
@@ -23,6 +23,10 @@ const ImageLoader = ({ loading }) => {
       Animated.loop(sequence).start();
     };
     animateFadeInFadeOut()
+
+    useEffect(()=>{
+      console.log(loading)
+    }, [])
     return loading ? (
         <Animated.View style={[commentStyles.animatedStyleContainer, {
             opacity: fadeAnim, }]}>

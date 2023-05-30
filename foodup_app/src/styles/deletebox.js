@@ -3,7 +3,7 @@ export const DeleteBox = StyleSheet.create({
     deleteboxContainer:{
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
+        padding: 8,
         borderRadius: 5,
         
     },

@@ -6,15 +6,16 @@ export default function Regex(type, input) {
     emailtype ="email"
     const websiteType = "website";
 
-    if(type===phonetype){
+    if(type===phonetype&&input!=""){
         if (!phoneRegex.test(input)) {
             return true
           }
     }
-    if(type===emailtype){
+    if(type===emailtype&&input!=""){
         if (!emailRegex.test(input)) {
             return true
           }
+          
     }
     if(type===websiteType){
         if (!websiteRegex.test(input)) {

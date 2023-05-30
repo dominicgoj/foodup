@@ -9,6 +9,7 @@ export default function LoginHelper() {
     userAccountThere: false,
     userAccountCredentials: null,
     username: "",
+    userProfileImage: null,
   };
 
   const [userPhoneNumber, setUserPhoneNumber] = useState("");
@@ -17,6 +18,7 @@ export default function LoginHelper() {
   const [userAccountThere, setUserAccountThere] = useState(false)
   const [userAccountCredentials, setUserAccountCredentials] = useState(null)
   const [Username, setUsername] = useState("")
+  const [userProfileImage, setUserProfileImage] = useState("")
   
 
   // Getter methods
@@ -26,6 +28,7 @@ export default function LoginHelper() {
   const getLoginAccountThere = () => userAccountThere;
   const getLoginAccountCredentials = () => userAccountCredentials;
   const getLoginUsername = () => Username;
+  const getUserProfileImage = () => userProfileImage;
   const getAllStates = () => {
     return {
       userPhoneNumber,
@@ -33,6 +36,7 @@ export default function LoginHelper() {
       userActivationDevice,
       userAccountThere,
       userAccountCredentials,
+      userProfileImage,
       Username
     };
   };
@@ -44,6 +48,7 @@ export default function LoginHelper() {
   const setAccountThere = (newValue) => setUserAccountThere(newValue);
   const setAccountCredentials = (newValue) => setUserAccountCredentials(newValue);
   const setLoginUsername = (newValue) => setUsername(newValue);
+  const setAccountProfileImage = (newValue) => setUserProfileImage(newValue)
 
   //Reset States
   const resetLoginStates = () => {
@@ -53,6 +58,7 @@ export default function LoginHelper() {
     setUserAccountThere(initialUserLoginState.userAccountThere);
     setUserAccountCredentials(initialUserLoginState.userAccountCredentials);
     setUsername(initialUserLoginState.username);
+    setUserProfileImage(initialUserLoginState.userProfileImage)
   };
 
 
@@ -69,6 +75,8 @@ export default function LoginHelper() {
     setAccountCredentials,
     getLoginUsername,
     setLoginUsername,
+    getUserProfileImage,
+    setAccountProfileImage,
     resetLoginStates,
     getAllStates
 

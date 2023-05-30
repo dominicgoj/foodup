@@ -3,13 +3,15 @@ import axios from "axios";
 
 export default deletePostLike = async (userinfo, post) => {
     try {
-        await axios.delete(`${BACKEND_URL}/like/delete/`, {
+        const response = await axios.delete(`${BACKEND_URL}/like/delete/`, {
           params: {
             userid: userinfo.id,
             restaurantid: post.post.restaurant_id,
             commentid: post.post.id,
           },
         });
+        const likeInstance = response.data.like_instance;
+        return likeInstance;
         // Handle success (e.g., update state, show notification)
       } catch (error) {
         console.error(error);

@@ -7,11 +7,8 @@ export default RestaurantImageList = ({ getRestaurantImages, setRestaurantImage 
   const [photoIDActive, setPhotoIDActive] = useState(0)
   
   const photos = getRestaurantImages()
-  const initialSetting = () => {
-    
-  }
+
   const handleSelectPhotoByUser = (key) => {
-    console.log(key)
     setPhotoIDActive(key)
     setRestaurantImage(photos[key])
   }

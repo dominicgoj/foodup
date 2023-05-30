@@ -2,7 +2,6 @@ import { BACKEND_URL } from "../../config";
 import axios from "axios";
 
 export default getPostLike = async (likedData) => {
-    console.log("LIKED DATA", likedData)
     try {
         const response = await axios.get(`${BACKEND_URL}/like/`, {
           params: {

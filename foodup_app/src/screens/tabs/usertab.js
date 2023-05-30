@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
-import axios from 'axios';
-import { BACKEND_URL } from '../../../config';
 import { createStackNavigator } from '@react-navigation/stack';
 import UserContent from '../components/userContent';
 import UserRestaurantListScreen from '../components/userRestaurantListScreen';
@@ -21,9 +18,14 @@ import UserLikeContents from '../components/userLikeContents';
 import RestaurantDetail from '../components/restaurantdetail';
 import RestaurantRegisterDescription from '../components/registerRestaurantsStackScreens/restaurantRegisterDescription';
 import MapScreen from '../components/map';
-function UserScreen({posts, likesAssociatedWithUser, userinfo, onRefresh, tabTitles, userRestaurantLikes}) {
+import FilteredRestaurantsView from '../components/filteredRestaurantsView';
+import RenderChangeSelectProfileImg from '../components/loginComponents/changeSelectProfileImg'
+import LoginHelper from '../components/loginComponents/loginHelper';
+import RestaurantInfoCard from '../components/restaurantInfoCard';
+import Feed from '../components/feed';
+import ForeignUserProfile from '../components/foreignUserProfile';
+function UserScreen({posts, likesAssociatedWithUser, userinfo, tabTitles, userRestaurantLikes, userNotifications, postsByHex, userRestaurants, userPosts}) {
   const Stack = createStackNavigator();
-  const [userRestaurants, setUserRestaurants] = useState([])
   const [refreshBool, setRefreshBool] = useState(false)
   const [restaurantRegistered, setRestaurantRegistered] = useState(false);
   const {
@@ -35,8 +37,6 @@ function UserScreen({posts, likesAssociatedWithUser, userinfo, onRefresh, tabTit
     getRestaurantZip,
     getRestaurantCity,
     getRestaurantTags,
-    getRestaurantFirstName,
-    getRestaurantLastName,
     setRestaurantName,
     setRestaurantTelephone,
     setRestaurantEmail,
@@ -45,10 +45,7 @@ function UserScreen({posts, likesAssociatedWithUser, userinfo, onRefresh, tabTit
     setRestaurantZip,
     setRestaurantCity,
     setRestaurantTags,
-    setRestaurantFirstName,
-    setRestaurantLastName,
     getRestaurantDataset,
-    getRestaurantImage,
     setRestaurantImage,
     getRestaurantImages,
     setRestaurantImages,
@@ -57,9 +54,11 @@ function UserScreen({posts, likesAssociatedWithUser, userinfo, onRefresh, tabTit
     setRestaurantDescription
 } = RestaurantRegisterHelpers()
 
-  const triggerRefresh = () =>{
-    setRefreshBool(!refreshBool)
-  }
+const {
+  getUserProfileImage,
+  setAccountProfileImage
+} = LoginHelper()
+
   useEffect(()=>{
     if(restaurantRegistered){
       resetRegisterRestaurant()
@@ -69,41 +68,26 @@ function UserScreen({posts, likesAssociatedWithUser, userinfo, onRefresh, tabTit
     )
   },[restaurantRegistered])
 
-  useEffect(()=>{
-    const fetchUserRestaurants = async () => {
-      try {
-        const requestAllRestaurants = await axios.get(
-          BACKEND_URL + "/restaurant/search?userid=" + userinfo.id
-        );
-        const userRestaurantsData = requestAllRestaurants.data;
-        setUserRestaurants(userRestaurantsData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    
-    fetchUserRestaurants();
-  }, [refreshBool])
 
-  useFocusEffect(
-    React.useCallback(() => {
-      // Add your focus effect logic here
-      onRefresh();
-      
-    }, [])
-  );
 
   return (
       <Stack.Navigator>
         <Stack.Screen name="UserContent" options={{
           header: () => <CustomHeader arrowShown={false} logoShown={false} headerText={tabTitles.profile}/>,
-        }}>{()=><UserContent posts={posts} likesAssociatedWithUser={likesAssociatedWithUser} userinfo={userinfo} onRefresh={onRefresh} triggerRefresh={triggerRefresh}
-        userRestaurantLikes={userRestaurantLikes}/>}</Stack.Screen>
+        }}>{()=><UserContent 
+          userNotifications={userNotifications} 
+          posts={posts} 
+          likesAssociatedWithUser={likesAssociatedWithUser} 
+          userinfo={userinfo}
+          userRestaurantLikes={userRestaurantLikes}
+          postsByHex={postsByHex}
+          userPosts={userPosts}
+          />}</Stack.Screen>
         
         <Stack.Screen name="UserRestaurants" options={{
           header: () => <CustomHeader arrowShown={true} logoShown={false} />,
         }}>
-          {()=><UserRestaurantListScreen restaurantData={userRestaurants} triggerRefresh={triggerRefresh}/>}
+          {()=><UserRestaurantListScreen restaurantData={userRestaurants}/>}
         </Stack.Screen>
 
         <Stack.Screen
@@ -115,7 +99,7 @@ function UserScreen({posts, likesAssociatedWithUser, userinfo, onRefresh, tabTit
         {({ route }) => (
           <UserRestaurantEdit
             route={route}
-            triggerRefresh={triggerRefresh}
+           
           />
         )}
       </Stack.Screen>
@@ -175,26 +159,36 @@ function UserScreen({posts, likesAssociatedWithUser, userinfo, onRefresh, tabTit
           header: () => <CustomHeader arrowShown={true} logoShown={false} />,
         }}
       >
-        {() => <RestaurantRegisterAddPhoto setRestaurantImages={setRestaurantImages}/>}
+        {() => <RestaurantRegisterAddPhoto setRestaurantImages={setRestaurantImages} cameToChangePhotoOnly={false}/>}
       </Stack.Screen>
       <Stack.Screen
         name="RestaurantRegisterSelectPhoto"
         options={{
           header: () => <CustomHeader arrowShown={true} logoShown={false} />,
         }}
-      >{()=><RestaurantRegisterSelectPhoto getRestaurantImages={getRestaurantImages} getRestaurantName={getRestaurantName} setRestaurantImage={setRestaurantImage}/>}</Stack.Screen>
+      >{()=><RestaurantRegisterSelectPhoto getRestaurantImages={getRestaurantImages} 
+      getRestaurantName={getRestaurantName} setRestaurantImage={setRestaurantImage}
+      getRestaurantTags={getRestaurantTags} getRestaurantDescription={getRestaurantDescription}
+      setRestaurantDescription={setRestaurantDescription} setRestaurantName={setRestaurantName}
+      setRestaurantTags={setRestaurantTags}/>}</Stack.Screen>
       <Stack.Screen name="UserSavedContents" options={{header: () => <CustomHeader arrowShown={true} logoShown={false} headerText={"Gespeicherte Restaurants"}/>}} >
-        {()=><UserSavedContents userRestaurantLikes={userRestaurantLikes} />}
+        {()=><UserSavedContents userRestaurantLikes={userRestaurantLikes} userNotifications={userNotifications} />}
         </Stack.Screen>
-        <Stack.Screen name="UserLikeContents" options={{header: () => <CustomHeader arrowShown={true} logoShown={false} headerText={"Markierte Inhalte"}/>}} >
-        {()=><UserLikeContents userinfo={userinfo} likesAssociatedWithUser={likesAssociatedWithUser}/>}
+        <Stack.Screen name="UserLikeContents" options={{header: () => <CustomHeader arrowShown={true} logoShown={false} headerText={"Neuigkeiten"}/>}} >
+        {()=><UserLikeContents userinfo={userinfo} 
+        likesAssociatedWithUser={likesAssociatedWithUser} 
+        userNotifications={userNotifications}
+        posts={posts} 
+        postsByHex={postsByHex}
+        
+        />}
         </Stack.Screen>
         <Stack.Screen
           name="Detail"
-          component={RestaurantDetail}
           options={{
             header: () => <CustomHeader arrowShown={true} logoShown={false} />,
           }}
+          component={RestaurantDetail}
         />
         <Stack.Screen
         name="RestaurantRegisterDescription"
@@ -216,7 +210,34 @@ function UserScreen({posts, likesAssociatedWithUser, userinfo, onRefresh, tabTit
         options={{
           header: () => <CustomHeader arrowShown={true} logoShown={false} />,
         }}/>
-
+      <Stack.Screen name="FilteredRestaurants" 
+        component={FilteredRestaurantsView}
+        options={{
+          header: () => <CustomHeader arrowShown={true} logoShown={false} headerText={"Filter"} />,
+        }} />
+        <Stack.Screen name="UserChangePhotoPage" 
+        options={{
+          header: () => <CustomHeader arrowShown={true} logoShown={false} headerText={"Profilbild ändern"} />,
+        }}
+         >
+        {()=><RenderChangeSelectProfileImg userinfo={userinfo} setAccountProfileImage={setAccountProfileImage} />}
+        </Stack.Screen>
+        <Stack.Screen
+      name="RestaurantInfoCard"
+      options={{
+        header: () => <CustomHeader arrowShown={true} logoShown={false} />,
+      }}
+      component={RestaurantInfoCard}
+      />
+        <Stack.Screen
+      name="RestaurantDetailFeed"
+      component={Feed} />
+      <Stack.Screen 
+      name="ShowForeignUserContent"
+      component={ForeignUserProfile}
+      options={{
+        header: () => <CustomHeader arrowShown={true} logoShown={false} />,
+      }} />
       </Stack.Navigator>
       
     

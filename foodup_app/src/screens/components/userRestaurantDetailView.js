@@ -9,7 +9,9 @@ const UserRestaurantDetailView = ({route}) => {
   const navigation = useNavigation();
   return(
     <View style={{flex: 1,}}>
-    <RestaurantDetail route={route} />
+      
+    <RestaurantDetail route={route} cameToChangePhotoOnly={true} />
+    
     <View style={RestaurantDetailViewStyles.detailViewEditContainer}>
       <TouchableOpacity onPress={()=>navigation.navigate("UserRestaurantEdit", {restaurant:route.params.restaurant})}>
       <View style={[RestaurantDetailViewStyles.detailViewEditButton, Colors.primaryBackground]}>

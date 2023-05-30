@@ -20,7 +20,7 @@ import queryString from "query-string";
 import AuthContext from "../../utilities/authcontext";
 import { useFocusEffect } from "@react-navigation/native";
 import SwipeDownBox from "./swipeDownBox.js";
-
+import { COOL_OFF } from "../../../postcooloff.js";
 export default function TakePhoto({
   onPhotoTaken,
   onRestaurantIdentified,
@@ -37,10 +37,13 @@ export default function TakePhoto({
   const [userAllowedToPost, setuserAllowedToPost] = useState(false);
   const cameraRef = useRef(null);
   const [barcodePoints, setBarcodePoints] = useState([]);
+
+  const coolOffTimePost = COOL_OFF
+
   const alertMessages = {
     alreadyposted: [
       "Schon gepostet",
-      "Du hast zu diesem Restaurant schon eine Bewertung abgegeben",
+      "Du hast zu diesem Restaurant schon eine Bewertung innerhalb der letzten 7 Tage abgegeben.",
     ],
     restaurantnotfound: ["QR ungültig", "Der QR Code ist leider nicht gültig."],
   };
@@ -64,6 +67,7 @@ export default function TakePhoto({
   }, []);
 
   const takePicture = async () => {
+    
     if (userAllowedToPost) {
       if (cameraRef) {
         try {
@@ -172,8 +176,22 @@ export default function TakePhoto({
               restaurantScanned
             );
           if (checkedUserForRestaurantPost.length > 0) {
-            console.log(checkedUserForRestaurantPost)
-            showAlert(alertMessages.alreadyposted);
+            
+            const mostRecentItem = checkedUserForRestaurantPost.reduce((prev, current) => {
+              const prevCreatedAt = new Date(prev.created_at);
+              const currentCreatedAt = new Date(current.created_at);
+              return prevCreatedAt > currentCreatedAt ? prev : current;
+            });
+            const now = new Date();
+            const fiveSecondsAhead = new Date(new Date(mostRecentItem.created_at).getTime() + coolOffTimePost);
+            if(now >= fiveSecondsAhead){
+              setuserAllowedToPost(true);
+            }
+            else{
+              showAlert(alertMessages.alreadyposted);
+
+            }
+
           } else {
             setuserAllowedToPost(true);
           }
@@ -292,11 +310,11 @@ export default function TakePhoto({
         <Image source={{ uri: image }} style={styles.camera} />
       )}
       <View style={[styles.iconOverlay]}>
-        {image&&scanned?(
-          <View style={{flex: 1}}>
-          <SwipeDownBox waitTime={10000}/>
-          </View>
-        ):null}
+      {image && scanned ? (
+        <View style={{flex: 1}}>
+          <SwipeDownBox waitTime={10000} />
+        </View>
+      ) : null}
         
         {!image && scanned ? (
           <View style={{ flex: 1, width: "100%", alignItems: "center" }}>
@@ -356,7 +374,6 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
-    borderRadius: 20,
   },
 
   iconContainer: {

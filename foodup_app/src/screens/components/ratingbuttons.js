@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-const RatingButtons = ({ onRatingPlaced, resetData, triggerTooltip }) => {
-  const [selected, setSelected] = useState([]);
+const RatingButtons = ({ onRatingPlaced, resetData, triggerTooltip}) => {
   
+  const [selected, setSelected] = useState([])
   const handleButtonPress = (buttonIndex) => {
     setSelected([...Array(buttonIndex + 1).keys()]);
     onRatingPlaced(["rating", buttonIndex+1]);
     triggerTooltip()
   };
-
   useEffect(()=>{
-    if(resetData){
-      setSelected([])
-    }
+    setSelected([])
   }, [resetData])
-
   return (
     <View style={styles.container}>
       {[0, 1, 2, 3, 4].map((index) => (

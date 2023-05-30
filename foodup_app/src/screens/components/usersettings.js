@@ -23,6 +23,7 @@ const UserSettings = ({closeModal}) => {
   const [phone, setPhone] = useState('')
   const [phoneNumberNotValid, setPhoneNumberNotValid] = useState(false)
   const [emailNotValid, setEmailNotValid] = useState(false)
+  const [fieldsEmpty, setFieldsEmpty] = useState(false)
   const [showFAQ, setShowFAQ] = useState(false)
   const [text, setText] = useState({});
   const [showInput, setShowInput] = useState({});
@@ -84,6 +85,7 @@ const UserSettings = ({closeModal}) => {
       setUserData()
       setPhoneNumberNotValid(false)
       setEmailNotValid(false)
+      setFieldsEmpty(false)
     }
     
   
@@ -91,16 +93,25 @@ const UserSettings = ({closeModal}) => {
     
   };
    const handleConfirm = (key) => {
-    //first regex
+    const isEmailEmpty = !text.change_email || text.change_email.trim() === "";
+    const isPhoneEmpty = !text.change_phone || text.change_phone.trim() === "";
+
     const phone_valid = Regex('telephone', text.change_phone)
     const email_valid = Regex('email', text.change_email)
+
+    
+
     if(phone_valid){
       setPhoneNumberNotValid(true)
+
     }
-    else if(email_valid){
+    if(email_valid){
       setEmailNotValid(true)
     }
-    else{
+    if(isEmailEmpty&&isPhoneEmpty){
+      setFieldsEmpty(true)
+    }
+    if(!phone_valid&&!email_valid&&!isEmailEmpty||!isPhoneEmpty){
       UpdateUser(authContext.loggedInUserData, text)
       setShowInput(false)
     }
@@ -127,6 +138,7 @@ const UserSettings = ({closeModal}) => {
       return(
       
       <View key={key}>
+        
         {key === 'settings_header' ? (
           <View style={[SettingsStyle.row, { justifyContent: 'center' }]}>
             <Icon name={value[1]} style={SettingsStyle.settingsIcons} />
@@ -142,7 +154,7 @@ const UserSettings = ({closeModal}) => {
         )}
         {showInput[key] && (
           <View>
-             {phoneNumberNotValid?<Text style={SettingsStyle.warningText}>Telefonnummer ist inkorrekt.</Text>:emailNotValid?<Text style={SettingsStyle.warningText}>Email-Adresse ist inkorrekt</Text>:null}
+             {phoneNumberNotValid?<Text style={SettingsStyle.warningText}>Telefonnummer ist inkorrekt.</Text>:emailNotValid?<Text style={SettingsStyle.warningText}>Email-Adresse ist inkorrekt</Text>:fieldsEmpty?<Text style={SettingsStyle.warningText}>Bitte gib zumindest eine Email-Adresse oder eine Telefonnmmer an.</Text>:null}
           <View style={[SettingsStyle.row]}>
            
             <TextInput
@@ -156,6 +168,7 @@ const UserSettings = ({closeModal}) => {
                 <Text style={SettingsStyle.buttonText}>OK</Text>
               </View>
             </TouchableOpacity>
+            
           </View>
           </View>
         )}

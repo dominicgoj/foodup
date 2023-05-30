@@ -46,7 +46,7 @@ export default OpenRetrievePhotos = ({ setPhotos }) => {
   };
 
   const showAlertMessage = (title, message) => {
-    Alert.alert(title, message, [{ text: "OK", onPress: () => console.log("OK Pressed") }]);
+    Alert.alert(title, message, [{ text: "OK" }]);
   };
 
   return (

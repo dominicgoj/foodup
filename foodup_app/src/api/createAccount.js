@@ -3,6 +3,7 @@ import { BACKEND_URL } from "../../config";
 
 export default createAccount = async ({ datasetToCreate, setAccountCredentials }) => {
     try {
+      console.log(datasetToCreate)
       const input = await axios.post(
         BACKEND_URL + "/user/create/",
         datasetToCreate

@@ -12,7 +12,7 @@ export const Searchbar = StyleSheet.create({
             height: 10, // Vertical offset
           },
         position: 'absolute',
-        top:80,
+        top: 50,
         zIndex: 1,
         
     },

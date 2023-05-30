@@ -3,12 +3,14 @@
     "German": {
         
         "restaurant_name": "Restaurantname",
-        "telephone": "Telefon",
+        "title_image": "Titelbild",
+        "telephone": "Telefonnummer",
         "email": "Email",
         "website": "Webseite",
         "street": "Straße",
         "zip": "Postleitzahl",
-        "city": "Stadt"
+        "city": "Stadt",
+        "description": "Beschreibung"
         
     
     

@@ -10,6 +10,7 @@ import { faHeartBroken as brokenHeart } from '@fortawesome/free-solid-svg-icons/
 
 import { commonStyles } from "../../styles/commonstyles";
 import ImageLoader from "./imageLoader";
+import { Colors } from "../../styles/colors";
 export default PostedImage = ({ post, likeTriggered, isLiked }) => {
   const baseRegex = /^(?:https?:\/\/)?[^/]+/i;
   const post_image = post.post.image.replace(baseRegex, '');
@@ -21,9 +22,10 @@ export default PostedImage = ({ post, likeTriggered, isLiked }) => {
     setIsLoading(false);
   };
 
-  const handleDoubleTap = () => {
+  const handleDoubleTap = async () => {
+    
+    await likeTriggered()
     setShowHeart(true);
-    likeTriggered()
     Animated.timing(fadeAnim, {
       toValue: 0,
       duration: 2000,
@@ -34,7 +36,6 @@ export default PostedImage = ({ post, likeTriggered, isLiked }) => {
     });
   };
 
-
   const RenderLikeHeart = () => {
     return showHeart ? (
       <Animated.View style={[styles.overlay, { opacity: fadeAnim }]}>
@@ -44,10 +45,9 @@ export default PostedImage = ({ post, likeTriggered, isLiked }) => {
   }
 
   return (
+    <View style={[{position: 'relative', zIndex:-1}]}>
     <DoubleClick
-      singleTap={() => {
-        //console.log("single tap");
-      }}
+      
       doubleTap={handleDoubleTap}
       delay={200}
     >
@@ -57,6 +57,7 @@ export default PostedImage = ({ post, likeTriggered, isLiked }) => {
         <RenderLikeHeart />
       </View>
     </DoubleClick>
+    </View>
   );
 }
 

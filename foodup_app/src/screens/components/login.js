@@ -19,6 +19,7 @@ import CostumHeader from "./costumheader";
 import handleLogin from "../../utilities/handleLogin";
 import RestaurantRegisterAddPhoto from "./registerRestaurantsStackScreens/restaurantRegisterAddPhoto";
 import RestaurantRegisterSelectPhoto from "./registerRestaurantsStackScreens/restaurantRegisterSelectPhoto";
+import RenderSelectProfileImg from "./loginComponents/loginSelectProfileImg";
 const LoginForm = (props) => {
   const { onLoginSuccess } = props;
   const Stack = createStackNavigator();
@@ -35,6 +36,8 @@ const LoginForm = (props) => {
     setAccountCredentials,
     getLoginUsername,
     setLoginUsername,
+    getUserProfileImage,
+    setAccountProfileImage,
     resetLoginStates,
     getAllStates,
   } = LoginHelper();
@@ -80,13 +83,7 @@ const LoginForm = (props) => {
   useEffect(() => {
     if (loginFinalisedBool) {
       handleLogin(
-        getLoginUsername,
-        getLoginPhoneNumber,
-        getLoginEmail,
-        onLoginSuccess,
-        getLoginAccountThere,
-        getLoginAccountCredentials,
-        setAccountCredentials
+        getLoginUsername, getLoginPhoneNumber,getLoginEmail, onLoginSuccess, getLoginAccountThere, getLoginAccountCredentials, setAccountCredentials, getUserProfileImage
       );
       //clean up code
       return setLoginFinalisedBool(false), resetLoginStates();
@@ -103,6 +100,9 @@ const LoginForm = (props) => {
 
   return (
     <Stack.Navigator>
+      
+      
+
       <Stack.Screen name="LoginDeviceChoice" options={{ headerShown: false }}>
         {() => <RenderLoginDeviceChoice />}
       </Stack.Screen>
@@ -171,11 +171,19 @@ const LoginForm = (props) => {
         {() => (
           <RenderLoginChooseUsername
             setLoginUsername={setLoginUsername}
-            setLoginFinalisedBoolTrue={setLoginFinalisedBoolTrue}
+            
           />
         )}
       </Stack.Screen>
-      
+      <Stack.Screen name="LoginSelectProfileImg" options={{
+          header: () => <CostumHeader arrowShown={true} logoShown={false} />,
+        }}>
+          {()=><RenderSelectProfileImg 
+          setLoginFinalisedBoolTrue={setLoginFinalisedBoolTrue}
+          setAccountProfileImage={setAccountProfileImage}
+          
+          />}
+      </Stack.Screen>
 
       <Stack.Screen
         name="RestaurantRegisterAddPhoto"

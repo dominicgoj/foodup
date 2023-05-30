@@ -16,7 +16,6 @@ export default RenderLoginActivationCodeScreen = ({
     const [activationValidationMessage, setActivationValidationMessage] = useState('')
     const navigation = useNavigation()
     const handleActivation = async () => {
-        console.log(getLoginActivationDevice(), localVerificationCode)
       try {
         const response = await checkActivation(
         getLoginActivationDevice().type,

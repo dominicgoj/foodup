@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
-import { View, Image, Button } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import { View } from 'react-native';
+import calculateLevel from '../../utilities/calculateLevel';
 
-export default TestComponent = () => {
-    const [selectedImage, setSelectedImage] = useState(null);
-  
-  
-    return (
-      <View>
-        
-      </View>
-    );
+const TestComponent = ({}) => {
+  const newPoints = 20
+  const previousPoints = 18
+  const actualLevel = calculateLevel(newPoints)
+  const previousLevel = calculateLevel(previousPoints)
+  const levels = actualLevel.levels
+  //const actualLevelRange = levels.find((levelObj)=> levelObj.level===actualLevel.level)
+  //const previousLevelRange = levels.find((levelObj)=>levelObj.level===previousLevel.level)
+
+  if(actualLevel.level!=previousLevel.level){
+    
   }
-  
+  else{
+
+  }
+  return (
+    <View>
+      
+    </View>
+  );
+};
+
+export default TestComponent;

@@ -51,6 +51,8 @@ export const RestaurantDetailViewStyles = StyleSheet.create({
         titleContainerRow:{
             flexDirection: 'row',
             justifyContent: 'space-between',
+            marginBottom: 10,
+            marginTop: 10,
             
         },
         restaurantDescriptionTextContainer:{
@@ -63,6 +65,7 @@ export const RestaurantDetailViewStyles = StyleSheet.create({
             marginLeft: 5,
             marginRight: 0,
             borderColor: "#332E33",
+            marginBottom: 5,
           },
           tagFont: {
             fontSize: 12,
@@ -71,9 +74,13 @@ export const RestaurantDetailViewStyles = StyleSheet.create({
             flexDirection: "row",
             flexWrap: "wrap",
             marginBottom: 0,
+            maxWidth: '80%',
+            justifyContent:'flex-end'
           },
         unwrapDescriptionContainer:{
-            paddingTop: 5,
+            paddingTop: 15,
+            justifyContent: 'center',
+            alignItems: 'center'
 
         },
         unwrapDescriptionText:{
@@ -90,6 +97,14 @@ export const RestaurantDetailViewStyles = StyleSheet.create({
             paddingTop: 20,
             color: '#303030',
             fontWeight: 'bold',
+            maxWidth: '80%',
+            minWidth: '65%',
+        },
+        restaurantSubTitleDetailView: {
+            fontSize: 16,
+            paddingBottom: 10,
+            color: '#303030',
+            
         },
         webIcon:{
             fontSize: 20,
@@ -98,7 +113,6 @@ export const RestaurantDetailViewStyles = StyleSheet.create({
         },
         socialmediaIcons:{
             fontSize: 30,
-            color: '#303030',
             margin: 10,
         },
         detailheader:{
@@ -165,6 +179,22 @@ export const RestaurantDetailViewStyles = StyleSheet.create({
         detailViewEditButtonText: {
             fontWeight: 'bold',
             color: 'white'
+        },
+        contactInformationRow: {
+            flexDirection:'row',
+            marginBottom: 20,
+            
+        },
+        contactInformationText: {
+            fontWeight: 'bold',
+            fontSize: 16,
+            flexWrap: 'wrap'
+
+            
+        },
+        contactInformationTextContainer: {
+            justifyContent: 'center',
+            maxWidth: '90%',
         }
 
     })

@@ -22,6 +22,7 @@ const CustomHeader = ({arrowShown, logoShown, headerText }) => {
         ) : null}
         {logoShown ? <View style={commonStyles.foodUpLogo}><Image source={require("../../../assets/img/foodup_logo_small.png")} style={{height: 50, width: 150}}/></View>:null}
         {headerText?<View style={{justifyContent: 'flex-end', flex: 1, alignContent:'center', paddingRight: arrowShown ? 40 : 0}}><Text style={[commonStyles.headerText, Colors.primaryText]}>{headerText}</Text></View>:null}
+          
       </View>
       
     );

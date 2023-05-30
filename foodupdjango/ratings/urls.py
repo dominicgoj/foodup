@@ -7,6 +7,7 @@ from .views import (
     PostDetail,
     PostDelete,
     AllPostList,
+    PostListFromMultipleRestaurants,
     PostSetInactive,
     RestaurantList,
     RestaurantDelete,
@@ -31,9 +32,21 @@ from .views import (
     VerifyActivationCodeView,
     ActivationCodeList,
     RetrieveLikedRestaurants,
+    RestaurantLikeCreate,
     RestaurantSearchByTags,
     CreateLoginDataView,
-    LoginDataView
+    LoginDataView,
+    NotificationListView,
+    CreateNotification,
+    RetrieveNotifications,
+    NotificationDetailView,
+    UpdateNotificationVisibility,
+    PostListForRestaurantOwner,
+    ProfileImageDummiesList,
+    ProfileImageDummiesDetail,
+    UserUpdateView,
+    RestaurantLikeDetailView,
+    RestaurantMapViewUpdate
 )
 
 urlpatterns = [
@@ -43,6 +56,8 @@ urlpatterns = [
     path("post/delete/", PostDelete.as_view(), name="post_delete"),
     path("post/all", AllPostList.as_view(), name="post-all"),
     path("post/setinactive", PostSetInactive.as_view(), name="post-set-inactive"),
+    path("post/hexlinked/", PostListForRestaurantOwner.as_view(), name="post-hexlinked"),
+    path("post/feed", PostListFromMultipleRestaurants.as_view(), name="getposts-for-feed"),
     path("user/", UserList.as_view(), name="user_list"),
     path("user/show/<int:pk>", UserShow.as_view(), name="user-show"),
     path("user/<int:pk>", UserDetail.as_view(), name="user_detail"),
@@ -53,6 +68,7 @@ urlpatterns = [
     path(
         "restaurant/all", RestaurantActiveAndInactive.as_view(), name="restaurant-all"
     ),
+    path("restaurant/fetch/gpsupdate", RestaurantMapViewUpdate.as_view(), name="restaurant-map-view-update"),
     path(
         "restaurant/id/<int:pk>",
         RestaurantDetailActiveAndInactive.as_view(),
@@ -69,6 +85,7 @@ urlpatterns = [
     path("like/create/", LikeCreateView.as_view(), name="like-create"),
     path("user/search/", SearchUser.as_view(), name="search-user"),
     path("user/create/", CreateUser.as_view(), name="create-user"),
+    path('user/update/<int:user_id>', UserUpdateView.as_view(), name='update-user'),
     path("activation/send/", SendActivationView.as_view(), name="activation-send"),
     path(
         "activation/check/", VerifyActivationCodeView.as_view(), name="activation-check"
@@ -78,14 +95,23 @@ urlpatterns = [
     path(
         "restaurant/like/update",
         RestaurantLikeCreateUpdate.as_view(),
-        name="restaurant-like-create",
+        name="restaurant-like-update",
     ),
+    path('restaurant/like/create/', RestaurantLikeCreate.as_view(), name="restaurant-like-create"),
     path(
         "restaurant/like/retrieve",
         RetrieveLikedRestaurants.as_view(),
         name="restaurant-like-retrieve",
     ),
+    path("restaurant/like/<int:pk>", RestaurantLikeDetailView.as_view(), name="restaurant-like-detail"),
     path('logindata/create', CreateLoginDataView.as_view(), name="create-login-data"),
     path('logindata/', LoginDataView.as_view(), name="create-login-data"),
+    path('notification/', NotificationListView.as_view(), name="notification-view"),
+    path('notification/<int:pk>', NotificationDetailView.as_view(), name="notification-detailview"),
+    path('notification/create/', CreateNotification.as_view(), name="create-notification"),
+    path('notification/retrieve/', RetrieveNotifications.as_view(), name="retrieve-notifications"),
+    path('notification/update/', UpdateNotificationVisibility.as_view(), name="update-notifications"),
+    path('dummyprofileimg/', ProfileImageDummiesList.as_view(), name="dummyprofileimg"),
+    path('dummyprofileimg/<int:pk>', ProfileImageDummiesDetail.as_view(), name="dummyprofileimg-detail")
 
 ]

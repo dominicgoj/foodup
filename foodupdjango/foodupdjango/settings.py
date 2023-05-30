@@ -53,7 +53,7 @@ try:
 except (requests.RequestException, KeyError):
     # If fetching the IP address fails, fallback to a default value
     public_ip = '192.168.0.1'
-ALLOWED_HOSTS = [public_ip, 'localhost','127.0.0.1','192.168.1.11']
+ALLOWED_HOSTS = [public_ip, 'localhost','127.0.0.1','192.168.0.167']
 print(ALLOWED_HOSTS)
 
 
@@ -144,7 +144,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Vienna'
 
 USE_I18N = True
 
