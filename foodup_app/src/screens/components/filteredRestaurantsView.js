@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, ScrollView } from "react-native";
 import RestaurantListScreen from "./restaurantListScreen";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -8,11 +8,11 @@ import { StyleSheet } from "react-native";
 export default FilteredRestaurantsView = ({route}) => {
     const {restaurantData} = route.params
     const {tag} = route.params
+    
     return(
         <ScrollView>
             <View style={[styles.filterContainer]}>
                 <View style= {[styles.filterIconContainer, Colors.secondaryBackground]}>
-
                 <FontAwesomeIcon icon={faFilter} style={styles.filterIcon} size={24}/>
                 </View>
                 <View style={[styles.filterTextContainer, Colors.secondaryOutline]}>

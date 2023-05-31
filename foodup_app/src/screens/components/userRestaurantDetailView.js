@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import { View, Text, TouchableOpacity, ScrollView, Image, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RestaurantDetailViewStyles } from "../../styles/restaurantDetailViewStyles";
-import { commonStyles } from "../../styles/commonstyles";
 import { Colors } from "../../styles/colors";
 import RestaurantDetail from "./restaurantdetail";
 const UserRestaurantDetailView = ({route}) => {

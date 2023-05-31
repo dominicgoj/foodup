@@ -14,7 +14,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesomeIcon as FAI } from '@fortawesome/react-native-fontawesome'
 import ImageList from "./imageList.js";
 import RenderStars from "./renderstars";
-import getRestaurantPosts from "../../api/getRestaurantPosts";
+import getRestaurantPosts from "../../api/getPosts/getRestaurantPosts";
 import { RestaurantDetailViewStyles } from "../../styles/restaurantDetailViewStyles";
 import createRestaurantLike from "../../api/createRestaurantLike";
 import fetchRestaurantLikeByRestaurantAndUserID from '../../api/fetchRestaurantLikeByRestaurantAndUserID'
@@ -27,13 +27,16 @@ import { useNavigation } from "@react-navigation/native";
 import getRestaurantsByTags from "../../api/getRestaurantsByTags";
 import { BACKEND_URL } from "../../../config";
 import { RefreshControl } from "react-native-gesture-handler";
+
 const RestaurantDetail = ({ route, cameToChangePhotoOnly }) => {
   const authContext = useContext(AuthContext);
   const { restaurant } = route.params;
+  console.log(restaurant)
 
   const baseRegex = /^(?:https?:\/\/)?[^/]+/i;
   const header_image = restaurant.title_image.replace(baseRegex, '')
   const [posts, setPosts] = useState([]);
+  
   const [restaurantLiked, setRestaurantLiked] = useState(false)
   const [isDescriptionExpanded, setDescriptionExpanded] = useState(false);
   const [refreshPosts, setRefreshPosts] = useState(false)
@@ -52,7 +55,8 @@ const RestaurantDetail = ({ route, cameToChangePhotoOnly }) => {
     
   }, [refreshPosts]);
 
- 
+
+
 
   const handleRefreshPosts = () => {
     setRefreshPosts(!refreshPosts)

@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import SearchBar from './searchbar';
 const RestaurantListScreen = ({ restaurantData, supressLocationAlert, showSearchbar }) => {
   const navigation = useNavigation();
+  
   return (
     <View>
       {showSearchbar?<SearchBar />:null}
@@ -17,7 +18,7 @@ const RestaurantListScreen = ({ restaurantData, supressLocationAlert, showSearch
           restaurantData.map((restaurant, index) => (
             <TouchableOpacity
               key={index}
-              onPress={() => navigation.navigate("Detail", { restaurant })}
+              onPress={() => navigation.push("Detail", { restaurant })}
             >
               <RestaurantCard restaurant={restaurant} style={{ height: 200 }} />
             </TouchableOpacity>

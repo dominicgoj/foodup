@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BACKEND_URL } from "../../config";
+import { BACKEND_URL } from "../../../config";
 
 const getPostsByHex = async (notificationList) => {
   const hexIdentifiers = notificationList.map(obj => obj.hex_identifier);

@@ -12,6 +12,7 @@ import Regex from "./regex";
 import UpdateUserToInactive from "../../api/deleteuser";
 import { deleteUserLoginInfo } from "../../utilities/deleteloggedin";
 import { useNavigation } from "@react-navigation/native";
+import deleteCookies from "../../utilities/deleteCookies";
 
 const UserSettings = ({closeModal}) => {
   const navigation = useNavigation();
@@ -57,9 +58,9 @@ const UserSettings = ({closeModal}) => {
     if (key === 'delete_account') {
       setShowInput({})
       setShowConfirmation(true)
-      
     } else if (key === 'logout') {
       setShowInput({})
+      deleteCookies()
       authContext.onLogout();
     }
      else if (key === 'my_restaurants') {
@@ -118,10 +119,11 @@ const UserSettings = ({closeModal}) => {
     
     
   };
-  const handleDeleteAccount = () =>{
+  const handleDeleteAccount = async () =>{
     UpdateUserToInactive(authContext.loggedInUserData)
     authContext.onLogout();
-    deleteUserLoginInfo()
+    await deleteUserLoginInfo()
+    
     setShowConfirmation(false);
   }
   const handleCancel = () => {

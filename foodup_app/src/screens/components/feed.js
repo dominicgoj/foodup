@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import CommentDetail from "./commentDetail";
 import CostumHeader from "./costumheader";
 import { useNavigation } from "@react-navigation/native";
-import getRestaurantPosts from "../../api/getRestaurantPosts";
+import getRestaurantPosts from "../../api/getPosts/getRestaurantPosts";
 import AuthContext from "../../utilities/authcontext";
 import { FlatList } from "react-native";
 import infomsg from "../../data/infomsg.json";

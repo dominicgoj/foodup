@@ -1,0 +1,1 @@
+export default {tooltipsOn: true, otherObject: "test"}

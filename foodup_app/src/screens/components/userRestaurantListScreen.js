@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity, ScrollView, Text, StyleSheet, RefreshControl } from "react-native";
 import RestaurantCard from "./restaurantcard";
-import infomsg from '../../data/infomsg.json';
 import NoContentsAvailable from "./nocontentsavailable";
 import AddRestaurantButton from "./addRestaurantButton";
 import { commonStyles } from "../../styles/commonstyles";

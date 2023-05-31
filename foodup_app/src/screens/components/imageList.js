@@ -1,20 +1,25 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, View} from "react-native";
-import ModalView from './modalView';
+import { StyleSheet, View, Text} from "react-native";
 import AuthContext from '../../utilities/authcontext';
 import FetchRestaurants from "../../api/fetchRestaurants";
 import PreviewImage from "./previewImage";
 import { useNavigation } from "@react-navigation/native";
+import sortPostByNewestAndBest from "../../utilities/sortPosts/sortPostByNewestAndBest";
+
 const ImageList = ({ posts }) => {
   const [selectedPost, setSelectedPost] = useState();
+  const [sortedPosts, setSortedPosts] = useState([])
+
   const authContext = useContext(AuthContext);
   const userData = authContext.loggedInUserData;
   const navigation = useNavigation()
+
   const renderCommentRows = () => {
+    
     const rows = [];
 
-    for (let i = 0; i < posts.length; i += 3) {
-      const rowOfPosts = posts.slice(i, i + 3);
+    for (let i = 0; i < sortedPosts.length; i += 3) {
+      const rowOfPosts = sortedPosts.slice(i, i + 3);
       
       const row = (
         <View key={i} style={[styles.row]}>
@@ -28,7 +33,17 @@ const ImageList = ({ posts }) => {
     return rows;
   };
 
-  
+
+  useEffect(()=>{
+    if(posts.length>0){
+      handleSortByNewest()
+    }
+    
+  }, [posts])
+
+  const handleSortByNewest = () => {
+    setSortedPosts(sortPostByNewestAndBest(posts))
+  }
 
       const [likedData, setLikedData] = useState({
         
@@ -67,10 +82,16 @@ const ImageList = ({ posts }) => {
         });
         const headerTextOfStack = "Posts"
         navigation.setOptions()
-        navigation.push("RestaurantDetailFeed", {posts: posts, selectedPost:{post, index}, headerTextOfStack:headerTextOfStack, costumHeaderBool:true})
+        navigation.push("RestaurantDetailFeed", {posts: sortedPosts, selectedPost:{post, index}, headerTextOfStack:headerTextOfStack, costumHeaderBool:true})
       };  
+
       return(
         <View>
+         
+          
+          
+          
+          
         {renderCommentRows()}
         
           
@@ -110,6 +131,16 @@ const styles = StyleSheet.create({
         alignItems:'left',
         
     },
+    sortOptionsRow: {
+      marginLeft: 5,
+      borderRadius: 5,
+      padding: 5,
+    },
+    sortOptionsRowText: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      color: 'white'
+    }
 
     
 })

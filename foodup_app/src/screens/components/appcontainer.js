@@ -20,7 +20,7 @@ import SpinningWheel from "./spinningWheel.js";
 import FilteredRestaurantsView from "./filteredRestaurantsView.js";
 import Map from "./map.js";
 import getUserNotifications from "../../api/getUserNotifications.js";
-import getPostsByHex from "../../api/getPostsByHex.js";
+import getPostsByHex from "../../api/getPosts/getPostsByHex.js";
 import getUserRestaurants from "../../api/getUserRestaurants.js";
 import ForYouTab from "../tabs/foryoutab.js";
 
@@ -48,6 +48,7 @@ export default function AppContainer() {
   const [userinfo, setUserInfo] = useState(authContext.loggedInUserData)
   const [postsByHex, setPostsByHex] = useState(authContext.postsForRestaurantOwner)
   const [userRestaurants, setUserRestaurants] = useState(authContext.userRestaurants)
+
   //// USE EFFECT TO UPDATE LIKES IMMEDIATELY, TO NOT WAIT FOR SERVER
   useEffect(()=>{
     const updateRestaurantLikes = async () => {
@@ -62,7 +63,6 @@ export default function AppContainer() {
     }
     updateRestaurantLikes()
   }, [authContext.userRestaurantLikes])
-
 
   useEffect(()=>{
     
@@ -164,28 +164,6 @@ export default function AppContainer() {
     }
     updateRestaurantData()
   }, [authContext.restaurantData])
-
-  const gatherAllDataFromUser = async () => {
-    const userinfo = await getUserLoginInfo();
-    const restaurants = await fetchRestaurantData();
-    const userposts = await getUserPosts(userinfo.id, {"active":"true"}); //all posts by user
-    const likesAssociatedWithUser = await getLikesAssociatedWithUser(userinfo); //all likes given by user
-    const userrestaurantlikes = await fetchRestaurantLikeByUserID(userinfo) //saved restaurants by user
-    const usernotes = await getUserNotifications(userinfo)
-    const postsbyhex = await getPostsByHex(usernotes)
-    setUserLoggedIn(userinfo);
-    setUserPosts(userposts);
-    setLikesAssociatedWithUser(likesAssociatedWithUser);
-    setRestaurantData(restaurants);
-    setUserRestaurantLikes(userrestaurantlikes)
-    setPostsByHex(postsbyhex)
-    setUserNotifications(usernotes)
-    setIsLoading(false)
-    console.log("refreshing")
-  };
-
-
-
 
   return (
     <View style={{flex: 1}}>

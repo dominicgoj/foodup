@@ -12,7 +12,7 @@ import ThreeDots from './threedots';
 import fetchData from '../../api/fetchData';
 import PostedImage from './postedImage';
 import createPostLike from '../../api/createPostLike';
-import getPostLike from '../../api/getPostLike';
+import getPostLike from '../../api/getPosts/getPostLike';
 import deletePostLike from '../../api/deletePostLike';
 import updateUserNotification from '../../api/updateUserNotification';
 import getUserNotifications from '../../api/getUserNotifications';
@@ -30,6 +30,7 @@ export default CommentContent = ({post, commentHeight, triggerModalView}) =>{
   const [userProfileImg, setUserProfileImg] = useState()
   const [likedData, setLikedData] = useState([])
   const [isLiked, setIsLiked] = useState(false);
+  const [allLikes, setAllLikes] = useState([])
   
   const authContext = useContext(AuthContext)
   const userinfo = authContext.loggedInUserData
@@ -44,6 +45,8 @@ export default CommentContent = ({post, commentHeight, triggerModalView}) =>{
     fetchUserOfPost()
     fetchRestaurantOfPost()
     fetchLikedData()
+    fetchAllLikesOfPost()
+    
   },[])
 
     const fetchUserOfPost = async () => {
@@ -63,6 +66,11 @@ export default CommentContent = ({post, commentHeight, triggerModalView}) =>{
       const request = await fetchData(query_string)
       setLikedData(request)
   }
+  const fetchAllLikesOfPost  = async () => {
+    const query_string = "/like/?commentid="+post.post.id
+    const request = await fetchData(query_string)
+    setAllLikes(request.length)
+  }
   const likeTriggered = async () => {
     const likesAssociatedWithUser = authContext.likesAssociatedWithUser
     const userNotifications = authContext.userNotifications
@@ -73,6 +81,7 @@ export default CommentContent = ({post, commentHeight, triggerModalView}) =>{
     if (!localLike) {
       const deletedLikeInstance = await deletePostLike(userinfo, post);
       const invisibleNotification = await updateUserNotification(userinfo, deletedLikeInstance.hex_identifier)
+      setAllLikes(allLikes-1)
     // Filter out the deleted like_instance from the likesAssociatedWithUser list
       const updatedLikes = likesAssociatedWithUser.filter(
         (like) =>
@@ -88,6 +97,7 @@ export default CommentContent = ({post, commentHeight, triggerModalView}) =>{
       authContext.setUserNotifications(updatedNotifications)
 
     } else {
+      setAllLikes(allLikes+1)
       const newLikeData = await createPostLike(userinfo, post)
       const newNotificationData = await getUserNotifications(null, newLikeData.hex_identifier)
       const updatedLikes = [...likesAssociatedWithUser, newLikeData];
@@ -130,7 +140,7 @@ export default CommentContent = ({post, commentHeight, triggerModalView}) =>{
             <Image source={{uri:userProfileImg}} style={{width: 30, height: 30,}}/>
             </View>
 
-            <View style={{flexDirection: 'row', flexWrap: 1}}>
+            <View style={{flexDirection: 'row', flexWrap: 1, marginRight: 20}}>
 
             <View style={{justifyContent:'center'}}>
               <TouchableOpacity onPress={handleNavigateToForeignUser}>
@@ -182,8 +192,14 @@ export default CommentContent = ({post, commentHeight, triggerModalView}) =>{
             <Text style={commentStyles.ratingText}>{post.post.rating}</Text>
             <Text style={commentStyles.date}>vor {calculateTimeAgo(post.post.created_at)}</Text>
           </View>
+          <View style={{flexDirection: 'row'}}>
+            <View style={{justifyContent:'center', paddingRight: 10,}}>
+          <Text style={{fontSize: 16, fontWeight: '600'}}>{allLikes}</Text>
+          </View>
+          <View style={{justifyContent:'center'}}>
           <ThumbsUp post={post} isLiked={isLiked} likeTriggered={likeTriggered} />
-
+          </View>
+          </View>
 
         </View>
         <View style={{paddingLeft: 10, paddingRight: 10,}}>

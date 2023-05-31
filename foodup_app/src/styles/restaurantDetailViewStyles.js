@@ -97,7 +97,7 @@ export const RestaurantDetailViewStyles = StyleSheet.create({
             paddingTop: 20,
             color: '#303030',
             fontWeight: 'bold',
-            maxWidth: '80%',
+            maxWidth: '70%',
             minWidth: '65%',
         },
         restaurantSubTitleDetailView: {

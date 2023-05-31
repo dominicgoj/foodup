@@ -24,9 +24,6 @@ const ImageLoader = ({ loading }) => {
     };
     animateFadeInFadeOut()
 
-    useEffect(()=>{
-      console.log(loading)
-    }, [])
     return loading ? (
         <Animated.View style={[commentStyles.animatedStyleContainer, {
             opacity: fadeAnim, }]}>

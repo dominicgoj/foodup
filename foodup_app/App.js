@@ -17,7 +17,7 @@ import getUserPosts from './src/utilities/getUserPosts';
 import getUserSpecifications from './src/utilities/getUserSpecifications';
 import getUserRestaurants from './src/api/getUserRestaurants';
 import fetchRestaurantData from './src/api/fetchRestaurantData';
-import getPostsByHex from './src/api/getPostsByHex';
+import getPostsByHex from './src/api/getPosts/getPostsByHex';
 import SpinningWheel from './src/screens/components/spinningWheel';
 
 export default function App() {
@@ -45,9 +45,11 @@ export default function App() {
 
   const checkUserLoginStatus = async () => {
     const userInfo = await getUserLoginInfo(handleLoginSuccess);
-    setLoggedInUserData(userInfo)
+    
     if(userInfo){
       setLoggedIn(true);
+      setLoggedInUserData(userInfo)
+      
       const userRestaurantLikes = await fetchRestaurantLikeByUserID(userInfo)
       const likesAssociatedWithUser = await getLikesAssociatedWithUser(userInfo)
       const usernotes = await getUserNotifications(userInfo)
@@ -74,8 +76,12 @@ export default function App() {
     } else {
       setLoggedIn(false);
     }
+    
+    
     setLoginChecked(true);
   };
+
+
   const handleGetUserLocation = async () => {
     const location = await getUserLocation()
     if(location){
@@ -99,6 +105,7 @@ export default function App() {
     checkUserLoginStatus()
     console.log("fresh")
   }
+
   
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -127,7 +134,7 @@ export default function App() {
             handleGlobalRefresh : handleGlobalRefresh,
             restaurantData : restaurantData,
             setRestaurantData : setRestaurantData,
-            restaurantIds : restaurantIds
+            restaurantIds : restaurantIds,
             
           }}
         >

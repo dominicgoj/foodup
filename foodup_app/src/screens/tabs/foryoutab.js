@@ -31,6 +31,7 @@ const ForYouTab = ({ restaurantData }) => {
             header: () => <CostumHeader arrowShown={true} logoShown={false} />,
           }}
         />
+      
         <Stack.Screen
         name="Map"
         component={MapScreen}
@@ -58,7 +59,7 @@ const ForYouTab = ({ restaurantData }) => {
       options={{
         header: () => <CostumHeader arrowShown={true} logoShown={false} />,
       }} />
-
+      
       </Stack.Navigator>
       
       {typeof authcontext.globalUserLocation==="string"?
